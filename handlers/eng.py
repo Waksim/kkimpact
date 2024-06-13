@@ -13,8 +13,8 @@ from keyboards.eng import kb_main_eng
 
 # logger.add('telegram_bot.log', level='DEBUG', format="{time:MMM-DD – HH:mm:ss} – {message}", rotation="100 MB",
 #            enqueue=True)
-# bot = Bot(token="TELEGRAM_BOT_TOKEN_REDACTED")  # TEST
-bot = Bot(token="TELEGRAM_BOT_TOKEN_REDACTED")   # MAIN
+bot = Bot(token="<TOKEN_TEST>")   # TEST
+# bot = Bot(token="<TOKEN_MAIN>")   # MAIN
 eng = Router()
 
 

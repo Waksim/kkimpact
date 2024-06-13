@@ -14,8 +14,8 @@ from functions.get_role_card_names import get_role_card_names
 
 # logger.add('telegram_bot.log', level='DEBUG', format="{time:MMM-DD – HH:mm:ss} – {message}", rotation="100 MB",
 #            enqueue=True)
-bot = Bot(token="TELEGRAM_BOT_TOKEN_REDACTED")  # TEST
-# bot = Bot(token="TELEGRAM_BOT_TOKEN_REDACTED")   # MAIN
+bot = Bot(token="<TOKEN_TEST>")   # TEST
+# bot = Bot(token="<TOKEN_MAIN>")   # MAIN
 others = Router()
 
 

@@ -32,8 +32,8 @@ logger.add('../telegram_bot.log', level='DEBUG', format="{time:MMM-DD – HH:mm:
            enqueue=True)
 logger.info("---START_BOT---")
 
-bot = Bot(token="TELEGRAM_BOT_TOKEN_REDACTED")   # MAIN
-# bot = Bot(token="TELEGRAM_BOT_TOKEN_REDACTED")  # TEST
+bot = Bot(token="<TOKEN_TEST>")   # TEST
+# bot = Bot(token="<TOKEN_MAIN>")   # MAIN
 dp = Dispatcher()
 # dp.include_routers(ru, eng, ua, cn, drafts_tail, admin, others)
 dp.include_routers(others, ru, eng, ua, cn, drafts_tail, admin)
