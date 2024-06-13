@@ -8,8 +8,8 @@ cursor = sqlite_connection.cursor()
 
 def translate(to_lang, text):
 
-    IAM_TOKEN = 'AQVNzQ9kfTuFbDqqT45GWamXB_yvwxF0yNKshufy'
-    folder_id = 'b1gk5s196mhtll5nbgd4'
+    IAM_TOKEN = '<TOKEN>'
+    folder_id = '<FOLDER_ID>'
     target_language = to_lang
     texts = text
 
