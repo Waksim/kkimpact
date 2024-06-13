@@ -8,8 +8,8 @@ cursor = sqlite_connection.cursor()
 
 def translate(to_lang, text):
 
-    IAM_TOKEN = 'YANDEX_CLOUD_API_KEY_REDACTED'
-    folder_id = 'b1gk5s196mhtll5nbgd4'
+    IAM_TOKEN = '<TOKEN>'
+    folder_id = '<FOLDER_ID>'
     target_language = to_lang
     texts = text
 
