@@ -6,3 +6,4 @@
 *__pycache__*
 tcgCodes.sqlite
 venv
+.DS_Store
