@@ -26,13 +26,14 @@ from typing import Any, Callable, Dict, Awaitable
 
 from keyboards.ru import kb_ru_main
 from keyboards.ua import kb_main_ua
+from config import settings
 
 logging.basicConfig(level=logging.INFO)
 logger.add('../telegram_bot.log', level='DEBUG', format="{time:MMM-DD – HH:mm:ss} – {message}", rotation="100 MB",
            enqueue=True)
 logger.info("---START_BOT---")
 
-bot = Bot(token="<TOKEN_TEST>")   # TEST
+bot = Bot(token=settings.bot_token)   # TEST
 # bot = Bot(token="<TOKEN_MAIN>")   # MAIN
 dp = Dispatcher()
 dp.include_routers(ru, eng, ua, cn, drafts_tail, admin, others)

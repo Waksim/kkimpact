@@ -3,7 +3,10 @@ import asyncio
 from aiogram import Bot, Dispatcher, types
 from aiogram import F
 
-bot = Bot(token="TELEGRAM_BOT_TOKEN_REDACTED")   # TEST
+from config import settings
+
+
+bot = Bot(token=settings.bot_token)   # TEST
 dp = Dispatcher()
 
 @dp.message(F.sticker)

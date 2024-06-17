@@ -11,10 +11,10 @@ from functions import generate_deck
 from functions.create_image import create_decks_img
 from functions.decryption_of_the_code import decrypt_code
 from functions.get_role_card_names import get_role_card_names
+from config import settings
 
-# logger.add('telegram_bot.log', level='DEBUG', format="{time:MMM-DD – HH:mm:ss} – {message}", rotation="100 MB",
-#            enqueue=True)
-bot = Bot(token="<TOKEN_TEST>")   # TEST
+
+bot = Bot(token=settings.bot_token)   # TEST
 # bot = Bot(token="<TOKEN_MAIN>")   # MAIN
 others = Router()
 

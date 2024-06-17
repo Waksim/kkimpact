@@ -10,10 +10,10 @@ from aiogram import types, Router, F, Bot, html
 from functions import random_hoyolab, generate_deck
 from functions.create_image import create_decks_img
 from keyboards.cn import kb_main_cn
+from config import settings
 
-# logger.add('telegram_bot.log', level='DEBUG', format="{time:MMM-DD – HH:mm:ss} – {message}", rotation="100 MB",
-#            enqueue=True)
-bot = Bot(token="<TOKEN_TEST>")   # TEST
+
+bot = Bot(token=settings.bot_token)   # TEST
 # bot = Bot(token="<TOKEN_MAIN>")   # MAIN
 cn = Router()
 
