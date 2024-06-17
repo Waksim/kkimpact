@@ -1,6 +1,6 @@
 from PIL import Image, ImageDraw, ImageFont
-from find_resonance import find_resonance
-from decryption_of_the_code import decrypt_code
+from functions.find_resonance import find_resonance
+from functions.decryption_of_the_code import decrypt_code
 import io
 from aiogram.types import BufferedInputFile
 
