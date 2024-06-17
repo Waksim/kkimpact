@@ -3,7 +3,10 @@ import asyncio
 from aiogram import Bot, Dispatcher, types
 from aiogram import F
 
-bot = Bot(token="7007119455:AAE4UpTzYztO82An8A_1r6rPEw3mWauJ2ps")   # TEST
+from config import settings
+
+
+bot = Bot(token=settings.bot_token)   # TEST
 dp = Dispatcher()
 
 @dp.message(F.sticker)

@@ -4,8 +4,10 @@ from aiogram import Router, Bot, types
 from aiogram.filters.command import Command
 
 from keyboards.admin import kb_stat_admin
+from config import settings
 
-bot = Bot(token="<TOKEN_TEST>")   # TEST
+
+bot = Bot(token=settings.bot_token)   # TEST
 # bot = Bot(token="<TOKEN_MAIN>")   # MAIN
 admin = Router()
 
