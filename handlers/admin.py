@@ -33,7 +33,7 @@ async def cmd_start(message: types.Message):
         last_usr = 50
 
     if last_log != 0:
-        if message.from_user.id in [382202500, 799890260]:
+        if message.from_user.id in [382202500, 799890260, 191489598]:
             answer_string = ''
             with open('telegram_bot.log') as file:
                 for line in (file.readlines()[-last_log:]):
@@ -42,7 +42,7 @@ async def cmd_start(message: types.Message):
             await message.answer(f"Последние {last_log} сообщений боту:\n\n" + answer_string[-4000:])
 
     if last_usr != 0:
-        if message.from_user.id in [382202500, 799890260]:
+        if message.from_user.id in [382202500, 799890260, 191489598]:
             cursor.execute(f"SELECT * FROM telegram_users ORDER BY id desc LIMIT {last_usr}")
             registered_users = cursor.fetchall()
             registered_users.reverse()

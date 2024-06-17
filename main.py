@@ -28,6 +28,9 @@ from keyboards.ru import kb_ru_main
 from keyboards.ua import kb_main_ua
 from config import settings
 
+from db.base import KkiDb
+
+
 logging.basicConfig(level=logging.INFO)
 logger.add('../telegram_bot.log', level='DEBUG', format="{time:MMM-DD – HH:mm:ss} – {message}", rotation="100 MB",
            enqueue=True)
@@ -66,24 +69,12 @@ async def cmd_start(message: types.Message):
     await bot.send_chat_action(chat_id=message.from_user.id, action="typing")
     logger.info(f"@{message.from_user.username} – '{message.text}'")
 
-    sqlite_connection = sqlite3.connect('../tcgCodes.sqlite')
-    cursor = sqlite_connection.cursor()
-
     tg_id = message.from_user.id
 
-    cursor.execute("SELECT EXISTS(SELECT * FROM telegram_users where tg_id = ?)", (tg_id,))
-    registered = cursor.fetchall()[0][0]
-
+    database = KkiDb()
+    registered = database.get_user_exists(tg_id)[0][0]
     if registered == 0:
-        cursor.execute("""INSERT INTO telegram_users 
-                (tg_id, nickname, username, tg_lang, premium) VALUES 
-                (?, ?, ?, ?, ?);""",
-                       (message.from_user.id, message.from_user.first_name,
-                        message.from_user.username, message.from_user.language_code,
-                        message.from_user.is_premium))
-        sqlite_connection.commit()
-
-    cursor.close()
+        database.insert_user_info(message)
 
     await message.answer_sticker('CAACAgIAAxkBAAELtIdl9D6luOGl3Mk7Kmy2BPeS7MotGgACyEMAAgfboUudKCeCJzz2OjQE')
     await message.answer("Привет? Hello? Привіт? 嗨？", reply_markup=start_kb)
