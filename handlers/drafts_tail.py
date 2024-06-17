@@ -21,9 +21,10 @@ from keyboards.eng import kb_main_eng
 from keyboards.ru import kb_draft_queue, kb_draft_tail_accept_decline, kb_draft_tail_who_win
 from keyboards.ru import kb_ru_main, kb_draft_tail
 from keyboards.ua import kb_main_ua
+from config import settings
 
 
-bot = Bot(token="<TOKEN_TEST>")   # TEST
+bot = Bot(token=settings.bot_token)   # TEST
 # bot = Bot(token="<TOKEN_MAIN>")   # MAIN
 drafts_tail = Router()
 dp = Dispatcher()

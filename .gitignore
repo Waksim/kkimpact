@@ -1,0 +1,8 @@
+
+# Ignore dynaconf secret files
+.secrets.*
+
+.idea
+*__pycache__*
+tcgCodes.sqlite
+venv
