@@ -1,7 +1,4 @@
-import sqlite3
-
-sqlite_connection = sqlite3.connect('../tcgCodes.sqlite')
-cursor = sqlite_connection.cursor()
+from db.base import KkiDb
 
 
 def get_role_card_names(role_cards, lang):
@@ -11,8 +8,8 @@ def get_role_card_names(role_cards, lang):
 
     role_card_string = role_card_string[:-4]
 
-    cursor.execute(f"SELECT card_name_{lang} FROM main.role_cards WHERE {role_card_string}")
-    r = cursor.fetchall()
+    database = KkiDb()
+    r = database.get_role_card_names(role_card_string, lang)
 
     names_line = ''
     for name in r:

@@ -1,14 +1,12 @@
 import requests
-import sqlite3
 import random
+
+from db.base import KkiDb
 
 
 def get_random_code(card_name_lang):
-    sqlite_connection = sqlite3.connect('../tcgCodes.sqlite')
-    cursor = sqlite_connection.cursor()
-
-    cursor.execute(f"SELECT id, code, element, {card_name_lang} FROM main.role_cards")
-    role_cards = cursor.fetchall()
+    database = KkiDb()
+    role_cards = database.get_role_cards(card_name_lang)
 
     rands = random.sample(role_cards, k=3)
     role_cards_IDs = []
@@ -40,10 +38,7 @@ def get_random_code(card_name_lang):
     resonance.append('0')
     resonance.append('0')
 
-    cursor.execute('SELECT code FROM main.action_cards_2x WHERE (link_with_char = 0 OR link_with_char = ? OR link_with_char = ? OR link_with_char = ?) AND (resonance = 0 OR resonance = ? OR resonance = ? OR resonance = ? OR resonance = ?)', (role_cards_IDs[0], role_cards_IDs[1], role_cards_IDs[2], resonance[0], resonance[1], resonance[2], resonance[3]))
-    action_cards = cursor.fetchall()
-    cursor.close()
-
+    action_cards = database.get_action_cards(role_cards_IDs, resonance[:4])
 
     rands = random.sample(action_cards, k=30)
     for rand in rands:

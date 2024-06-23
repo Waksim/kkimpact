@@ -1,4 +1,3 @@
-import sqlite3
 from datetime import datetime
 
 from aiogram.enums import ParseMode
@@ -11,6 +10,7 @@ from functions import random_hoyolab, generate_deck
 from functions.create_image import create_decks_img
 from keyboards.cn import kb_main_cn
 from config import settings
+from db.base import KkiDb
 
 
 bot = Bot(token=settings.bot_token)   # TEST
@@ -26,11 +26,8 @@ async def cmd_start(message: types.Message):
     await bot.send_chat_action(chat_id=message.from_user.id, action="typing")
     logger.info(f"@{message.from_user.username} – '{message.text}'")
 
-    sqlite_connection = sqlite3.connect('tcgCodes.sqlite')
-    cursor = sqlite_connection.cursor()
-    cursor.execute("UPDATE telegram_users SET preferens = 'cn' WHERE tg_id = ?;", (message.from_user.id,))
-    sqlite_connection.commit()
-    cursor.close()
+    database = KkiDb()
+    database.set_user_preferences(message.from_user.id, "cn")
 
     await message.answer_sticker('CAACAgIAAxkBAAELtbNl9Hx92wKQloh3xmrWEiu5Pui-nwACTU4AAmhnoEue0q81egR3KTQE')
     await message.answer("嗨!\n" +

@@ -1,17 +1,9 @@
-import requests
-import json
-import sqlite3
-import re
-import random
+from db.base import KkiDb
 
 
 def get_random_code_from_hoyolab(table_lang):
-
-    sqlite_connection = sqlite3.connect('../tcgCodes.sqlite')
-    cursor = sqlite_connection.cursor()
-
-    cursor.execute(f'SELECT * FROM {table_lang} ORDER BY RANDOM() LIMIT 1;')
-    deck_row = cursor.fetchall()[0]
+    database = KkiDb()
+    deck_row = database.get_hoyolab_random_deck(table_lang)[0]
 
     role_cards_codes = deck_row[8].split(", ")
     action_cards_codes = deck_row[7].split(", ")
@@ -38,8 +30,6 @@ def get_random_code_from_hoyolab(table_lang):
         server = 'ASIA'
     if author_uid_len_1 == 9:
         server = 'TW'
-
-    cursor.close()
 
     return [author_nickname, role_card_names, deck_code, deck_title, author_uid, description, creation_time, server,
             role_cards_codes, action_cards_codes]

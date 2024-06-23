@@ -1,7 +1,4 @@
-import sqlite3
-
-sqlite_connection = sqlite3.connect('../tcgCodes.sqlite')
-cursor = sqlite_connection.cursor()
+from db.base import KkiDb
 
 
 def find_resonance(role_cards):
@@ -15,9 +12,9 @@ def find_resonance(role_cards):
     ]
     resonance = []
 
+    database = KkiDb()
     for role_card in role_cards:
-        cursor.execute(f"SELECT element FROM main.role_cards WHERE {role_card} = code")
-        r = cursor.fetchall()[0][0]
+        r = database.get_role_card_element(role_card)[0][0]
         r = str(r).split(", ")
         for element in r:
             elements.append(element.lower())
