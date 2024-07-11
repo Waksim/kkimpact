@@ -7,3 +7,4 @@
 tcgCodes.sqlite
 venv
 .DS_Store
+settings.toml
