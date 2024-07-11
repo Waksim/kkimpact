@@ -17,9 +17,6 @@ async def cmd_start(message: types.Message):
     await bot.send_chat_action(chat_id=message.from_user.id, action="typing")
     # logger.info(f"@{message.from_user.username} – '{message.text}'")
 
-    sqlite_connection = sqlite3.connect('tcgCodes.sqlite')
-    cursor = sqlite_connection.cursor()
-
     last_log = 0
     last_usr = 0
 
@@ -43,6 +40,9 @@ async def cmd_start(message: types.Message):
 
     if last_usr != 0:
         if message.from_user.id in [382202500, 799890260]:
+            sqlite_connection = sqlite3.connect('./users_info.sqlite')
+            cursor = sqlite_connection.cursor()
+
             cursor.execute(f"SELECT * FROM telegram_users ORDER BY id desc LIMIT {last_usr}")
             registered_users = cursor.fetchall()
             registered_users.reverse()
