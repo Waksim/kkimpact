@@ -214,7 +214,7 @@ async def go_to_main_menu(callback: types.CallbackQuery, state: FSMContext):
     except TelegramBadRequest:
         pass
 
-    sqlite_connection = sqlite3.connect('tcgCodes.sqlite')
+    sqlite_connection = sqlite3.connect('./users_info.sqlite')
     cursor = sqlite_connection.cursor()
     cursor.execute("SELECT preferens FROM telegram_users where tg_id = ?;", (user_id,))
     preference = cursor.fetchall()[0][0]

@@ -142,7 +142,7 @@ async def cmd_start(message: types.Message):
     await bot.send_chat_action(chat_id=message.from_user.id, action="typing")
     logger.info(f"@{message.from_user.username} – '{message.text}'")
 
-    sqlite_connection = sqlite3.connect('tcgCodes.sqlite')
+    sqlite_connection = sqlite3.connect('./users_info.sqlite')
     cursor = sqlite_connection.cursor()
     tg_id = message.from_user.id
     cursor.execute("SELECT preferens FROM telegram_users where tg_id = ?;", (tg_id,))

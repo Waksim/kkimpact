@@ -4,7 +4,8 @@
 
 .idea
 *__pycache__*
-tcgCodes.sqlite
 venv
 .DS_Store
 settings.toml
+users_info.sqlite
+telegram_bot.log

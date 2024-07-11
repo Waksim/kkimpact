@@ -26,7 +26,7 @@ async def cmd_start(message: types.Message):
     await bot.send_chat_action(chat_id=message.from_user.id, action="typing")
     logger.info(f"@{message.from_user.username} – '{message.text}'")
 
-    sqlite_connection = sqlite3.connect('tcgCodes.sqlite')
+    sqlite_connection = sqlite3.connect('./users_info.sqlite')
     cursor = sqlite_connection.cursor()
     cursor.execute("UPDATE telegram_users SET preferens = 'eng' WHERE tg_id = ?;", (message.from_user.id,))
     sqlite_connection.commit()
