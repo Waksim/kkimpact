@@ -7,15 +7,20 @@ from loguru import logger
 
 from aiogram import types, Router, F, Bot, html
 
+from filters.chat_type import ChatTypeFilter
 from functions import random_hoyolab, generate_deck
 from functions.create_image import create_decks_img
 from keyboards.eng import kb_main_eng
 from config import settings
 
 
-bot = Bot(token=settings.bot_token)   # TEST
-# bot = Bot(token="<TOKEN_MAIN>")   # MAIN
+bot = Bot(token=settings.bot_token)
+
 eng = Router()
+
+eng.message.filter(
+    ChatTypeFilter(chat_type=["private"])
+)
 
 
 # ____________________________________________________________________
