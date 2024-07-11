@@ -14,7 +14,7 @@ def create_decks_img(deck_code='', role_cards=[], action_cards=[]):
     else:
         resonances = find_resonance(role_cards=role_cards)
 
-    im0 = Image.open('../img/background.png').convert("RGBA")
+    im0 = Image.open('./img/background.png').convert("RGBA")
 
     x = 37
     y = 435
@@ -25,7 +25,7 @@ def create_decks_img(deck_code='', role_cards=[], action_cards=[]):
             x = 37
             y += 194
             c = 0
-        im1 = Image.open(f'img/action_cards_lowest_border/{action_card}.png').convert("RGBA")
+        im1 = Image.open(f'./img/action_cards_lowest_border/{action_card}.png').convert("RGBA")
         im0.paste(im1, (x, y), im1)
 
         x += 123
@@ -35,7 +35,7 @@ def create_decks_img(deck_code='', role_cards=[], action_cards=[]):
     x = 150
 
     for role_card in role_cards:
-        im1 = Image.open(f'img/role_cards_lowest_border/{role_card}.png').convert("RGBA")
+        im1 = Image.open(f'./img/role_cards_lowest_border/{role_card}.png').convert("RGBA")
         # width, height = im1.size
         # print(width, height)
         # im1 = im1.resize((int(151), int(259)), resample=Image.BOX)
@@ -51,7 +51,7 @@ def create_decks_img(deck_code='', role_cards=[], action_cards=[]):
     res_len = len(resonances)
 
     if res_len == 0:
-        im1 = Image.open(f'../img/resonance/non_res1.png').convert("RGBA")
+        im1 = Image.open(f'./img/resonance/non_res1.png').convert("RGBA")
         im0.paste(im1, (314, 358), im1)
         im1.close()
 
@@ -60,7 +60,7 @@ def create_decks_img(deck_code='', role_cards=[], action_cards=[]):
     x3 = 112
     y = 358
     for resonance in resonances:
-        im1 = Image.open(f'img/resonance/{resonance}.png').convert("RGBA")
+        im1 = Image.open(f'./img/resonance/{resonance}.png').convert("RGBA")
 
         if res_len == 3:
             im0.paste(im1, (x3, y), im1)
@@ -94,14 +94,14 @@ def create_draft_tail_img(stage: int, card_code, filename: str, nickname1=0, nic
         resonance1 = ['non_res1']
     if resonance2 is None:
         resonance2 = ['non_res1']
-    im2 = Image.open(f'../img/draft_tail/draft_add_card.png').convert("RGBA")
+    im2 = Image.open(f'./img/draft_tail/draft_add_card.png').convert("RGBA")
     # stage = 6
     if stage == 99:
-        im0 = Image.open(f'../img/draft_tail/background.png').convert("RGBA")
+        im0 = Image.open(f'./img/draft_tail/background.png').convert("RGBA")
         im0.paste(im2, (344, 142), im2)
     else:
-        im0 = Image.open(f'img/draft_tail/temp/{filename}.png').convert("RGBA")
-        im1 = Image.open(f'img/avatars_lowest/{card_code}.png').convert("RGBA")
+        im0 = Image.open(f'./img/draft_tail/temp/{filename}.png').convert("RGBA")
+        im1 = Image.open(f'./img/avatars_lowest/{card_code}.png').convert("RGBA")
         if stage == 0:
             print('in stage 0')
             im0.paste(im1, (260, 58), im1)
@@ -145,7 +145,7 @@ def create_draft_tail_img(stage: int, card_code, filename: str, nickname1=0, nic
 
     if nickname1 != 0:
         draw = ImageDraw.Draw(im0)
-        font = ImageFont.truetype("gi_font.ttf", 30)
+        font = ImageFont.truetype("./gi_font.ttf", 30)
         w1 = draw.textlength(nickname1, font)
         w2 = draw.textlength(nickname2, font)
         draw.text((258 - w1/2, 68), nickname1, (240, 233, 218), font=font)
@@ -153,20 +153,20 @@ def create_draft_tail_img(stage: int, card_code, filename: str, nickname1=0, nic
     if len(resonance1) != 0:
         x = 298
         for res in resonance1:
-            im_res = Image.open(f'img/resonance/{res}.png').convert("RGBA")
+            im_res = Image.open(f'./img/resonance/{res}.png').convert("RGBA")
             im0.paste(im_res, (x, 514), im_res)
             x = x - 197
     if len(resonance2) != 0:
         x = 675
         for res in resonance2:
-            im_res = Image.open(f'img/resonance/{res}.png').convert("RGBA")
+            im_res = Image.open(f'./img/resonance/{res}.png').convert("RGBA")
             im0.paste(im_res, (x, 514), im_res)
             x = x + 193
 
 
-    im0.save(f"img/draft_tail/temp/{filename}.png")
+    im0.save(f"./img/draft_tail/temp/{filename}.png")
     im0 = im0.convert("RGB")
-    im0.save(f"img/draft_tail/temp/pupsik.jpg")
+    im0.save(f"./img/draft_tail/temp/pupsik.jpg")
     # im0.show()
     temp = io.BytesIO()
     im0.save(temp, 'JPEG')
