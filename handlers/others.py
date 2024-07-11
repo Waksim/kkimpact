@@ -7,6 +7,7 @@ from aiogram.utils.media_group import MediaGroupBuilder
 from aiogram import types, Router, Bot, html
 from aiogram.filters.command import Command
 
+from filters.chat_type import ChatTypeFilter
 from functions import generate_deck
 from functions.create_image import create_decks_img
 from functions.decryption_of_the_code import decrypt_code
@@ -14,57 +15,61 @@ from functions.get_role_card_names import get_role_card_names
 from config import settings
 
 
-bot = Bot(token=settings.bot_token)   # TEST
-# bot = Bot(token="<TOKEN_MAIN>")   # MAIN
+bot = Bot(token=settings.bot_token)
+
 others = Router()
+
+others.message.filter(
+    ChatTypeFilter(chat_type=["private"])
+)
 
 
 # ____________________________________________________________________
 
-@others.message(Command('delete_sticker_pack'))
-async def cmd_start(message: types.Message):
-    sticker_name = 'dendro_by_KKImpact_testBOT'
-    result: bool = await bot.delete_sticker_set(sticker_name)
-    await message.answer(f"Удален стикерпак: https://t.me/addstickers/{sticker_name}")
-
-
-@others.message(Command('create_sticker_pack'))
-async def cmd_start(message: types.Message):
-    # await bot.send_chat_action(chat_id=message.from_user.id, action="typing")
-    # sticker_id = message.sticker.file_id
-    sticker_name = 'geo_by_KKImpact_testBOT'
-    # sticker_pack_info = ''
-
-    # time.sleep(10)
-    stickers_arr = []
-
-    sqlite_connection = sqlite3.connect('tcgCodes.sqlite')
-    cursor = sqlite_connection.cursor()
-
-    cursor.execute("SELECT code, element FROM main.role_cards")
-    codes = cursor.fetchall()
-
-    counter = 0
-
-    for code in codes:
-        if counter == 49:
-            print(counter)
-            break
-        element = code[1].split(', ')[0]
-        if element == 'geo':
-            stickers_arr.append(types.InputSticker(sticker=types.FSInputFile(f'img/role_cards_stickers/{code[0]}.png'),
-                                                   emoji_list=['🟢']))
-            counter += 1
-
-    result: bool = await bot.create_new_sticker_set(user_id=message.from_user.id,
-                                                    name=sticker_name,
-                                                    title='🌕 GEO 🌕 @KKimpactBOT',
-                                                    stickers=stickers_arr,
-                                                    sticker_format='static',
-                                                    sticker_type='regular'
-                                                    )
-
-    await message.answer(f"Создан стикерпак: https://t.me/addstickers/{sticker_name}")
+# @others.message(Command('delete_sticker_pack'))
+# async def cmd_start(message: types.Message):
+#     sticker_name = 'dendro_by_KKImpact_testBOT'
+#     result: bool = await bot.delete_sticker_set(sticker_name)
+#     await message.answer(f"Удален стикерпак: https://t.me/addstickers/{sticker_name}")
+#
+#
+# @others.message(Command('create_sticker_pack'))
+# async def cmd_start(message: types.Message):
+#     # await bot.send_chat_action(chat_id=message.from_user.id, action="typing")
+#     # sticker_id = message.sticker.file_id
+#     sticker_name = 'geo_by_KKImpact_testBOT'
+#     # sticker_pack_info = ''
+#
+#     # time.sleep(10)
+#     stickers_arr = []
+#
+#     sqlite_connection = sqlite3.connect('tcgCodes.sqlite')
+#     cursor = sqlite_connection.cursor()
+#
+#     cursor.execute("SELECT code, element FROM main.role_cards")
+#     codes = cursor.fetchall()
+#
+#     counter = 0
+#
+#     for code in codes:
+#         if counter == 49:
+#             print(counter)
+#             break
+#         element = code[1].split(', ')[0]
+#         if element == 'geo':
+#             stickers_arr.append(types.InputSticker(sticker=types.FSInputFile(f'img/role_cards_stickers/{code[0]}.png'),
+#                                                    emoji_list=['🟢']))
+#             counter += 1
+#
+#     result: bool = await bot.create_new_sticker_set(user_id=message.from_user.id,
+#                                                     name=sticker_name,
+#                                                     title='🌕 GEO 🌕 @KKimpactBOT',
+#                                                     stickers=stickers_arr,
+#                                                     sticker_format='static',
+#                                                     sticker_type='regular'
+#                                                     )
+#
+#     await message.answer(f"Создан стикерпак: https://t.me/addstickers/{sticker_name}")
 
 
 # @others.message(F.sticker)
@@ -153,6 +158,11 @@ async def cmd_start(message: types.Message):
     if len(result) == 1:
         deck_code = result[0]
         decrypted_data = decrypt_code(deck_code)
+
+        if len(decrypted_data[0]) == 0 and len(decrypted_data[1]) == 0:
+            await message.reply_sticker('CAACAgIAAxkBAAEMdzxmjoaHzm6a5GZ1N6C5ZKbPtOeoCAAC9FgAAgmGeEhYrQGzIHlCKzUE')
+            return
+
         role_cards = decrypted_data[0]
         action_cards = decrypted_data[1]
 
@@ -170,6 +180,10 @@ async def cmd_start(message: types.Message):
         c = 1
         for deck_code in result:
             decrypted_data = decrypt_code(deck_code)
+
+            if len(decrypted_data[0]) == 0 and len(decrypted_data[1]) == 0:
+                continue
+
             role_cards = decrypted_data[0]
             action_cards = decrypted_data[1]
 
@@ -185,8 +199,11 @@ async def cmd_start(message: types.Message):
                 break
             c += 1
 
-        album_builder.caption = caption_text
-        await message.answer_media_group(media=album_builder.build())
+        if c == 1:
+            await message.reply_sticker('CAACAgIAAxkBAAEMdzxmjoaHzm6a5GZ1N6C5ZKbPtOeoCAAC9FgAAgmGeEhYrQGzIHlCKzUE')
+        else:
+            album_builder.caption = caption_text
+            await message.reply_media_group(media=album_builder.build())
 
     if len(result) == 0:
 

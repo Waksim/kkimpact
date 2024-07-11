@@ -5,11 +5,15 @@ from aiogram.filters.command import Command
 
 from keyboards.admin import kb_stat_admin
 from config import settings
+from filters.chat_type import ChatTypeFilter
 
 
-bot = Bot(token=settings.bot_token)   # TEST
-# bot = Bot(token="<TOKEN_MAIN>")   # MAIN
+bot = Bot(token=settings.bot_token)
+
 admin = Router()
+admin.message.filter(
+    ChatTypeFilter(chat_type=["private"])
+)
 
 
 @admin.message(Command("100_mess_stat", "10_mess_stat", "last_5_usr", "last_50_usr"))

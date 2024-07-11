@@ -8,6 +8,9 @@ from loguru import logger
 
 from aiogram import Bot, Dispatcher, types, BaseMiddleware, html
 from aiogram.filters.command import Command
+
+from filters.chat_type import ChatTypeFilter
+from handlers.group import group
 from handlers.cn import cn
 from handlers.drafts_tail import drafts_tail
 from handlers.eng import eng
@@ -36,8 +39,8 @@ logger.info("---START_BOT---")
 bot = Bot(token=settings.bot_token)     # settings.toml
 
 dp = Dispatcher()
-dp.include_routers(ru, eng, ua, cn, drafts_tail, admin, others)
-# dp.include_routers(others, ru, eng, ua, cn, drafts_tail, admin)
+# dp.include_routers(ru, eng, ua, cn, drafts_tail, admin, others)
+dp.include_routers(group, ru, eng, ua, cn, drafts_tail, admin, others)
 
 
 class ChatActionMiddleware(BaseMiddleware):
@@ -61,7 +64,8 @@ class ChatActionMiddleware(BaseMiddleware):
             return await handler(event, data)
 
 
-@dp.message(Command("start", "choose_lang"))
+@dp.message(ChatTypeFilter(chat_type=["private"]),
+            Command("start", "choose_lang"))
 async def cmd_start(message: types.Message):
     await bot.send_chat_action(chat_id=message.from_user.id, action="typing")
     logger.info(f"@{message.from_user.username} – '{message.text}'")
@@ -91,7 +95,8 @@ async def cmd_start(message: types.Message):
 
 # ____________________________________________________________________
 
-@ru.message(Command("menu"))
+@ru.message(ChatTypeFilter(chat_type=["private"]),
+            Command("menu"))
 async def menu(message: types.Message):
     user_id = message.from_user.id
 

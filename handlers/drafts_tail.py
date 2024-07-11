@@ -13,6 +13,7 @@ from loguru import logger
 
 from aiogram import types, Router, F, Bot, html, Dispatcher
 
+from filters.chat_type import ChatTypeFilter
 from functions.create_image import create_draft_tail_img
 from functions.find_resonance import find_resonance
 from functions.get_card_name_by_sticker import get_card_number_by_sticker
@@ -24,9 +25,14 @@ from keyboards.ua import kb_main_ua
 from config import settings
 
 
-bot = Bot(token=settings.bot_token)   # TEST
-# bot = Bot(token="<TOKEN_MAIN>")   # MAIN
+bot = Bot(token=settings.bot_token)
+
 drafts_tail = Router()
+
+drafts_tail.message.filter(
+    ChatTypeFilter(chat_type=["private"])
+)
+
 dp = Dispatcher()
 
 

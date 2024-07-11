@@ -8,6 +8,9 @@ def decrypt_code(code):
     payload = '{'+payload+'}'
     r = requests.post(url, data=payload).json()
 
+    if r['data'] is None:
+        return [], []
+
     role_cards_arr = r['data']['role_cards']
     role_cards_ids = []
     action_cards_arr = r['data']['action_cards']
