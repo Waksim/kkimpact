@@ -1,14 +1,19 @@
+import io
 import re
 import sqlite3
+from io import BytesIO
+
+from aiogram.types import BufferedInputFile, InputFile, FSInputFile
 from loguru import logger
 
-from aiogram.enums import ParseMode
+from aiogram.enums import ParseMode, ContentType
 from aiogram.utils.media_group import MediaGroupBuilder
-from aiogram import types, Router, Bot, html
+from aiogram import types, Router, Bot, html, F
 from aiogram.filters.command import Command
 
 from filters.chat_type import ChatTypeFilter
 from functions import generate_deck
+from functions.card_recognition import recognize_deck_img
 from functions.create_image import create_decks_img
 from functions.decryption_of_the_code import decrypt_code
 from functions.get_role_card_names import get_role_card_names
@@ -24,6 +29,23 @@ others.message.filter(
 )
 
 
+@others.message(F.photo)
+async def photo_recognition(message: types.Message):
+    file = await bot.get_file(message.photo[-1].file_id)
+    file_path = file.file_path
+
+    image_name = f'{str(message.from_user.id)}.jpg'
+
+    print(await bot.download_file(file_path=file_path, destination=f'./img/assets/decks_img/{image_name}'))
+    # result.seek(0)
+
+    photo = recognize_deck_img(image_name)
+    photo = FSInputFile(f"./img/assets/result/{image_name}")
+    await message.reply_photo(photo=photo)
+
+
+    # role_cards, action_cards = recognize_deck_img(photo)
+    # await message.answer(str(role_cards, action_cards), parse_mode=ParseMode.HTML)
 # ____________________________________________________________________
 
 # @others.message(Command('delete_sticker_pack'))
