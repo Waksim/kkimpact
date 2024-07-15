@@ -43,7 +43,7 @@ def get_card_name_by_card_code(card_codes_arr):
     print(card_codes_arr)
     card_names = []
 
-    sqlite_connection = sqlite3.connect('../tcgCodes.sqlite')
+    sqlite_connection = sqlite3.connect('./tcgCodes.sqlite')
     cursor = sqlite_connection.cursor()
     cursor.execute(f"SELECT code, card_name_ru FROM main.role_cards")
     role_cards = cursor.fetchall()
