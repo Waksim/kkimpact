@@ -1,7 +1,7 @@
 import sqlite3
 
 
-sqlite_connection = sqlite3.connect('../tcgCodes.sqlite')
+sqlite_connection = sqlite3.connect('./tcgCodes.sqlite')
 cursor = sqlite_connection.cursor()
 
 

@@ -3,7 +3,7 @@ import sqlite3
 import time
 
 
-sqlite_connection = sqlite3.connect('../tcgCodes.sqlite')
+sqlite_connection = sqlite3.connect('./tcgCodes.sqlite')
 cursor = sqlite_connection.cursor()
 
 def parse_and_insert_data(decks):
