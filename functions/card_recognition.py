@@ -8,6 +8,9 @@ import cv2
 # for image in os.listdir('./img/assets/decks_img/'):
 def recognize_deck_img(image_path):
 
+    role_card_codes = []
+    action_card_codes = []
+
     card_counter = 0
     sqlite_connection = sqlite3.connect('./tcgCodes.sqlite')
     cursor = sqlite_connection.cursor()
@@ -24,7 +27,7 @@ def recognize_deck_img(image_path):
     img_copy = img.copy()
 
     height, width = img.shape[:2]
-    print(height, width)
+    # print(height, width)
 
     crop_top = int(height * 0.103125)
     crop_bottom = int(height * -0.7375)
@@ -34,12 +37,12 @@ def recognize_deck_img(image_path):
     img2 = img_copy[crop_top:crop_bottom, crop_left:crop_right]    # обрезать [верх:-низ, слева:-справа
     # img2 = img_copy[132:-947, 268:-291]    # обрезать [верх:-низ, слева:-справа
     for role_card in role_cards:
-        code = role_card[0]
+        card_code = role_card[0]
         card_name = role_card[1]
 
-        # template = cv2.imread(f'./img/assets/templates/role/{code}.png', 0)
-        template = cv2.resize(cv2.imread(f'./img/assets/templates/role/{code}.png', 0), (0, 0), fx=resize_ratio, fy=resize_ratio)
-        # template = cv2.imread(f'./img/assets/templates/action/{code}.png', 0)
+        # template = cv2.imread(f'./img/assets/templates/role/{card_code}.png', 0)
+        template = cv2.resize(cv2.imread(f'./img/assets/templates/role/{card_code}.png', 0), (0, 0), fx=resize_ratio, fy=resize_ratio)
+        # template = cv2.imread(f'./img/assets/templates/action/{card_code}.png', 0)
 
         h, w = template.shape
 
@@ -61,7 +64,7 @@ def recognize_deck_img(image_path):
         rectangles, weights = cv2.groupRectangles(rectangles, 1, 0.2)
 
         if len(rectangles) > 0:
-            # print(f"{code} -- {card_name} -- {len(rectangles)}")
+            # print(f"{card_code} -- {card_name} -- {len(rectangles)}")
             # [132: -947, 268: -291]
             for (x, y, w, h) in rectangles:
 
@@ -86,12 +89,19 @@ def recognize_deck_img(image_path):
 
                     for card_name_part in card_name_splited:
                         y = y + step
-                        cv2.putText(img, card_name_part, (x, y), cv2.FONT_HERSHEY_COMPLEX, 0.3, (255, 255, 255), 1)
+                        cv2.putText(img, card_name_part, (x, y), cv2.FONT_HERSHEY_COMPLEX, 0.3 * resize_ratio, (255, 255, 255), 1)
                 else:
                     cv2.putText(img, card_name, (x, y + int(10 * resize_ratio)), cv2.FONT_HERSHEY_COMPLEX, 0.3 * resize_ratio, (255, 255, 255), 1)
 
                 match_percent = str(match_percent) + '%'
                 cv2.putText(img, match_percent, (x, y + step + int(10 * resize_ratio)), cv2.FONT_HERSHEY_COMPLEX, 0.3 * resize_ratio, (255, 255, 255), 1)
+
+                role_card_codes.append(card_code)
+
+        # print(f"LEN_ROLE: {len(role_card_codes)}")
+        if len(role_card_codes) >= 3:
+            # print('---BREAK ROLE')
+            break
 
     crop_top = int(height * 0.3125)
     crop_bottom = int(height * -0.1390625)
@@ -101,12 +111,12 @@ def recognize_deck_img(image_path):
     img2 = img_copy[crop_top:crop_bottom, crop_left:crop_right]
     # img2 = img_copy[400:-178, 190:-215]  # 1280 942, обрезать [верх:-низ, слева:-справа]
     for action_card in action_cards:
-        code = action_card[0]
+        card_code = action_card[0]
         card_name = action_card[1]
 
-        # template = cv2.imread(f'./img/assets/templates/role/{code}.png', 0)
-        template = cv2.resize(cv2.imread(f'./img/assets/templates/action/{code}.png', 0), (0, 0), fx=resize_ratio, fy=resize_ratio)
-        # template = cv2.imread(f'./img/assets/templates/action/{code}.png', 0)
+        # template = cv2.imread(f'./img/assets/templates/role/{card_code}.png', 0)
+        template = cv2.resize(cv2.imread(f'./img/assets/templates/action/{card_code}.png', 0), (0, 0), fx=resize_ratio, fy=resize_ratio)
+        # template = cv2.imread(f'./img/assets/templates/action/{card_code}.png', 0)
 
         h, w = template.shape
 
@@ -128,7 +138,7 @@ def recognize_deck_img(image_path):
         rectangles, weights = cv2.groupRectangles(rectangles, 1, 0.2)
 
         if len(rectangles) > 0:
-            print(f"{code} -- {card_name} -- {len(rectangles)}")
+            # print(f"{card_code} -- {card_name} -- {len(rectangles)}")
             for (x, y, w, h) in rectangles:
 
                 for arr in match_percent_arr:
@@ -158,14 +168,24 @@ def recognize_deck_img(image_path):
                 match_percent = str(match_percent) + '%'
                 cv2.putText(img, match_percent, (x, y + step + int(10 * resize_ratio)), cv2.FONT_HERSHEY_COMPLEX, 0.3 * resize_ratio, (255, 255, 255), 1)
 
+                action_card_codes.append(card_code)
+                if len(action_card_codes) >= 30:
+                    # print('----BREAK ACTION')
+                    break
+
+        # print(f"LEN_ACTION: {len(action_card_codes)}")
+        if len(action_card_codes) >= 30:
+            # print('----BREAK ACTION')
+            break
+
 
     # break
 
     cv2.imwrite(f'./img/assets/result/{image_path}', img)
 
-    # img_str = cv2.imencode('.jpg', img)[1].tostring()
+    # img_str = cv2.imencard_code('.jpg', img)[1].tostring()
 
-    return f'./img/assets/result/{image_path}'
+    return f'./img/assets/result/{image_path}', role_card_codes, action_card_codes
     # card_counter += 1
 
     # cv2.imshow(f"///", img)
