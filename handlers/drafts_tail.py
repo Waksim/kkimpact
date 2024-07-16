@@ -98,7 +98,7 @@ def create_queue_answer(users_data, user_id):
 
 
 async def update_queue():
-    sqlite_connection = sqlite3.connect('tcgCodes.sqlite')
+    sqlite_connection = sqlite3.connect('./users_info.sqlite')
     cursor = sqlite_connection.cursor()
     cursor.execute(
         f"SELECT user_id, message_id, username, firstname, requested FROM main.draft_tail_queue WHERE in_the_queue = 1"
@@ -130,7 +130,7 @@ async def update_queue():
 @drafts_tail.message(F.text.lower() == "🦊 драфты хвост")
 async def show_draft_menu(message: types.Message, state: FSMContext):
     logger.info(f"@{message.from_user.username} – '{message.text}'")
-    sqlite_connection = sqlite3.connect('tcgCodes.sqlite')
+    sqlite_connection = sqlite3.connect('./users_info.sqlite')
     cursor = sqlite_connection.cursor()
 
     cursor.execute(
@@ -182,7 +182,7 @@ async def choose_opponent_alert(callback: types.CallbackQuery):
 
 @drafts_tail.callback_query(F.data == "update_queue_list")
 async def update_queue_list(callback: types.CallbackQuery):
-    sqlite_connection = sqlite3.connect('tcgCodes.sqlite')
+    sqlite_connection = sqlite3.connect('./users_info.sqlite')
     cursor = sqlite_connection.cursor()
     user_id = callback.from_user.id
     message_id = callback.message.message_id
@@ -257,7 +257,7 @@ async def go_to_main_menu(callback: types.CallbackQuery, state: FSMContext):
                              "Отправь /start или /choose_lang - если хочешь поменять язык\n"
                              , reply_markup=kb_ru_main, parse_mode=ParseMode.HTML)
 
-    sqlite_connection = sqlite3.connect('tcgCodes.sqlite')
+    sqlite_connection = sqlite3.connect('./users_info.sqlite')
     cursor = sqlite_connection.cursor()
 
     cursor.execute(
@@ -279,7 +279,7 @@ async def draft_tail_request(callback: types.CallbackQuery):
     firstname_1 = callback.from_user.first_name
     user_id_2 = callback.data.split("=")[1]
 
-    sqlite_connection = sqlite3.connect('./tcgCodes.sqlite')
+    sqlite_connection = sqlite3.connect('./users_info.sqlite')
     cursor = sqlite_connection.cursor()
     cursor.execute(f"SELECT requested FROM main.draft_tail_queue WHERE user_id = {user_id_1}")
     requested = cursor.fetchall()[0][0]
@@ -349,7 +349,7 @@ async def draft_tail_accepted(callback: types.CallbackQuery, state: FSMContext):
     username_1 = callback.data.split("=")[2]
     user_id_2 = int(callback.from_user.id)
     username_2 = callback.from_user.username
-    sqlite_connection = sqlite3.connect('tcgCodes.sqlite')
+    sqlite_connection = sqlite3.connect('./users_info.sqlite')
     cursor = sqlite_connection.cursor()
 
     first_player = dict()
@@ -430,7 +430,7 @@ async def add_new_card_to_drafts_data(card_code, bans_or_picks, bans_or_picks_ar
                 draft_data_in_row.append(data)
     # print('draft_data_in_row--- ', draft_data_in_row)
     if card_name not in draft_data_in_row:
-        sqlite_connection = sqlite3.connect('tcgCodes.sqlite')
+        sqlite_connection = sqlite3.connect('./users_info.sqlite')
         cursor = sqlite_connection.cursor()
 
         bans_or_picks_arr.append(card_code)
@@ -446,7 +446,7 @@ async def add_new_card_to_drafts_data(card_code, bans_or_picks, bans_or_picks_ar
 
 
 async def stage_update(stage, user_id):
-    sqlite_connection = sqlite3.connect('tcgCodes.sqlite')
+    sqlite_connection = sqlite3.connect('./users_info.sqlite')
     cursor = sqlite_connection.cursor()
 
     cursor.execute(
@@ -456,7 +456,7 @@ async def stage_update(stage, user_id):
 
 
 def get_name_card_by_code(code_card):
-    sqlite_connection = sqlite3.connect('tcgCodes.sqlite')
+    sqlite_connection = sqlite3.connect('./users_info.sqlite')
     cursor = sqlite_connection.cursor()
     cursor.execute(
         f"SELECT card_name_ru FROM main.role_cards WHERE code = {code_card}"
@@ -467,7 +467,7 @@ def get_name_card_by_code(code_card):
 
 
 async def update_drafts(user_id_1, user_id_2, fp_status, scp_status, stage, cardcode):
-    sqlite_connection = sqlite3.connect('tcgCodes.sqlite')
+    sqlite_connection = sqlite3.connect('./users_info.sqlite')
     cursor = sqlite_connection.cursor()
 
     draft_data = []
@@ -540,7 +540,7 @@ async def show_draft_menu(message: types.Message, state: FSMContext):
     result: bool = await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
     sticker_uid = message.sticker.file_unique_id
 
-    sqlite_connection = sqlite3.connect('tcgCodes.sqlite')
+    sqlite_connection = sqlite3.connect('./users_info.sqlite')
     cursor = sqlite_connection.cursor()
 
     cursor.execute(
@@ -808,7 +808,7 @@ async def show_draft_menu(callback: types.CallbackQuery):
 
 
 def random_cardcode(draft_data):
-    sqlite_connection = sqlite3.connect('tcgCodes.sqlite')
+    sqlite_connection = sqlite3.connect('./users_info.sqlite')
     cursor = sqlite_connection.cursor()
 
     cursor.execute(
@@ -836,7 +836,7 @@ def random_cardcode(draft_data):
 
 @drafts_tail.callback_query(F.data.startswith("draft_with_bot"))
 async def draft_with_bot(callback: types.CallbackQuery, state: FSMContext):
-    sqlite_connection = sqlite3.connect('tcgCodes.sqlite')
+    sqlite_connection = sqlite3.connect('./users_info.sqlite')
     cursor = sqlite_connection.cursor()
 
     user_id = int(callback.from_user.id)
@@ -908,7 +908,7 @@ async def sticker_with_bot(message: types.Message, state: FSMContext):
     result: bool = await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
     sticker_uid = message.sticker.file_unique_id
 
-    sqlite_connection = sqlite3.connect('tcgCodes.sqlite')
+    sqlite_connection = sqlite3.connect('./users_info.sqlite')
     cursor = sqlite_connection.cursor()
 
     cursor.execute(
@@ -1160,7 +1160,7 @@ async def sticker_with_bot(message: types.Message, state: FSMContext):
 # async def get_pick(message: types.Message, state: FSMContext):
 #     sticker_uid = message.sticker.file_unique_id
 #     result: bool = await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
-#     sqlite_connection = sqlite3.connect('tcgCodes.sqlite')
+#     sqlite_connection = sqlite3.connect('./users_info.sqlite')
 #     cursor = sqlite_connection.cursor()
 #     cursor.execute(f"SELECT card_name_ru FROM main.role_cards WHERE sticker_uid = '{sticker_uid}'")
 #     r = cursor.fetchall()
