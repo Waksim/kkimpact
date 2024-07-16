@@ -456,7 +456,7 @@ async def stage_update(stage, user_id):
 
 
 def get_name_card_by_code(code_card):
-    sqlite_connection = sqlite3.connect('./users_info.sqlite')
+    sqlite_connection = sqlite3.connect('./tcgCodes.sqlite')
     cursor = sqlite_connection.cursor()
     cursor.execute(
         f"SELECT card_name_ru FROM main.role_cards WHERE code = {code_card}"
@@ -808,7 +808,7 @@ async def show_draft_menu(callback: types.CallbackQuery):
 
 
 def random_cardcode(draft_data):
-    sqlite_connection = sqlite3.connect('./users_info.sqlite')
+    sqlite_connection = sqlite3.connect('./tcgCodes.sqlite')
     cursor = sqlite_connection.cursor()
 
     cursor.execute(
@@ -1160,7 +1160,7 @@ async def sticker_with_bot(message: types.Message, state: FSMContext):
 # async def get_pick(message: types.Message, state: FSMContext):
 #     sticker_uid = message.sticker.file_unique_id
 #     result: bool = await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
-#     sqlite_connection = sqlite3.connect('./users_info.sqlite')
+#     sqlite_connection = sqlite3.connect('./tcgCodes.sqlite')
 #     cursor = sqlite_connection.cursor()
 #     cursor.execute(f"SELECT card_name_ru FROM main.role_cards WHERE sticker_uid = '{sticker_uid}'")
 #     r = cursor.fetchall()
