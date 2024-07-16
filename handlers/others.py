@@ -1,4 +1,5 @@
 import io
+import os
 import re
 import sqlite3
 from io import BytesIO
@@ -43,7 +44,7 @@ async def photo_recognition(message: types.Message):
 
     album_builder = MediaGroupBuilder()
 
-    photo_path, role_card_codes, action_card_codes = recognize_deck_img(image_name)
+    debug_photo_path, role_card_codes, action_card_codes = recognize_deck_img(image_name)
     print(role_card_codes, action_card_codes)
     deck_code = card_codes_to_deck_code(role_card_codes, action_card_codes)
 
@@ -53,13 +54,15 @@ async def photo_recognition(message: types.Message):
     caption_text = f"{html.bold(html.quote(card_names_str))}\n" + html.code(html.quote(deck_code)) + "\n"
     album_builder.caption = caption_text
 
-    debug_photo = FSInputFile(photo_path)
+    debug_photo = FSInputFile(debug_photo_path)
     photo = create_decks_img(role_cards=role_card_codes, action_cards=action_card_codes)
     album_builder.add_photo(media=photo, parse_mode=ParseMode.HTML)
 
     album_builder.add_photo(media=debug_photo, parse_mode=ParseMode.HTML)
 
     await message.answer_media_group(media=album_builder.build())
+
+    os.remove(debug_photo_path)
 
 
     # role_cards, action_cards = recognize_deck_img(photo)
