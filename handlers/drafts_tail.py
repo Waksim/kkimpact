@@ -139,9 +139,9 @@ async def show_draft_menu(message: types.Message, state: FSMContext):
     in_queue = cursor.fetchall()[0][0]
     if in_queue == 0:
         cursor.execute(
-            f"INSERT INTO main.draft_tail_queue (user_id, username, firstname) "
-            f"VALUES (?, ?, ?)",
-            (message.from_user.id, message.from_user.username, message.from_user.first_name)
+            f"INSERT INTO main.draft_tail_queue (user_id, username, firstname, in_the_queue) "
+            f"VALUES (?, ?, ?, ?)",
+            (message.from_user.id, message.from_user.username, message.from_user.first_name, 1)
         )
         sqlite_connection.commit()
 
