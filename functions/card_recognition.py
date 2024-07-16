@@ -21,13 +21,14 @@ def recognize_deck_img(image_path):
     action_cards = cursor.fetchall()
     # print(f"Изображение №{image}")
 
-    resize_ratio = 0.7
+    resize_ratio = 1
+    # resize_ratio = 0.7
     img = cv2.resize(cv2.imread(f'./img/assets/decks_img/{image_path}', 0), (0, 0), fx=resize_ratio, fy=resize_ratio)
     # img = cv2.imread(f'./img/assets/decks_img/{image}', 0)
     img_copy = img.copy()
 
     height, width = img.shape[:2]
-    # print(height, width)
+    print(height, width)
 
     crop_top = int(height * 0.103125)
     crop_bottom = int(height * -0.7375)

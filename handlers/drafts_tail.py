@@ -279,7 +279,7 @@ async def draft_tail_request(callback: types.CallbackQuery):
     firstname_1 = callback.from_user.first_name
     user_id_2 = callback.data.split("=")[1]
 
-    sqlite_connection = sqlite3.connect('tcgCodes.sqlite')
+    sqlite_connection = sqlite3.connect('./tcgCodes.sqlite')
     cursor = sqlite_connection.cursor()
     cursor.execute(f"SELECT requested FROM main.draft_tail_queue WHERE user_id = {user_id_1}")
     requested = cursor.fetchall()[0][0]
@@ -345,7 +345,7 @@ async def draft_tail_declined(callback: types.CallbackQuery):
 @drafts_tail.callback_query(F.data.startswith("draft_tail_accepted="))
 async def draft_tail_accepted(callback: types.CallbackQuery, state: FSMContext):
     await bot.delete_message(chat_id=callback.from_user.id, message_id=callback.message.message_id)
-    user_id_1 = int(callback.data.splitw("=")[1])
+    user_id_1 = int(callback.data.split("=")[1])
     username_1 = callback.data.split("=")[2]
     user_id_2 = int(callback.from_user.id)
     username_2 = callback.from_user.username
