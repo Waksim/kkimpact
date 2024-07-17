@@ -38,7 +38,7 @@ async def photo_recognition(message: types.Message):
     file = await bot.get_file(message.photo[-1].file_id)
     file_path = file.file_path
 
-    current_time = time.time()
+    current_time = int(time.time())
     image_name = f'{str(message.from_user.id)}_{str(current_time)}.jpg'
 
     await bot.download_file(file_path=file_path, destination=f'./img/assets/decks_img/{image_name}')
