@@ -182,13 +182,15 @@ def recognize_deck_img(image_path):
 
     # break
 
-    cv2.imwrite(f'./img/assets/result/{image_path}', img)
+    result_img_path = f'./img/assets/result/{image_path}'
+
+    cv2.imwrite(result_img_path, img)
 
     # img_str = cv2.imencard_code('.jpg', img)[1].tostring()
 
-    return f'./img/assets/result/{image_path}', role_card_codes, action_card_codes
-    # card_counter += 1
+    return result_img_path, role_card_codes, action_card_codes
 
+    # card_counter += 1
     # cv2.imshow(f"///", img)
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
