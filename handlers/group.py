@@ -1,17 +1,20 @@
+import os
 import re
+import time
 from datetime import datetime
 from loguru import logger
 
-from aiogram import Router, Bot, html
+from aiogram import Router, Bot, html, F
 from aiogram.enums import ParseMode
 from aiogram.filters import Command
-from aiogram.types import Message
+from aiogram.types import Message, FSInputFile
 from aiogram.utils.media_group import MediaGroupBuilder
 
 from filters.chat_type import ChatTypeFilter
 from functions import generate_deck, random_hoyolab
+from functions.card_recognition import recognize_deck_img
 from functions.create_image import create_decks_img
-from functions.decryption_of_the_code import decrypt_code
+from functions.decryption_of_the_code import decrypt_code, card_codes_to_deck_code, get_card_name_by_card_code
 from functions.get_role_card_names import get_role_card_names
 from config import settings
 
@@ -22,6 +25,41 @@ group = Router()
 group.message.filter(
     ChatTypeFilter(chat_type=["group", "supergroup"])
 )
+
+
+@group.message(Command("kk", "Kk", "kK", "KK", "кк", "Кк", "кК", "КК"), F.photo)
+async def decoding_code(message: Message):
+    await bot.send_chat_action(chat_id=message.chat.id, action="upload_photo")
+
+    file = await bot.get_file(message.photo[-1].file_id)
+    file_path = file.file_path
+
+    current_time = time.time()
+    image_name = f'{str(message.from_user.id)}_{str(current_time)}.jpg'
+
+    await bot.download_file(file_path=file_path, destination=f'./img/assets/decks_img/{image_name}')
+
+    album_builder = MediaGroupBuilder()
+
+    debug_photo_path, role_card_codes, action_card_codes = recognize_deck_img(image_name)
+    print(role_card_codes, action_card_codes)
+    deck_code = card_codes_to_deck_code(role_card_codes, action_card_codes)
+
+    card_names_str = get_card_name_by_card_code(role_card_codes)
+    print(card_names_str)
+    print(deck_code)
+    caption_text = f"{html.bold(html.quote(card_names_str))}\n" + html.code(html.quote(deck_code)) + "\n"
+    album_builder.caption = caption_text
+
+    debug_photo = FSInputFile(debug_photo_path)
+    photo = create_decks_img(role_cards=role_card_codes, action_cards=action_card_codes)
+    album_builder.add_photo(media=photo, parse_mode=ParseMode.HTML)
+
+    album_builder.add_photo(media=debug_photo, parse_mode=ParseMode.HTML)
+
+    await message.answer_media_group(media=album_builder.build())
+
+    os.remove(debug_photo_path)
 
 
 @group.message(Command("kk", "Kk", "kK", "KK", "кк", "Кк", "кК", "КК"))
