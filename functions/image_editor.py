@@ -1,5 +1,3 @@
-
-
 from PIL import Image
 import os
 
@@ -23,17 +21,21 @@ def create_templates_for_recognize(input_folder, output_folder, desired_height, 
             cropped_img = resized_img.crop((crop_size, crop_size, desired_width - crop_size, desired_height - crop_size))
 
             cropped_img.save(output_path)
+    print("Готово!")
 
+
+resize_ratio = 1
+# resize_ratio = 0.7
 
 create_templates_for_recognize(
     input_folder="../img/action_cards",
     output_folder="../img/assets/templates/action",
-    desired_height=124,
-    crop_size=8
+    desired_height=int(124 * resize_ratio),
+    crop_size=int(8 * resize_ratio)
 )
-create_templates_for_recognize(
-    input_folder="../img/role_cards",
-    output_folder="../img/assets/templates/role",
-    desired_height=186,
-    crop_size=10
-)
+# create_templates_for_recognize(
+#     input_folder="../img/role_cards",
+#     output_folder="../img/assets/templates/role",
+#     desired_height=int(186 * resize_ratio),
+#     crop_size=int(10 * resize_ratio)
+# )

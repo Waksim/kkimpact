@@ -45,7 +45,9 @@ async def photo_recognition(message: types.Message):
 
     album_builder = MediaGroupBuilder()
 
+    # debug_photo_path, role_card_codes, action_card_codes = recognize_deck_img(image_name, 50, 70)
     debug_photo_path, role_card_codes, action_card_codes = recognize_deck_img(image_name)
+
     print(role_card_codes, action_card_codes)
     deck_code = card_codes_to_deck_code(role_card_codes, action_card_codes)
 
