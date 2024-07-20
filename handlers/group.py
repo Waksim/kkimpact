@@ -30,6 +30,7 @@ group.message.filter(
 @group.message(Command("kk", "Kk", "kK", "KK", "кк", "Кк", "кК", "КК"), F.photo)
 async def decoding_code(message: Message):
     await bot.send_chat_action(chat_id=message.chat.id, action="upload_photo")
+    logger.info(f"@{message.from_user.username} – 'ФОТО'")
 
     file = await bot.get_file(message.photo[-1].file_id)
     file_path = file.file_path
