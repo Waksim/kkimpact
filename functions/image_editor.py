@@ -33,9 +33,9 @@ create_templates_for_recognize(
     desired_height=int(124 * resize_ratio),
     crop_size=int(8 * resize_ratio)
 )
-# create_templates_for_recognize(
-#     input_folder="../img/role_cards",
-#     output_folder="../img/assets/templates/role",
-#     desired_height=int(186 * resize_ratio),
-#     crop_size=int(10 * resize_ratio)
-# )
+create_templates_for_recognize(
+    input_folder="../img/role_cards",
+    output_folder="../img/assets/templates/role",
+    desired_height=int(186 * resize_ratio),
+    crop_size=int(10 * resize_ratio)
+)

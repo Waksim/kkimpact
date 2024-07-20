@@ -6,6 +6,9 @@ import cv2
 
 
 # for image in os.listdir('./img/assets/decks_img/'):
+from functions.find_resonance import find_resonance
+
+
 def cords_in_arr(original_cords, cords_arr):
     x, y, w, h = original_cords
 
@@ -30,6 +33,26 @@ def cords_in_arr(original_cords, cords_arr):
     return 0
 
 
+# code, card_name_ru, link_with_char, doublecated, resonance
+def delete_from_arr(action_cards, role_card_codes):
+    new_list = []
+
+    resonances = find_resonance(role_cards=role_card_codes)
+
+    for action_card in action_cards:
+
+        resonance = action_card[4].lower()
+        link_with_char = action_card[2]
+
+        if resonance == '0' or resonance in resonances:
+            if link_with_char == 0 or link_with_char in role_card_codes:
+                new_list.append(action_card)
+                print(f"{resonances} --- {resonance}")
+                print('OK')
+
+    return new_list
+
+
 def recognize_deck_img(image_path, match_rate_role=0, match_rate=0):
 
     role_card_codes = []
@@ -43,7 +66,8 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0):
 
     cursor.execute(f"SELECT code, card_name_ru FROM main.role_cards")
     role_cards = cursor.fetchall()
-    cursor.execute(f"SELECT code, card_name_ru FROM main.action_cards")
+    cursor.execute(f"SELECT code, card_name_ru, link_with_char, doublecated, resonance, weights "
+                   f"FROM main.cv_weights")
     action_cards = cursor.fetchall()
     # print(f"Изображение №{image}")
 
@@ -61,7 +85,8 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0):
         resize_ratio_height = 896/height
         resize_ratio_width = 659/width
         resize_ratio = round((resize_ratio_height + resize_ratio_width) / 2, 1)
-        resize_ratio = 1
+        resize_ratio = 0.7
+        # resize_ratio = 1
         the_standard = 1
         print(resize_ratio)
         print('Эталон')
@@ -198,10 +223,16 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0):
     # cv2.imshow('image', img2)
     # cv2.waitKey(0)
 
+    action_cards = delete_from_arr(action_cards, role_card_codes)
+    print(role_card_codes)
+    print(action_cards)
+
+
     # img2 = img_copy[400:-178, 190:-215]  # 1280 942, обрезать [верх:-низ, слева:-справа]
     for action_card in action_cards:
         card_code = action_card[0]
         card_name = action_card[1]
+        card_weight = action_card[5]
 
         # template = cv2.imread(f'./img/assets/templates/role/{card_code}.png', 0)
         # template = cv2.imread(f'./img/assets/templates/action/{card_code}.png', 0)
@@ -214,7 +245,7 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0):
 
         result = cv2.matchTemplate(img2, template, method)
         if match_rate == 0:
-            yloc, xloc = np.where(result >= .815)
+            yloc, xloc = np.where(result >= card_weight/100)
         else:
             yloc, xloc = np.where(result >= match_rate/100)
 
@@ -231,7 +262,7 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0):
         rectangles, weights = cv2.groupRectangles(rectangles, 1, 0.2)
 
         if len(rectangles) > 0:
-            print(f"{card_code} -- {card_name} -- {len(rectangles)}")
+            print(f"{card_code} -- {card_name} -- {len(rectangles)} -- {card_weight}")
             for (x, y, w, h) in rectangles:
                 original_cords = [x, y, w, h]
                 if cords_in_arr(original_cords, cords_arr):
