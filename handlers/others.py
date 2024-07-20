@@ -34,6 +34,7 @@ others.message.filter(
 @others.message(F.photo)
 async def photo_recognition(message: types.Message):
     await bot.send_chat_action(chat_id=message.from_user.id, action="upload_photo")
+    logger.info(f"@{message.from_user.username} – 'ФОТО'")
 
     file = await bot.get_file(message.photo[-1].file_id)
     file_path = file.file_path
