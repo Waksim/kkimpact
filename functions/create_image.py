@@ -5,13 +5,15 @@ import io
 from aiogram.types import BufferedInputFile
 
 
-def create_decks_img(deck_code='', role_cards=[], action_cards=[]):
+def create_decks_img(deck_code='', role_cards=[], action_cards=[], path_for_save=0):
     if deck_code != '':
         r = decrypt_code(deck_code)
         role_cards = r[0]
         action_cards = r[1]
         resonances = find_resonance(role_cards=role_cards)
     else:
+        role_cards = sorted(role_cards)
+        action_cards = sorted(action_cards)
         resonances = find_resonance(role_cards=role_cards)
 
     im0 = Image.open('./img/background.png').convert("RGBA")
@@ -77,14 +79,20 @@ def create_decks_img(deck_code='', role_cards=[], action_cards=[]):
 
     im0 = im0.convert("RGB")
     # im0.show()
-    temp = io.BytesIO()
-    im0.save(temp, 'JPEG')
-    # temp.seek(0)
 
-    photo = BufferedInputFile(temp.getvalue(), filename="file.txt")
+    if path_for_save == 0:
+
+        temp = io.BytesIO()
+        im0.save(temp, 'JPEG')
+
+        photo = BufferedInputFile(temp.getvalue(), filename="file.txt")
+        temp.close()
+
+    else:
+        im0.save(path_for_save, 'JPEG')
+        photo = path_for_save
 
     im0.close()
-    temp.close()
 
     return photo
 
