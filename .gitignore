@@ -9,3 +9,7 @@ venv
 settings.toml
 users_info.sqlite
 telegram_bot.log
+!/test.py
+!/img/assets/decks_img/
+!/img/assets/decks_img_data/
+!/img/assets/result/
