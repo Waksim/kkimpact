@@ -40,7 +40,7 @@ def card_codes_to_deck_code(role_card_codes, action_card_codes):
 
 
 def get_card_name_by_card_code(card_codes_arr):
-    print(card_codes_arr)
+    # print(card_codes_arr)
     card_names = []
 
     sqlite_connection = sqlite3.connect('./tcgCodes.sqlite')
@@ -57,7 +57,7 @@ def get_card_name_by_card_code(card_codes_arr):
 
     card_names_str = ""
 
-    print(card_names)
+    # print(card_names)
     for card_name in card_names:
         card_names_str += card_name + ', '
 

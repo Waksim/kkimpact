@@ -49,12 +49,12 @@ async def photo_recognition(message: types.Message):
     # debug_photo_path, role_card_codes, action_card_codes = recognize_deck_img(image_name, 50, 70)
     debug_photo_path, role_card_codes, action_card_codes = recognize_deck_img(image_name)
 
-    print(role_card_codes, action_card_codes)
+    # print(role_card_codes, action_card_codes)
     deck_code = card_codes_to_deck_code(role_card_codes, action_card_codes)
 
     card_names_str = get_card_name_by_card_code(role_card_codes)
-    print(card_names_str)
-    print(deck_code)
+    # print(card_names_str)
+    # print(deck_code)
     caption_text = f"{html.bold(html.quote(card_names_str))}\n" + html.code(html.quote(deck_code)) + "\n"
     album_builder.caption = caption_text
 
@@ -67,6 +67,7 @@ async def photo_recognition(message: types.Message):
     await message.answer_media_group(media=album_builder.build())
 
     os.remove(debug_photo_path)
+    logger.info(deck_code)
 
 
     # role_cards, action_cards = recognize_deck_img(photo)
