@@ -301,7 +301,7 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0, heal_mode=0)
     # cv2.imshow('image', img2)
     # cv2.waitKey(0)
 
-    # action_cards = delete_from_arr(action_cards, role_card_codes)
+    action_cards = delete_from_arr(action_cards, role_card_codes)
     # print(role_card_codes)
     # print(action_cards)
 
