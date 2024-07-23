@@ -169,7 +169,7 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0, heal_mode=0)
     elif the_standard == 'hoyolab' and match_rate == 0:
 
         crop_top = int(132 * resize_ratio)
-        print('crop_top - ',crop_top)
+        # print('crop_top - ',crop_top)
         crop_bottom = int(-947 * resize_ratio)
         # print('crop_bottom - ',crop_bottom)
         crop_left = int(268 * resize_ratio)
@@ -277,6 +277,116 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0, heal_mode=0)
             # print('---BREAK ROLE')
             break
 
+    # ARENA
+    # 170, -960, 450, -210
+    if len(role_card_codes) == 0:
+        if the_standard == 'hoyolab':
+            the_standard = 'hoyolab_arena'
+            crop_top = int(170 * resize_ratio)
+            # print('crop_top - ', crop_top)
+            crop_bottom = int(-960 * resize_ratio)
+            # print('crop_bottom - ',crop_bottom)
+            crop_left = int(450 * resize_ratio)
+            # print('crop_left - ',crop_left)
+            crop_right = int(-210 * resize_ratio)
+            # print('crop_right - ',crop_right)
+
+            img2 = img_copy[crop_top:crop_bottom, crop_left:crop_right]  # обрезать [верх:-низ, слева:-справа
+
+        else:
+            img2 = img_copy
+
+        # cv2.imshow('image', img2)
+        # cv2.waitKey(0)
+
+        for role_card in role_cards:
+            card_code = role_card[0]
+            card_name = role_card[1]
+
+            # template = cv2.imread(f'./img/assets/templates/role/{card_code}.png', 0)
+            # template = cv2.imread(f'./img/assets/templates/role/{card_code}.png', 0)
+
+            if the_standard == 'hoyolab_arena':
+                template = cv2.resize(cv2.imread(f'./img/assets/templates/roles_arena/{card_code}.png', 0), (0, 0),
+                                      fx=resize_ratio, fy=resize_ratio)
+
+            # template = cv2.imread(f'./img/assets/templates/action/{card_code}.png', 0)
+
+            h, w = template.shape
+
+            method = cv2.TM_CCOEFF_NORMED
+
+            result = cv2.matchTemplate(img2, template, method)
+            if match_rate == 0:
+                yloc, xloc = np.where(result >= .85)
+            else:
+                yloc, xloc = np.where(result >= match_rate_role / 100)
+
+            min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
+            match_percent = str(int(float("%.2f" % round(max_val, 2)) * 100))
+
+            rectangles = []
+            match_percent_arr = []
+            for (x, y) in zip(xloc, yloc):
+                rectangles.append([int(x), int(y), int(w), int(h)])
+                rectangles.append([int(x), int(y), int(w), int(h)])
+                match_percent_arr.append([[int(x), int(y), int(w), int(h)], match_percent])
+
+            rectangles, weights = cv2.groupRectangles(rectangles, 1, 0.2)
+
+            if len(rectangles) > 0:
+                # print(f"{card_code} -- {card_name} -- {len(rectangles)}")
+                # [132: -947, 268: -291]
+                # 50, -1095, 140, -140
+                # 40, -980, 120, -120
+                # 170, -960, 450, -210
+                for (x, y, w, h) in rectangles:
+
+                    if card_code in role_card_codes:
+                        continue
+
+                    if the_standard == 'hoyolab_arena':
+                        modifier = 1
+
+                    for arr in match_percent_arr:
+                        if arr[0] == [x, y, w, h]:
+                            match_percent = arr[1]
+                    if the_standard == 'hoyolab_arena':
+                        x += int(450 * resize_ratio)
+                        y += int(170 * resize_ratio)
+
+                    step = int(15 * resize_ratio)
+                    cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 255), 2)
+
+                    x += int(10 * resize_ratio)
+                    y += int(30 * resize_ratio)
+                    if len(card_name) > 9:
+                        y -= step
+
+                        card_name_splited = card_name.split()
+                        if len(card_name.split()) == 1:
+                            if len(card_name.split('-')) > 1:
+                                card_name_splited = card_name.split('-')
+
+                        for card_name_part in card_name_splited:
+                            y = y + step * modifier
+                            cv2.putText(img, card_name_part, (x-5, y), cv2.FONT_HERSHEY_COMPLEX,
+                                        0.5 * resize_ratio * modifier, (255, 255, 255), 1)
+                    else:
+                        cv2.putText(img, card_name, (x - int(8 * resize_ratio), y + int(10 * resize_ratio * modifier)),
+                                    cv2.FONT_HERSHEY_COMPLEX, 0.5 * resize_ratio * modifier, (255, 255, 255), 1)
+
+                    match_percent = str(match_percent) + '%'
+                    cv2.putText(img, match_percent, (x, y + step + int(20 * resize_ratio * modifier)),
+                                cv2.FONT_HERSHEY_COMPLEX, 0.7 * resize_ratio * modifier, (255, 255, 255), 1)
+
+                    role_card_codes.append(card_code)
+
+            # print(f"LEN_ROLE: {len(role_card_codes)}")
+            if len(role_card_codes) >= 3:
+                # print('---BREAK ROLE')
+                break
+
     # 425, -27, 27, -34
     # 380, -27, 25, -30
     if the_standard == 'kkimpact' and match_rate == 0:
@@ -287,7 +397,7 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0, heal_mode=0)
 
         img2 = img_copy[crop_top:crop_bottom, crop_left:crop_right]
 
-    elif the_standard == 'hoyolab' and match_rate == 0:
+    elif the_standard == 'hoyolab' or the_standard == 'hoyolab_arena':
         crop_top = int(400 * resize_ratio)
         crop_bottom = int(-178 * resize_ratio)
         crop_left = int(190 * resize_ratio)
@@ -310,7 +420,7 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0, heal_mode=0)
     for action_card in action_cards:
         card_code = action_card[0]
         card_name = action_card[1]
-        if the_standard == 'hoyolab':
+        if the_standard == 'hoyolab' or the_standard == 'hoyolab_arena':
             card_weight = action_card[5]
         if the_standard == 'kkimpact':
             card_weight = action_card[6]
@@ -318,7 +428,7 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0, heal_mode=0)
         # template = cv2.imread(f'./img/assets/templates/role/{card_code}.png', 0)
         # template = cv2.imread(f'./img/assets/templates/action/{card_code}.png', 0)
 
-        if the_standard == 'hoyolab':
+        if the_standard == 'hoyolab' or the_standard == 'hoyolab_arena':
             template = cv2.resize(cv2.imread(f'./img/assets/templates/action/{card_code}.png', 0), (0, 0), fx=resize_ratio, fy=resize_ratio)
 
         if the_standard == 'kkimpact':
@@ -367,12 +477,12 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0, heal_mode=0)
                 # 425, -27, 27, -34
                 # 380, -27, 25, -30
 
-                if the_standard == 'hoyolab':
+                if the_standard == 'hoyolab' or the_standard == 'hoyolab_arena':
                     modifier = 1
                 if the_standard == 'kkimpact':
                     modifier = 2
 
-                if the_standard == 'hoyolab':
+                if the_standard == 'hoyolab' or the_standard == 'hoyolab_arena':
                     x += int(190 * resize_ratio)
                     y += int(400 * resize_ratio)
 

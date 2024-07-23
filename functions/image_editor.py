@@ -22,20 +22,27 @@ def create_templates_for_recognize(input_folder, output_folder, desired_height, 
 
             cropped_img.save(output_path)
     print("Готово!")
+    print(output_folder)
 
 
 resize_ratio = 1
 # resize_ratio = 0.7
 
-create_templates_for_recognize(
-    input_folder="../img/action_cards_lowest_border",
-    output_folder="../img/assets/templates/kkimpact_actions",
-    desired_height=int(160 * resize_ratio),
-    crop_size=int(8 * resize_ratio)
-)
+# create_templates_for_recognize(
+#     input_folder="../img/action_cards_lowest_border",
+#     output_folder="../img/assets/templates/kkimpact_actions",
+#     desired_height=int(160 * resize_ratio),
+#     crop_size=int(8 * resize_ratio)
+# )
 create_templates_for_recognize(
     input_folder="../img/role_cards_lowest_border",
-    output_folder="../img/assets/templates/kkimpact_roles",
-    desired_height=int(230 * resize_ratio),
-    crop_size=int(10 * resize_ratio)
+    output_folder="../img/assets/templates/roles_arena",
+    desired_height=int(125 * resize_ratio),
+    crop_size=int(8 * resize_ratio)
 )
+# create_templates_for_recognize(
+#     input_folder="../img/role_cards_lowest_border",
+#     output_folder="../img/assets/templates/kkimpact_roles",
+#     desired_height=int(230 * resize_ratio),
+#     crop_size=int(10 * resize_ratio)
+# )
