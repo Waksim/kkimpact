@@ -67,6 +67,7 @@ async def photo_recognition(message: types.Message):
     await message.answer_media_group(media=album_builder.build())
 
     os.remove(debug_photo_path)
+    os.remove(f'./img/assets/decks_img/{image_name}')
     logger.info(deck_code)
 
 
