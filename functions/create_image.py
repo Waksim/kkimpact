@@ -111,7 +111,7 @@ def create_draft_tail_img(stage: int, card_code, filename: str, nickname1=0, nic
         im0 = Image.open(f'./img/draft_tail/temp/{filename}.png').convert("RGBA")
         im1 = Image.open(f'./img/avatars_lowest/{card_code}.png').convert("RGBA")
         if stage == 0:
-            print('in stage 0')
+            # print('in stage 0')
             im0.paste(im1, (260, 58), im1)
             im0.paste(im2, (675, 142), im2)
             # x = 344, y = 142, different = 85
