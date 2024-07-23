@@ -1,4 +1,5 @@
 import os
+import random
 import sqlite3
 
 import numpy as np
@@ -47,13 +48,13 @@ def delete_from_arr(action_cards, role_card_codes):
         if resonance == '0' or resonance in resonances:
             if link_with_char == 0 or link_with_char in role_card_codes:
                 new_list.append(action_card)
-                print(f"{resonances} --- {resonance}")
-                print('OK')
+                # print(f"{resonances} --- {resonance}")
+                # print('OK')
 
     return new_list
 
 
-def recognize_deck_img(image_path, match_rate_role=0, match_rate=0):
+def recognize_deck_img(image_path, match_rate_role=0, match_rate=0, heal_mode=0):
 
     role_card_codes = []
     action_card_codes = []
@@ -66,13 +67,20 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0):
 
     cursor.execute(f"SELECT code, card_name_ru FROM main.role_cards")
     role_cards = cursor.fetchall()
-    cursor.execute(f"SELECT code, card_name_ru, link_with_char, doublecated, resonance, weights "
+    cursor.execute(f"SELECT code, card_name_ru, link_with_char, doublecated, resonance, weights_hoyolab, weights_kkimpact "
                    f"FROM main.cv_weights")
     action_cards = cursor.fetchall()
+
+    if heal_mode == 1:
+        action_cards.reverse()
+    if heal_mode == 2:
+        random.shuffle(action_cards)
+
     # print(f"Изображение №{image}")
 
     img = cv2.imread(f'./img/assets/decks_img/{image_path}', 0)
     # img = cv2.imread(f'./img/assets/decks_img/{image}', 0)
+    # print(f'./img/assets/decks_img/{image_path}')
 
     # cv2.imshow('image', img)
     # cv2.waitKey(0)
@@ -81,33 +89,60 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0):
     print(height, width)
     the_standard = 0
 
-    if 1274 <= int(height) <= 1286 and 934 <= int(width) <= 950:
+    if 1427 <= int(height) <= 1433 and 799 <= int(width) <= 803:
+        # resize_ratio_height = 896/height
+        # resize_ratio_width = 659/width
+        # resize_ratio = round((resize_ratio_height + resize_ratio_width) / 2, 1)
+        resize_ratio = 0.5
+        # resize_ratio = 1
+        the_standard = 'kkimpact'
+        # print('KKIMPACT')
+
+    elif 1274 <= int(height) <= 1286 and 934 <= int(width) <= 950:
         resize_ratio_height = 896/height
         resize_ratio_width = 659/width
         resize_ratio = round((resize_ratio_height + resize_ratio_width) / 2, 1)
         resize_ratio = 0.7
         # resize_ratio = 1
-        the_standard = 1
-        print(resize_ratio)
-        print('Эталон')
+        the_standard = 'hoyolab'
+        # print(resize_ratio)
+        # print('Эталон')
 
-    elif 896 <= int(height) < 1274 and 659 <= int(width) < 934:
-        resize_ratio_height = 896 / height
-        resize_ratio_width = 659 / width
-        resize_ratio = round((resize_ratio_height + resize_ratio_width) / 2, 1)
-        print(resize_ratio)
-        print('Мелкая шелупонь')
-    elif match_rate != 0:
-        resize_ratio = 400 / height
-        print(resize_ratio)
-        print('Фановый режим')
     else:
-        resize_ratio_height = 896 / height
-        resize_ratio_width = 659 / width
-        resize_ratio = round((resize_ratio_height + resize_ratio_width) / 2, 1)
-        print(resize_ratio)
-        print('Нечисть безразмерная')
-        return [0, 0, 0]
+        # 1280 717 0.56015625
+        # 1280 942 0.7359375
+        ratio = width / height
+
+        if 0.7 <= ratio <= 0.75:
+            the_standard = 'hoyolab'
+            print('hoyolab')
+            resize_ratio_height = 896 / height
+            resize_ratio_width = 659 / width
+            resize_ratio = round((resize_ratio_height + resize_ratio_width) / 2, 1)
+            # resize_ratio = resize_ratio_height
+        if 0.5 <= ratio <= 0.6:
+            the_standard = 'kkimpact'
+            print('kkimpact')
+            resize_ratio_height = 715 / height
+            # resize_ratio_width = 400 / width
+            # resize_ratio = round((resize_ratio_height + resize_ratio_width) / 2, 1)
+            # resize_ratio = resize_ratio_height
+            resize_ratio = 0.5
+            print(resize_ratio)
+
+        # print(resize_ratio)
+        # print('Мелкая шелупонь')
+    # elif match_rate != 0:
+    #     resize_ratio = 400 / height
+    #     # print(resize_ratio)
+    #     # print('Фановый режим')
+    # else:
+    #     resize_ratio_height = 896 / height
+    #     resize_ratio_width = 659 / width
+    #     resize_ratio = round((resize_ratio_height + resize_ratio_width) / 2, 1)
+    #     # print(resize_ratio)
+    #     # print('Нечисть безразмерная')
+    #     return [0, 0, 0]
 
     img = cv2.resize(img, (0, 0), fx=resize_ratio, fy=resize_ratio)
     img_copy = img.copy()
@@ -115,10 +150,26 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0):
     height, width = img.shape[:2]
     print(height, width)
 
-    if the_standard and match_rate == 0:
+    # 50, -1095, 140, -140
+    # 40, -980, 120, -120
+    if the_standard == 'kkimpact' and match_rate == 0:
+
+        crop_top = int(40 * resize_ratio)
+        # print('crop_top - ',crop_top)
+        # crop_bottom = int(-1095 * resize_ratio)
+        crop_bottom = int(-980 * resize_ratio)
+        # print('crop_bottom - ',crop_bottom)
+        crop_left = int(120 * resize_ratio)
+        # print('crop_left - ',crop_left)
+        crop_right = int(-120 * resize_ratio)
+        # print('crop_right - ',crop_right)
+
+        img2 = img_copy[crop_top:crop_bottom, crop_left:crop_right]  # обрезать [верх:-низ, слева:-справа
+
+    elif the_standard == 'hoyolab' and match_rate == 0:
 
         crop_top = int(132 * resize_ratio)
-        # print('crop_top - ',crop_top)
+        print('crop_top - ',crop_top)
         crop_bottom = int(-947 * resize_ratio)
         # print('crop_bottom - ',crop_bottom)
         crop_left = int(268 * resize_ratio)
@@ -141,7 +192,14 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0):
 
         # template = cv2.imread(f'./img/assets/templates/role/{card_code}.png', 0)
         # template = cv2.imread(f'./img/assets/templates/role/{card_code}.png', 0)
-        template = cv2.resize(cv2.imread(f'./img/assets/templates/role/{card_code}.png', 0), (0, 0), fx=resize_ratio, fy=resize_ratio)
+
+        if the_standard == 'hoyolab':
+            template = cv2.resize(cv2.imread(f'./img/assets/templates/role/{card_code}.png', 0), (0, 0), fx=resize_ratio, fy=resize_ratio)
+
+        if the_standard == 'kkimpact':
+            template = cv2.resize(cv2.imread(f'./img/assets/templates/kkimpact_roles/{card_code}.png', 0), (0, 0), fx=resize_ratio, fy=resize_ratio)
+
+
         # template = cv2.imread(f'./img/assets/templates/action/{card_code}.png', 0)
 
         h, w = template.shape
@@ -169,17 +227,27 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0):
         if len(rectangles) > 0:
             # print(f"{card_code} -- {card_name} -- {len(rectangles)}")
             # [132: -947, 268: -291]
+            # 50, -1095, 140, -140
+            # 40, -980, 120, -120
             for (x, y, w, h) in rectangles:
 
                 if card_code in role_card_codes:
                     continue
 
+                if the_standard == 'hoyolab':
+                    modifier = 1
+                if the_standard == 'kkimpact':
+                    modifier = 2
+
                 for arr in match_percent_arr:
                     if arr[0] == [x, y, w, h]:
                         match_percent = arr[1]
-                # if stan
-                x += int(268 * resize_ratio)
-                y += int(132 * resize_ratio)
+                if the_standard == 'hoyolab':
+                    x += int(268 * resize_ratio)
+                    y += int(132 * resize_ratio)
+                if the_standard == 'kkimpact':
+                    x += int(120 * resize_ratio)
+                    y += int(40 * resize_ratio)
                 step = int(15 * resize_ratio)
                 cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 255), 2)
 
@@ -194,13 +262,13 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0):
                             card_name_splited = card_name.split('-')
 
                     for card_name_part in card_name_splited:
-                        y = y + step
-                        cv2.putText(img, card_name_part, (x, y), cv2.FONT_HERSHEY_COMPLEX, 0.3 * resize_ratio, (255, 255, 255), 1)
+                        y = y + step * modifier
+                        cv2.putText(img, card_name_part, (x, y), cv2.FONT_HERSHEY_COMPLEX, 0.3 * resize_ratio * modifier, (255, 255, 255), 1)
                 else:
-                    cv2.putText(img, card_name, (x - int(8 * resize_ratio), y + int(10 * resize_ratio)), cv2.FONT_HERSHEY_COMPLEX, 0.5 * resize_ratio, (255, 255, 255), 1)
+                    cv2.putText(img, card_name, (x - int(8 * resize_ratio), y + int(10 * resize_ratio * modifier)), cv2.FONT_HERSHEY_COMPLEX, 0.5 * resize_ratio * modifier, (255, 255, 255), 1)
 
                 match_percent = str(match_percent) + '%'
-                cv2.putText(img, match_percent, (x, y + step + int(20 * resize_ratio)), cv2.FONT_HERSHEY_COMPLEX, 0.7 * resize_ratio, (255, 255, 255), 1)
+                cv2.putText(img, match_percent, (x, y + step + int(20 * resize_ratio * modifier)), cv2.FONT_HERSHEY_COMPLEX, 0.7 * resize_ratio * modifier, (255, 255, 255), 1)
 
                 role_card_codes.append(card_code)
 
@@ -209,7 +277,17 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0):
             # print('---BREAK ROLE')
             break
 
-    if the_standard and match_rate == 0:
+    # 425, -27, 27, -34
+    # 380, -27, 25, -30
+    if the_standard == 'kkimpact' and match_rate == 0:
+        crop_top = int(380 * resize_ratio)
+        crop_bottom = int(-27 * resize_ratio)
+        crop_left = int(25 * resize_ratio)
+        crop_right = int(-30 * resize_ratio)
+
+        img2 = img_copy[crop_top:crop_bottom, crop_left:crop_right]
+
+    elif the_standard == 'hoyolab' and match_rate == 0:
         crop_top = int(400 * resize_ratio)
         crop_bottom = int(-178 * resize_ratio)
         crop_left = int(190 * resize_ratio)
@@ -223,20 +301,29 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0):
     # cv2.imshow('image', img2)
     # cv2.waitKey(0)
 
-    action_cards = delete_from_arr(action_cards, role_card_codes)
-    print(role_card_codes)
-    print(action_cards)
+    # action_cards = delete_from_arr(action_cards, role_card_codes)
+    # print(role_card_codes)
+    # print(action_cards)
 
 
     # img2 = img_copy[400:-178, 190:-215]  # 1280 942, обрезать [верх:-низ, слева:-справа]
     for action_card in action_cards:
         card_code = action_card[0]
         card_name = action_card[1]
-        card_weight = action_card[5]
+        if the_standard == 'hoyolab':
+            card_weight = action_card[5]
+        if the_standard == 'kkimpact':
+            card_weight = action_card[6]
 
         # template = cv2.imread(f'./img/assets/templates/role/{card_code}.png', 0)
         # template = cv2.imread(f'./img/assets/templates/action/{card_code}.png', 0)
-        template = cv2.resize(cv2.imread(f'./img/assets/templates/action/{card_code}.png', 0), (0, 0), fx=resize_ratio, fy=resize_ratio)
+
+        if the_standard == 'hoyolab':
+            template = cv2.resize(cv2.imread(f'./img/assets/templates/action/{card_code}.png', 0), (0, 0), fx=resize_ratio, fy=resize_ratio)
+
+        if the_standard == 'kkimpact':
+            template = cv2.resize(cv2.imread(f'./img/assets/templates/kkimpact_actions/{card_code}.png', 0), (0, 0), fx=resize_ratio, fy=resize_ratio)
+
         # template = cv2.imread(f'./img/assets/templates/action/{card_code}.png', 0)
 
         h, w = template.shape
@@ -262,27 +349,42 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0):
         rectangles, weights = cv2.groupRectangles(rectangles, 1, 0.2)
 
         if len(rectangles) > 0:
-            print(f"{card_code} -- {card_name} -- {len(rectangles)} -- {card_weight}")
+            # print(f"{card_code} -- {card_name} -- {len(rectangles)} -- {card_weight}")
             for (x, y, w, h) in rectangles:
                 original_cords = [x, y, w, h]
                 if cords_in_arr(original_cords, cords_arr):
                     continue
 
                 if action_card_codes.count(card_code) >= 2:
-                    print('Continue')
+                    # print('Continue')
                     continue
 
                 for arr in match_percent_arr:
                     if arr[0] == [x, y, w, h]:
                         match_percent = arr[1]
 
-                x += int(190 * resize_ratio)
-                y += int(400 * resize_ratio)
-                step = int(15 * resize_ratio)
+                # [400:-178, 190:-215]
+                # 425, -27, 27, -34
+                # 380, -27, 25, -30
+
+                if the_standard == 'hoyolab':
+                    modifier = 1
+                if the_standard == 'kkimpact':
+                    modifier = 2
+
+                if the_standard == 'hoyolab':
+                    x += int(190 * resize_ratio)
+                    y += int(400 * resize_ratio)
+
+                if the_standard == 'kkimpact':
+                    x += int(25 * resize_ratio)
+                    y += int(380 * resize_ratio)
+
+                step = int(15 * resize_ratio * modifier)
                 cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 255), 2)
 
                 if len(card_name) > 9:
-                    y += int(10 * resize_ratio)
+                    y += int(10 * resize_ratio * modifier)
                     y -= step
 
                     card_name_splited = card_name.split()
@@ -292,12 +394,12 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0):
 
                     for card_name_part in card_name_splited:
                         y = y + step
-                        cv2.putText(img, card_name_part, (x, y), cv2.FONT_HERSHEY_COMPLEX, 0.3 * resize_ratio, (255, 255, 255), 1)
+                        cv2.putText(img, card_name_part, (x, y), cv2.FONT_HERSHEY_COMPLEX, 0.3 * resize_ratio * modifier, (255, 255, 255), 1)
                 else:
-                    cv2.putText(img, card_name, (x, y + int(10 * resize_ratio)), cv2.FONT_HERSHEY_COMPLEX, 0.3 * resize_ratio, (255, 255, 255), 1)
+                    cv2.putText(img, card_name, (x, y + int(10 * resize_ratio * modifier)), cv2.FONT_HERSHEY_COMPLEX, 0.3 * resize_ratio * modifier, (255, 255, 255), 1)
 
                 match_percent = str(match_percent) + '%'
-                cv2.putText(img, match_percent, (x + int(5 * resize_ratio), y + step + int(15 * resize_ratio)), cv2.FONT_HERSHEY_COMPLEX, 0.5 * resize_ratio, (255, 255, 255), 1)
+                cv2.putText(img, match_percent, (x + int(5 * resize_ratio * modifier), y + step + int(15 * resize_ratio * modifier)), cv2.FONT_HERSHEY_COMPLEX, 0.5 * resize_ratio * modifier, (255, 255, 255), 1)
 
                 action_card_codes.append(card_code)
 
@@ -314,6 +416,15 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0):
             break
 
 
+        # if 1:
+        # if 0:
+        #     if card_code == 311403:
+        #
+        #         print(f'\n\nКарт найдено: {action_card_codes.count(card_code)}')
+        #
+        #         break
+
+# белый двурук, белая кисть, каменное копье, небесная сось
     # break
 
     result_img_path = f'./img/assets/result/{image_path}'

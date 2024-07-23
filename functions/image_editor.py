@@ -28,14 +28,14 @@ resize_ratio = 1
 # resize_ratio = 0.7
 
 create_templates_for_recognize(
-    input_folder="../img/action_cards",
-    output_folder="../img/assets/templates/action",
-    desired_height=int(124 * resize_ratio),
+    input_folder="../img/action_cards_lowest_border",
+    output_folder="../img/assets/templates/kkimpact_actions",
+    desired_height=int(160 * resize_ratio),
     crop_size=int(8 * resize_ratio)
 )
 create_templates_for_recognize(
-    input_folder="../img/role_cards",
-    output_folder="../img/assets/templates/role",
-    desired_height=int(186 * resize_ratio),
+    input_folder="../img/role_cards_lowest_border",
+    output_folder="../img/assets/templates/kkimpact_roles",
+    desired_height=int(230 * resize_ratio),
     crop_size=int(10 * resize_ratio)
 )
