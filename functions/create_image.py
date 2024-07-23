@@ -12,7 +12,7 @@ def create_decks_img(deck_code='', role_cards=[], action_cards=[], path_for_save
         action_cards = r[1]
         resonances = find_resonance(role_cards=role_cards)
     else:
-        role_cards = sorted(role_cards)
+        # role_cards = sorted(role_cards)
         action_cards = sorted(action_cards)
         resonances = find_resonance(role_cards=role_cards)
 

@@ -54,8 +54,22 @@ def delete_from_arr(action_cards, role_card_codes):
     return new_list
 
 
+def sort_role_cards(temp_role_card_codes):
+    action_card_codes = []
+
+    temp_role_card_codes.sort(key=lambda card: (card[1]))
+
+    for card_info in temp_role_card_codes:
+        card_code = card_info[0]
+        action_card_codes.append(card_code)
+
+    return action_card_codes
+
+
+
 def recognize_deck_img(image_path, match_rate_role=0, match_rate=0, heal_mode=0):
 
+    temp_role_card_codes = []
     role_card_codes = []
     action_card_codes = []
 
@@ -239,6 +253,8 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0, heal_mode=0)
                 if the_standard == 'kkimpact':
                     modifier = 2
 
+                default_x = x
+
                 for arr in match_percent_arr:
                     if arr[0] == [x, y, w, h]:
                         match_percent = arr[1]
@@ -270,12 +286,14 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0, heal_mode=0)
                 match_percent = str(match_percent) + '%'
                 cv2.putText(img, match_percent, (x, y + step + int(20 * resize_ratio * modifier)), cv2.FONT_HERSHEY_COMPLEX, 0.7 * resize_ratio * modifier, (255, 255, 255), 1)
 
-                role_card_codes.append(card_code)
+                temp_role_card_codes.append([card_code, default_x])
 
         # print(f"LEN_ROLE: {len(role_card_codes)}")
-        if len(role_card_codes) >= 3:
+        if len(temp_role_card_codes) >= 3:
             # print('---BREAK ROLE')
             break
+
+    role_card_codes = sort_role_cards(temp_role_card_codes)
 
     # ARENA
     # 170, -960, 450, -210
@@ -348,6 +366,8 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0, heal_mode=0)
                     if the_standard == 'hoyolab_arena':
                         modifier = 1
 
+                    default_x = x
+
                     for arr in match_percent_arr:
                         if arr[0] == [x, y, w, h]:
                             match_percent = arr[1]
@@ -380,12 +400,16 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0, heal_mode=0)
                     cv2.putText(img, match_percent, (x, y + step + int(20 * resize_ratio * modifier)),
                                 cv2.FONT_HERSHEY_COMPLEX, 0.7 * resize_ratio * modifier, (255, 255, 255), 1)
 
-                    role_card_codes.append(card_code)
+                    temp_role_card_codes.append([card_code, default_x])
 
             # print(f"LEN_ROLE: {len(role_card_codes)}")
-            if len(role_card_codes) >= 3:
+            if len(temp_role_card_codes) >= 3:
                 # print('---BREAK ROLE')
                 break
+
+    # print(temp_role_card_codes)
+    role_card_codes = sort_role_cards(temp_role_card_codes)
+    # print(role_card_codes)
 
     # 425, -27, 27, -34
     # 380, -27, 25, -30
