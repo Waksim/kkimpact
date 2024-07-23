@@ -61,6 +61,7 @@ async def decoding_code(message: Message):
     await message.answer_media_group(media=album_builder.build())
 
     os.remove(debug_photo_path)
+    logger.info(deck_code)
 
 
 @group.message(Command("kk", "Kk", "kK", "KK", "кк", "Кк", "кК", "КК"))
