@@ -21,7 +21,7 @@ data = json.load(f)
 # type_of_cards = 'role_cards'
 type_of_cards = 'action_cards'
 
-sqlite_connection = sqlite3.connect('../tcgCodes.sqlite')
+sqlite_connection = sqlite3.connect('./tcgCodes.sqlite')
 cursor = sqlite_connection.cursor()
 
 

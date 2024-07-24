@@ -1,4 +1,4 @@
-# from PIL import Image, ImageOps
+from PIL import Image, ImageOps
 # import io
 # from aiogram.types import BufferedInputFile
 # import sqlite3

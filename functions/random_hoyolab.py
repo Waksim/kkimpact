@@ -7,7 +7,7 @@ import random
 
 def get_random_code_from_hoyolab(table_lang):
 
-    sqlite_connection = sqlite3.connect('../tcgCodes.sqlite')
+    sqlite_connection = sqlite3.connect('./tcgCodes.sqlite')
     cursor = sqlite_connection.cursor()
 
     cursor.execute(f'SELECT * FROM {table_lang} ORDER BY RANDOM() LIMIT 1;')

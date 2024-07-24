@@ -4,6 +4,14 @@
 
 .idea
 *__pycache__*
-tcgCodes.sqlite
 venv
 .DS_Store
+settings.toml
+!/setup/users_info.sqlite
+!/setup/.secrets.toml
+users_info.sqlite
+telegram_bot.log
+test.py
+/img/assets/decks_img/
+/img/assets/decks_img_data/
+/img/assets/result/

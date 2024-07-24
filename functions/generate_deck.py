@@ -4,7 +4,7 @@ import random
 
 
 def get_random_code(card_name_lang):
-    sqlite_connection = sqlite3.connect('../tcgCodes.sqlite')
+    sqlite_connection = sqlite3.connect('./tcgCodes.sqlite')
     cursor = sqlite_connection.cursor()
 
     cursor.execute(f"SELECT id, code, element, {card_name_lang} FROM main.role_cards")
