@@ -10,7 +10,7 @@ from playwright.sync_api import Playwright, sync_playwright
 
 
 def run(playwright: Playwright) -> None:
-    sqlite_connection = sqlite3.connect('../tcgCodes.sqlite')
+    sqlite_connection = sqlite3.connect('./tcgCodes.sqlite')
     cursor = sqlite_connection.cursor()
 
     browser = playwright.chromium.launch(headless=False)

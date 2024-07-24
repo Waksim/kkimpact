@@ -8,6 +8,9 @@ from loguru import logger
 
 from aiogram import Bot, Dispatcher, types, BaseMiddleware, html
 from aiogram.filters.command import Command
+
+from filters.chat_type import ChatTypeFilter
+from handlers.group import group
 from handlers.cn import cn
 from handlers.drafts_tail import drafts_tail
 from handlers.eng import eng
@@ -29,15 +32,15 @@ from keyboards.ua import kb_main_ua
 from config import settings
 
 logging.basicConfig(level=logging.INFO)
-logger.add('../telegram_bot.log', level='DEBUG', format="{time:MMM-DD – HH:mm:ss} – {message}", rotation="100 MB",
+logger.add('./telegram_bot.log', level='DEBUG', format="{time:MMM-DD – HH:mm:ss} – {message}", rotation="100 MB",
            enqueue=True)
 logger.info("---START_BOT---")
 
-bot = Bot(token=settings.bot_token)   # TEST
-# bot = Bot(token="<TOKEN_MAIN>")   # MAIN
+bot = Bot(token=settings.bot_token)     # settings.toml
+
 dp = Dispatcher()
-dp.include_routers(ru, eng, ua, cn, drafts_tail, admin, others)
-# dp.include_routers(others, ru, eng, ua, cn, drafts_tail, admin)
+# dp.include_routers(ru, eng, ua, cn, drafts_tail, admin, others)
+dp.include_routers(group, ru, eng, ua, cn, drafts_tail, admin, others)
 
 
 class ChatActionMiddleware(BaseMiddleware):
@@ -61,12 +64,13 @@ class ChatActionMiddleware(BaseMiddleware):
             return await handler(event, data)
 
 
-@dp.message(Command("start", "choose_lang"))
+@dp.message(ChatTypeFilter(chat_type=["private"]),
+            Command("start", "choose_lang"))
 async def cmd_start(message: types.Message):
     await bot.send_chat_action(chat_id=message.from_user.id, action="typing")
     logger.info(f"@{message.from_user.username} – '{message.text}'")
 
-    sqlite_connection = sqlite3.connect('../tcgCodes.sqlite')
+    sqlite_connection = sqlite3.connect('./users_info.sqlite')
     cursor = sqlite_connection.cursor()
 
     tg_id = message.from_user.id
@@ -91,11 +95,12 @@ async def cmd_start(message: types.Message):
 
 # ____________________________________________________________________
 
-@ru.message(Command("menu"))
+@ru.message(ChatTypeFilter(chat_type=["private"]),
+            Command("menu"))
 async def menu(message: types.Message):
     user_id = message.from_user.id
 
-    sqlite_connection = sqlite3.connect('../tcgCodes.sqlite')
+    sqlite_connection = sqlite3.connect('./users_info.sqlite')
     cursor = sqlite_connection.cursor()
     cursor.execute("SELECT preferens FROM telegram_users where tg_id = ?;", (user_id,))
     preference = cursor.fetchall()[0][0]
