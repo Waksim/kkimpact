@@ -143,6 +143,7 @@ async def decoding_code(message: Message):
     os.remove(debug_photo_path)
     os.remove(f'./img/assets/decks_img/{image_name}')
     logger.info(deck_code)
+
     try:
         await bot.delete_message(message.chat.id, message.message_id)
 
@@ -298,14 +299,20 @@ async def decoding_code(message: Message):
 
         if c == 1:
             await message.reply_sticker('CAACAgIAAxkBAAEMdzxmjoaHzm6a5GZ1N6C5ZKbPtOeoCAAC9FgAAgmGeEhYrQGzIHlCKzUE')
-            return
+            # return
         else:
             album_builder.caption = caption_text
             await message.reply_media_group(media=album_builder.build())
-            return
+            # return
 
     if len(result) == 0:
         await message.reply_sticker('CAACAgIAAxkBAAEMdzxmjoaHzm6a5GZ1N6C5ZKbPtOeoCAAC9FgAAgmGeEhYrQGzIHlCKzUE')
-        return
+        # return
+
+    try:
+        await bot.delete_message(message.chat.id, message.message_id)
+
+    except TelegramBadRequest as E:
+        print(E)
 
 
