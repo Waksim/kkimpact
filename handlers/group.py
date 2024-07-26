@@ -64,14 +64,17 @@ async def album_handler(messages: List[types.Message]):
         await bot.download_file(file_path=file_path, destination=f'./img/assets/decks_img/{image_name}')
         file_path_arr.append(f'./img/assets/decks_img/{image_name}')
 
-        debug_photo_path, role_card_codes, action_card_codes = recognize_deck_img(image_name, debug_mode=0)
+        try:
+            debug_photo_path, role_card_codes, action_card_codes = recognize_deck_img(image_name, debug_mode=0)
 
-        deck_code = card_codes_to_deck_code(role_card_codes, action_card_codes)
-        deck_code_arr.append(deck_code)
+            deck_code = card_codes_to_deck_code(role_card_codes, action_card_codes)
+            deck_code_arr.append(deck_code)
 
-        card_names_str = get_card_name_by_card_code(role_card_codes)
-        caption_text += f"{c}. {html.bold(html.quote(card_names_str))}\n" + html.code(html.quote(deck_code)) + "\n\n"
-        c += 1
+            card_names_str = get_card_name_by_card_code(role_card_codes)
+            caption_text += f"{c}. {html.bold(html.quote(card_names_str))}\n" + html.code(html.quote(deck_code)) + "\n\n"
+            c += 1
+        except:
+            continue
 
         # debug_photo = FSInputFile(debug_photo_path)
         photo = create_decks_img(role_cards=role_card_codes, action_cards=action_card_codes)
@@ -84,17 +87,19 @@ async def album_handler(messages: List[types.Message]):
     caption_text += "\n--- %s seconds ---" % (round(time.time() - start_time, 2))
 
     if len(caption_text) < 1000:
-        # print(len(caption_text), "bruh")
         album_builder.caption = caption_text
         await messages[-1].reply_media_group(media=album_builder.build())
     else:
-        # print(len(caption_text), "fiasko")
         await messages[-1].reply_media_group(media=album_builder.build())
         await messages[-1].answer(caption_text, parse_mode=ParseMode.HTML)
 
     # os.remove(debug_photo_path)
     for file_path in file_path_arr:
-        os.remove(file_path)
+        try:
+            os.remove(file_path)
+        except FileNotFoundError:
+            continue
+
     logger.info("\n".join(deck_code_arr))
 
     print("--- %s seconds ---" % (round(time.time() - start_time, 2)))

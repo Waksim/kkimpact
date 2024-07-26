@@ -316,9 +316,8 @@ def recognize_deck_img(image_path, debug_mode=1, match_rate_role=0, match_rate=0
 
     role_card_codes = sort_role_cards(temp_role_card_codes)
 
-    result_img_path = f'./img/assets/result/testt.jpeg'
-
-    cv2.imwrite(result_img_path, img)
+    # result_img_path = f'./img/assets/result/testt.jpeg'
+    # cv2.imwrite(result_img_path, img)
     # ARENA
     # 170, -960, 450, -210
     if len(role_card_codes) == 0:
@@ -626,9 +625,12 @@ def recognize_deck_img(image_path, debug_mode=1, match_rate_role=0, match_rate=0
 # белый двурук, белая кисть, каменное копье, небесная сось
     # break
 
-    result_img_path = f'./img/assets/result/{image_path}'
+    if debug_mode:
+        result_img_path = f'./img/assets/result/{image_path}'
 
-    cv2.imwrite(result_img_path, img)
+        cv2.imwrite(result_img_path, img)
+    else:
+        result_img_path = None
 
     return result_img_path, role_card_codes, action_card_codes
 
