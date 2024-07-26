@@ -38,7 +38,7 @@ others.message.filter(
 async def album_handler(messages: List[types.Message]):
     await bot.send_chat_action(chat_id=messages[-1].from_user.id, action="upload_photo")
     start_time = time.time()
-    logger.info(f"@{messages[-1].from_user.username} – 'ФОТО-ГРУППА'")
+    logger.info(f"@{messages[-1].from_user.username} – 'ФОТО-АЛЬБОМ'")
 
     album_builder = MediaGroupBuilder()
     caption_text = ''
