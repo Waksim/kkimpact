@@ -4,8 +4,10 @@ import re
 import sqlite3
 import time
 from io import BytesIO
+from typing import List
 
 from aiogram.types import BufferedInputFile, InputFile, FSInputFile
+from aiogram_media_group import media_group_handler
 from loguru import logger
 
 from aiogram.enums import ParseMode, ContentType
@@ -31,6 +33,101 @@ others.message.filter(
 )
 
 
+@others.message(F.media_group_id, F.content_type.in_({'photo'}))
+@media_group_handler
+async def album_handler(messages: List[types.Message]):
+    await bot.send_chat_action(chat_id=messages[-1].from_user.id, action="upload_photo")
+    start_time = time.time()
+    logger.info(f"@{messages[-1].from_user.username} – 'ФОТО-ГРУППА'")
+
+    album_builder = MediaGroupBuilder()
+    caption_text = ''
+    c = 1
+    file_path_arr = []
+    deck_code_arr = []
+    print(f"{len(messages)} фото получено")
+    for m in messages:
+        file_id = m.photo[-1].file_id
+        print(file_id)
+
+        file = await bot.get_file(file_id)
+        file_path = file.file_path
+
+        current_time = int(time.time())
+        image_name = f'{str(messages[-1].from_user.id)}_{str(current_time)}.jpg'
+
+        await bot.download_file(file_path=file_path, destination=f'./img/assets/decks_img/{image_name}')
+        file_path_arr.append(f'./img/assets/decks_img/{image_name}')
+
+        debug_photo_path, role_card_codes, action_card_codes = recognize_deck_img(image_name, debug_mode=0)
+
+        deck_code = card_codes_to_deck_code(role_card_codes, action_card_codes)
+        deck_code_arr.append(deck_code)
+
+        card_names_str = get_card_name_by_card_code(role_card_codes)
+        caption_text += f"{c}. {html.bold(html.quote(card_names_str))}\n" + html.code(html.quote(deck_code)) + "\n\n"
+        c += 1
+
+        # debug_photo = FSInputFile(debug_photo_path)
+        photo = create_decks_img(role_cards=role_card_codes, action_cards=action_card_codes)
+        album_builder.add_photo(media=photo, parse_mode=ParseMode.HTML)
+
+        # album_builder.add_photo(media=debug_photo, parse_mode=ParseMode.HTML)
+
+    # await messages[-1].answer_media_group(media=album_builder.build())
+
+    caption_text += "\n--- %s seconds ---" % (round(time.time() - start_time, 2))
+
+    if len(caption_text) < 1000:
+        # print(len(caption_text), "bruh")
+        album_builder.caption = caption_text
+        await messages[-1].reply_media_group(media=album_builder.build())
+    else:
+        # print(len(caption_text), "fiasko")
+        await messages[-1].reply_media_group(media=album_builder.build())
+        await messages[-1].answer(caption_text, parse_mode=ParseMode.HTML)
+
+    # os.remove(debug_photo_path)
+    for file_path in file_path_arr:
+        os.remove(file_path)
+    logger.info("\n".join(deck_code_arr))
+
+    print("--- %s seconds ---" % (round(time.time() - start_time, 2)))
+
+    messages_id = [m.message_id for m in messages]
+
+    await bot.delete_messages(messages[-1].from_user.id, messages_id)
+
+
+
+    # for deck_code in result:
+    #     decrypted_data = decrypt_code(deck_code)
+    #
+    #     if len(decrypted_data[0]) == 0 and len(decrypted_data[1]) == 0:
+    #         continue
+    #
+    #     role_cards = decrypted_data[0]
+    #     action_cards = decrypted_data[1]
+    #
+    #     photo = create_decks_img(role_cards=role_cards, action_cards=action_cards)
+    #
+    #     names_line = get_role_card_names(role_cards=role_cards, lang=preference)
+    #     answer_text = f"{html.bold(html.quote(names_line))}\n" + html.code(html.quote(deck_code))
+    #     caption_text += str(c) + ') ' + answer_text + '\n'
+    #
+    #     album_builder.add_photo(media=photo, parse_mode=ParseMode.HTML)
+    #
+    #     if c == 10:
+    #         break
+    #     c += 1
+    #
+    # if c == 1:
+    #     await messages[-1].reply_sticker('CAACAgIAAxkBAAEMdzxmjoaHzm6a5GZ1N6C5ZKbPtOeoCAAC9FgAAgmGeEhYrQGzIHlCKzUE')
+    # else:
+    #     album_builder.caption = caption_text
+    #     await messages[-1].reply_media_group(media=album_builder.build())
+
+
 @others.message(F.photo)
 async def photo_recognition(message: types.Message):
     await bot.send_chat_action(chat_id=message.from_user.id, action="upload_photo")
@@ -46,15 +143,11 @@ async def photo_recognition(message: types.Message):
 
     album_builder = MediaGroupBuilder()
 
-    # debug_photo_path, role_card_codes, action_card_codes = recognize_deck_img(image_name, 50, 70)
     debug_photo_path, role_card_codes, action_card_codes = recognize_deck_img(image_name)
 
-    # print(role_card_codes, action_card_codes)
     deck_code = card_codes_to_deck_code(role_card_codes, action_card_codes)
 
     card_names_str = get_card_name_by_card_code(role_card_codes)
-    # print(card_names_str)
-    # print(deck_code)
     caption_text = f"{html.bold(html.quote(card_names_str))}\n" + html.code(html.quote(deck_code)) + "\n"
     album_builder.caption = caption_text
 
@@ -250,9 +343,12 @@ async def cmd_start(message: types.Message):
 
         if c == 1:
             await message.reply_sticker('CAACAgIAAxkBAAEMdzxmjoaHzm6a5GZ1N6C5ZKbPtOeoCAAC9FgAAgmGeEhYrQGzIHlCKzUE')
-        else:
+        elif len(caption_text) < 1000:
             album_builder.caption = caption_text
             await message.reply_media_group(media=album_builder.build())
+        else:
+            await message.reply_media_group(media=album_builder.build())
+            await message.answer(caption_text, parse_mode=ParseMode.HTML)
 
     if len(result) == 0:
 

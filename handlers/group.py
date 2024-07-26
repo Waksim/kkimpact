@@ -2,9 +2,13 @@ import os
 import re
 import time
 from datetime import datetime
+from typing import List
+
+from aiogram.exceptions import TelegramBadRequest
+from aiogram_media_group import media_group_handler
 from loguru import logger
 
-from aiogram import Router, Bot, html, F
+from aiogram import Router, Bot, html, F, types
 from aiogram.enums import ParseMode
 from aiogram.filters import Command
 from aiogram.types import Message, FSInputFile
@@ -25,6 +29,82 @@ group = Router()
 group.message.filter(
     ChatTypeFilter(chat_type=["group", "supergroup"])
 )
+
+
+@group.message(F.media_group_id, F.content_type.in_({'photo'}))
+@media_group_handler
+async def album_handler(messages: List[types.Message]):
+    # print(messages[0].caption)
+    caption = [m.caption for m in messages if m.caption is not None][0]
+    # print(caption)
+    if caption not in ["/kk", "/Kk", "/kK", "/KK", "/кк", "/Кк", "/кК", "/КК"]:
+        print('skip')
+        return
+
+    await bot.send_chat_action(chat_id=messages[-1].chat.id, action="upload_photo")
+    start_time = time.time()
+    logger.info(f"@{messages[-1].from_user.username} – 'ФОТО-ГРУППА'")
+
+    album_builder = MediaGroupBuilder()
+    caption_text = ''
+    c = 1
+    file_path_arr = []
+    deck_code_arr = []
+    print(f"{len(messages)} фото получено")
+    for m in messages:
+        file_id = m.photo[-1].file_id
+        print(file_id)
+
+        file = await bot.get_file(file_id)
+        file_path = file.file_path
+
+        current_time = int(time.time())
+        image_name = f'{str(messages[-1].from_user.id)}_{str(current_time)}.jpg'
+
+        await bot.download_file(file_path=file_path, destination=f'./img/assets/decks_img/{image_name}')
+        file_path_arr.append(f'./img/assets/decks_img/{image_name}')
+
+        debug_photo_path, role_card_codes, action_card_codes = recognize_deck_img(image_name, debug_mode=0)
+
+        deck_code = card_codes_to_deck_code(role_card_codes, action_card_codes)
+        deck_code_arr.append(deck_code)
+
+        card_names_str = get_card_name_by_card_code(role_card_codes)
+        caption_text += f"{c}. {html.bold(html.quote(card_names_str))}\n" + html.code(html.quote(deck_code)) + "\n\n"
+        c += 1
+
+        # debug_photo = FSInputFile(debug_photo_path)
+        photo = create_decks_img(role_cards=role_card_codes, action_cards=action_card_codes)
+        album_builder.add_photo(media=photo, parse_mode=ParseMode.HTML)
+
+        # album_builder.add_photo(media=debug_photo, parse_mode=ParseMode.HTML)
+
+    # await messages[-1].answer_media_group(media=album_builder.build())
+
+    caption_text += "\n--- %s seconds ---" % (round(time.time() - start_time, 2))
+
+    if len(caption_text) < 1000:
+        # print(len(caption_text), "bruh")
+        album_builder.caption = caption_text
+        await messages[-1].reply_media_group(media=album_builder.build())
+    else:
+        # print(len(caption_text), "fiasko")
+        await messages[-1].reply_media_group(media=album_builder.build())
+        await messages[-1].answer(caption_text, parse_mode=ParseMode.HTML)
+
+    # os.remove(debug_photo_path)
+    for file_path in file_path_arr:
+        os.remove(file_path)
+    logger.info("\n".join(deck_code_arr))
+
+    print("--- %s seconds ---" % (round(time.time() - start_time, 2)))
+
+    try:
+        messages_id = [m.message_id for m in messages]
+        await bot.delete_messages(messages[-1].chat.id, messages_id)
+
+    except TelegramBadRequest as E:
+        print(E)
 
 
 @group.message(Command("kk", "Kk", "kK", "KK", "кк", "Кк", "кК", "КК"), F.photo)
@@ -63,6 +143,11 @@ async def decoding_code(message: Message):
     os.remove(debug_photo_path)
     os.remove(f'./img/assets/decks_img/{image_name}')
     logger.info(deck_code)
+    try:
+        await bot.delete_message(message.chat.id, message.message_id)
+
+    except TelegramBadRequest as E:
+        print(E)
 
 
 @group.message(Command("kk", "Kk", "kK", "KK", "кк", "Кк", "кК", "КК"))

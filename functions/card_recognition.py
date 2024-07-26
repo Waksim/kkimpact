@@ -66,7 +66,7 @@ def sort_role_cards(temp_role_card_codes):
     return action_card_codes
 
 
-def recognize_deck_img(image_path, match_rate_role=0, match_rate=0, heal_mode=0):
+def recognize_deck_img(image_path, debug_mode=1, match_rate_role=0, match_rate=0, heal_mode=0):
 
     temp_role_card_codes = []
     role_card_codes = []
@@ -99,7 +99,7 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0, heal_mode=0)
     # cv2.waitKey(0)
 
     height, width = img.shape[:2]
-    print(height, width)
+    # print(height, width)
     the_standard = 0
 
     if 1427 <= int(height) <= 1433 and 799 <= int(width) <= 803:
@@ -126,31 +126,31 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0, heal_mode=0)
         # 1280 942 0.7359375
         # 1091 688 0.6306141154903758
         ratio = width / height
-        print(ratio)
+        # print(ratio)
 
         if 0.7 <= ratio <= 0.75:
             the_standard = 'hoyolab'
-            print('hoyolab')
+            # print('hoyolab')
             resize_ratio_height = 896 / height
             resize_ratio_width = 659 / width
             resize_ratio = round((resize_ratio_height + resize_ratio_width) / 2, 1)
-            print(resize_ratio)
+            # print(resize_ratio)
             # resize_ratio = resize_ratio_height
         if 0.5 < ratio < 0.6:
             the_standard = 'kkimpact'
-            print('kkimpact')
+            # print('kkimpact')
             resize_ratio_height = 715 / height
             # resize_ratio_width = 400 / width
             # resize_ratio = round((resize_ratio_height + resize_ratio_width) / 2, 1)
             resize_ratio = resize_ratio_height
             # resize_ratio = 0.5
-            print(resize_ratio)
+            # print(resize_ratio)
         if 0.6 < ratio < 0.65:
             the_standard = 'hoyolab_cropped'
-            print('hoyolab_cropped')
+            # print('hoyolab_cropped')
             resize_ratio_height = 1004 / height
             resize_ratio = resize_ratio_height
-            print(resize_ratio)
+            # print(resize_ratio)
 
     img = cv2.resize(img, (0, 0), fx=resize_ratio, fy=resize_ratio)
     img_copy = img.copy()
@@ -163,7 +163,7 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0, heal_mode=0)
         resize_ratio = 0.9202566452795601
 
     height, width = img.shape[:2]
-    print(height, width)
+    # print(height, width)
 
     # 50, -1095, 140, -140
     # 40, -980, 120, -120
@@ -260,51 +260,52 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0, heal_mode=0)
                 if card_code in role_card_codes:
                     continue
 
-                if the_standard == 'hoyolab' or the_standard == 'hoyolab_cropped':
-                    modifier = 1
-                if the_standard == 'kkimpact':
-                    modifier = 2
-
                 default_x = x
 
-                for arr in match_percent_arr:
-                    if arr[0] == [x, y, w, h]:
-                        match_percent = arr[1]
+                if debug_mode:
+                    if the_standard == 'kkimpact':
+                        modifier = 2
+                    else:
+                        modifier = 1
 
-                # 132, -947, 268, -291
-                if the_standard == 'hoyolab':
-                    x += int(268 * resize_ratio)
-                    y += int(132 * resize_ratio)
-                # 55, -825, 138, -160
-                if the_standard == 'hoyolab_cropped':
-                    x += int(138 * resize_ratio)
-                    y += int(55 * resize_ratio)
-                # 40, -980, 120, -120
-                if the_standard == 'kkimpact':
-                    x += int(120 * resize_ratio)
-                    y += int(40 * resize_ratio)
+                    for arr in match_percent_arr:
+                        if arr[0] == [x, y, w, h]:
+                            match_percent = arr[1]
 
-                step = int(15 * resize_ratio)
-                cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 255), 2)
+                    # 132, -947, 268, -291
+                    if the_standard == 'hoyolab':
+                        x += int(268 * resize_ratio)
+                        y += int(132 * resize_ratio)
+                    # 55, -825, 138, -160
+                    if the_standard == 'hoyolab_cropped':
+                        x += int(138 * resize_ratio)
+                        y += int(55 * resize_ratio)
+                    # 40, -980, 120, -120
+                    if the_standard == 'kkimpact':
+                        x += int(120 * resize_ratio)
+                        y += int(40 * resize_ratio)
 
-                x += int(10 * resize_ratio)
-                y += int(30 * resize_ratio)
-                if len(card_name) > 9:
-                    y -= step
+                    step = int(15 * resize_ratio)
+                    cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 255), 2)
 
-                    card_name_splited = card_name.split()
-                    if len(card_name.split()) == 1:
-                        if len(card_name.split('-')) > 1:
-                            card_name_splited = card_name.split('-')
+                    x += int(10 * resize_ratio)
+                    y += int(30 * resize_ratio)
+                    if len(card_name) > 9:
+                        y -= step
 
-                    for card_name_part in card_name_splited:
-                        y = y + step * modifier
-                        cv2.putText(img, card_name_part, (x, y), cv2.FONT_HERSHEY_COMPLEX, 0.5 * resize_ratio * modifier, (255, 255, 255), 1)
-                else:
-                    cv2.putText(img, card_name, (x - int(8 * resize_ratio), y + int(10 * resize_ratio * modifier)), cv2.FONT_HERSHEY_COMPLEX, 0.5 * resize_ratio * modifier, (255, 255, 255), 1)
+                        card_name_splited = card_name.split()
+                        if len(card_name.split()) == 1:
+                            if len(card_name.split('-')) > 1:
+                                card_name_splited = card_name.split('-')
 
-                match_percent = str(match_percent) + '%'
-                cv2.putText(img, match_percent, (x, y + step + int(20 * resize_ratio * modifier)), cv2.FONT_HERSHEY_COMPLEX, 0.7 * resize_ratio * modifier, (255, 255, 255), 1)
+                        for card_name_part in card_name_splited:
+                            y = y + step * modifier
+                            cv2.putText(img, card_name_part, (x, y), cv2.FONT_HERSHEY_COMPLEX, 0.5 * resize_ratio * modifier, (255, 255, 255), 1)
+                    else:
+                        cv2.putText(img, card_name, (x - int(8 * resize_ratio), y + int(10 * resize_ratio * modifier)), cv2.FONT_HERSHEY_COMPLEX, 0.5 * resize_ratio * modifier, (255, 255, 255), 1)
+
+                    match_percent = str(match_percent) + '%'
+                    cv2.putText(img, match_percent, (x, y + step + int(20 * resize_ratio * modifier)), cv2.FONT_HERSHEY_COMPLEX, 0.7 * resize_ratio * modifier, (255, 255, 255), 1)
 
                 temp_role_card_codes.append([card_code, default_x])
 
@@ -401,50 +402,54 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0, heal_mode=0)
                     if card_code in role_card_codes:
                         continue
 
-                    if the_standard == 'hoyolab_arena':
-                        modifier = 1
-                    if the_standard == 'hoyolab_cropped':
-                        modifier = 1
-
                     default_x = x
 
-                    for arr in match_percent_arr:
-                        if arr[0] == [x, y, w, h]:
-                            match_percent = arr[1]
+                    if debug_mode:
 
-                    # 170, -960, 450, -210
-                    if the_standard == 'hoyolab_arena':
-                        x += int(450 * resize_ratio)
-                        y += int(170 * resize_ratio)
-                    # 90, -785, 305, -75
-                    if the_standard == 'hoyolab_cropped':
-                        x += int(305 * resize_ratio)
-                        y += int(90 * resize_ratio)
+                        if the_standard == 'hoyolab_arena' or the_standard == 'hoyolab_cropped':
+                            modifier = 1
+                        else:
+                            modifier = 1
 
-                    step = int(15 * resize_ratio)
-                    cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 255), 2)
+                        default_x = x
 
-                    x += int(10 * resize_ratio)
-                    y += int(30 * resize_ratio)
-                    if len(card_name) > 9:
-                        y -= step
+                        for arr in match_percent_arr:
+                            if arr[0] == [x, y, w, h]:
+                                match_percent = arr[1]
 
-                        card_name_splited = card_name.split()
-                        if len(card_name.split()) == 1:
-                            if len(card_name.split('-')) > 1:
-                                card_name_splited = card_name.split('-')
+                        # 170, -960, 450, -210
+                        if the_standard == 'hoyolab_arena':
+                            x += int(450 * resize_ratio)
+                            y += int(170 * resize_ratio)
+                        # 90, -785, 305, -75
+                        if the_standard == 'hoyolab_cropped':
+                            x += int(305 * resize_ratio)
+                            y += int(90 * resize_ratio)
 
-                        for card_name_part in card_name_splited:
-                            y = y + step * modifier
-                            cv2.putText(img, card_name_part, (x-5, y), cv2.FONT_HERSHEY_COMPLEX,
-                                        0.5 * resize_ratio * modifier, (255, 255, 255), 1)
-                    else:
-                        cv2.putText(img, card_name, (x - int(8 * resize_ratio), y + int(10 * resize_ratio * modifier)),
-                                    cv2.FONT_HERSHEY_COMPLEX, 0.5 * resize_ratio * modifier, (255, 255, 255), 1)
+                        step = int(15 * resize_ratio)
+                        cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 255), 2)
 
-                    match_percent = str(match_percent) + '%'
-                    cv2.putText(img, match_percent, (x, y + step + int(20 * resize_ratio * modifier)),
-                                cv2.FONT_HERSHEY_COMPLEX, 0.7 * resize_ratio * modifier, (255, 255, 255), 1)
+                        x += int(10 * resize_ratio)
+                        y += int(30 * resize_ratio)
+                        if len(card_name) > 9:
+                            y -= step
+
+                            card_name_splited = card_name.split()
+                            if len(card_name.split()) == 1:
+                                if len(card_name.split('-')) > 1:
+                                    card_name_splited = card_name.split('-')
+
+                            for card_name_part in card_name_splited:
+                                y = y + step * modifier
+                                cv2.putText(img, card_name_part, (x-5, y), cv2.FONT_HERSHEY_COMPLEX,
+                                            0.5 * resize_ratio * modifier, (255, 255, 255), 1)
+                        else:
+                            cv2.putText(img, card_name, (x - int(8 * resize_ratio), y + int(10 * resize_ratio * modifier)),
+                                        cv2.FONT_HERSHEY_COMPLEX, 0.5 * resize_ratio * modifier, (255, 255, 255), 1)
+
+                        match_percent = str(match_percent) + '%'
+                        cv2.putText(img, match_percent, (x, y + step + int(20 * resize_ratio * modifier)),
+                                    cv2.FONT_HERSHEY_COMPLEX, 0.7 * resize_ratio * modifier, (255, 255, 255), 1)
 
                     temp_role_card_codes.append([card_code, default_x])
 
@@ -548,50 +553,52 @@ def recognize_deck_img(image_path, match_rate_role=0, match_rate=0, heal_mode=0)
                     # print('Continue')
                     continue
 
-                for arr in match_percent_arr:
-                    if arr[0] == [x, y, w, h]:
-                        match_percent = arr[1]
+                if debug_mode:
 
-                # 425, -27, 27, -34
+                    for arr in match_percent_arr:
+                        if arr[0] == [x, y, w, h]:
+                            match_percent = arr[1]
 
-                if the_standard == 'hoyolab' or the_standard == 'hoyolab_arena' or the_standard == 'hoyolab_cropped':
-                    modifier = 1
-                if the_standard == 'kkimpact':
-                    modifier = 2
+                    # 425, -27, 27, -34
 
-                # 400, -178, 190, -215
-                if the_standard == 'hoyolab' or the_standard == 'hoyolab_arena':
-                    x += int(190 * resize_ratio)
-                    y += int(400 * resize_ratio)
-                # 328, -60, 60, -86
-                if the_standard == 'hoyolab_cropped':
-                    x += int(60 * resize_ratio)
-                    y += int(328 * resize_ratio)
-                # 380, -27, 25, -30
-                if the_standard == 'kkimpact':
-                    x += int(25 * resize_ratio)
-                    y += int(380 * resize_ratio)
+                    if the_standard == 'kkimpact':
+                        modifier = 2
+                    else:
+                        modifier = 1
 
-                step = int(15 * resize_ratio * modifier)
-                cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 255), 2)
+                    # 400, -178, 190, -215
+                    if the_standard == 'hoyolab' or the_standard == 'hoyolab_arena':
+                        x += int(190 * resize_ratio)
+                        y += int(400 * resize_ratio)
+                    # 328, -60, 60, -86
+                    if the_standard == 'hoyolab_cropped':
+                        x += int(60 * resize_ratio)
+                        y += int(328 * resize_ratio)
+                    # 380, -27, 25, -30
+                    if the_standard == 'kkimpact':
+                        x += int(25 * resize_ratio)
+                        y += int(380 * resize_ratio)
 
-                if len(card_name) > 9:
-                    y += int(10 * resize_ratio * modifier)
-                    y -= step
+                    step = int(15 * resize_ratio * modifier)
+                    cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 255), 2)
 
-                    card_name_splited = card_name.split()
-                    if len(card_name.split()) == 1:
-                        if len(card_name.split('-')) > 1:
-                            card_name_splited = card_name.split('-')
+                    if len(card_name) > 9:
+                        y += int(10 * resize_ratio * modifier)
+                        y -= step
 
-                    for card_name_part in card_name_splited:
-                        y = y + step
-                        cv2.putText(img, card_name_part, (x, y), cv2.FONT_HERSHEY_COMPLEX, 0.3 * resize_ratio * modifier, (255, 255, 255), 1)
-                else:
-                    cv2.putText(img, card_name, (x, y + int(10 * resize_ratio * modifier)), cv2.FONT_HERSHEY_COMPLEX, 0.3 * resize_ratio * modifier, (255, 255, 255), 1)
+                        card_name_splited = card_name.split()
+                        if len(card_name.split()) == 1:
+                            if len(card_name.split('-')) > 1:
+                                card_name_splited = card_name.split('-')
 
-                match_percent = str(match_percent) + '%'
-                cv2.putText(img, match_percent, (x + int(5 * resize_ratio * modifier), y + step + int(15 * resize_ratio * modifier)), cv2.FONT_HERSHEY_COMPLEX, 0.5 * resize_ratio * modifier, (255, 255, 255), 1)
+                        for card_name_part in card_name_splited:
+                            y = y + step
+                            cv2.putText(img, card_name_part, (x, y), cv2.FONT_HERSHEY_COMPLEX, 0.3 * resize_ratio * modifier, (255, 255, 255), 1)
+                    else:
+                        cv2.putText(img, card_name, (x, y + int(10 * resize_ratio * modifier)), cv2.FONT_HERSHEY_COMPLEX, 0.3 * resize_ratio * modifier, (255, 255, 255), 1)
+
+                    match_percent = str(match_percent) + '%'
+                    cv2.putText(img, match_percent, (x + int(5 * resize_ratio * modifier), y + step + int(15 * resize_ratio * modifier)), cv2.FONT_HERSHEY_COMPLEX, 0.5 * resize_ratio * modifier, (255, 255, 255), 1)
 
                 action_card_codes.append(card_code)
 
