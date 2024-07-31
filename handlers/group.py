@@ -162,6 +162,9 @@ async def decoding_code(message: Message):
     logger.info(f"@{message.from_user.username} – '{message.text}'")
 
     arg = message.text.split(" ")
+    if len(arg) == 1:
+        arg = message.text.split("\n")
+
     arg1 = arg[1].lower()
 
     if arg1 == 'random' or arg1 == 'r' or arg1 == 'рандом' or arg1 == 'р':
