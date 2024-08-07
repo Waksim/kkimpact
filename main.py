@@ -39,8 +39,8 @@ logger.info("---START_BOT---")
 bot = Bot(token=settings.bot_token)     # settings.toml
 
 dp = Dispatcher()
-# dp.include_routers(ru, eng, ua, cn, drafts_tail, admin, others)
 dp.include_routers(group, ru, eng, ua, cn, drafts_tail, admin, others)
+# dp.include_routers(group, others, ru, eng, ua, cn, drafts_tail, admin)
 
 
 class ChatActionMiddleware(BaseMiddleware):
