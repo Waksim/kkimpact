@@ -6,7 +6,8 @@ import time
 from io import BytesIO
 from typing import List
 
-from aiogram.types import BufferedInputFile, InputFile, FSInputFile
+from aiogram.types import BufferedInputFile, InputFile, FSInputFile, InlineKeyboardMarkup, InlineKeyboardButton, \
+    WebAppInfo
 from aiogram_media_group import media_group_handler
 from loguru import logger
 
@@ -31,6 +32,20 @@ others = Router()
 others.message.filter(
     ChatTypeFilter(chat_type=["private"])
 )
+
+
+# ____________________________________________________________________
+@others.message(F.text.lower() == "дек-билдер")
+async def cmd_start(message: types.Message):
+    kb_webapp_inline = InlineKeyboardMarkup(row_width=1,
+                                      inline_keyboard=[
+                                          [
+                                              InlineKeyboardButton(text='Изменить',
+                                                                   web_app=WebAppInfo(url=f'https://waksim.github.io/kkimpact_web/'))
+                                          ]
+                                      ])
+
+    await message.answer('Сайт тест.', parse_mode=ParseMode.HTML, reply_markup=kb_webapp_inline)
 
 
 @others.message(F.media_group_id, F.content_type.in_({'photo'}))
