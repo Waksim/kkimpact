@@ -1,12 +1,12 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardButton, InlineKeyboardMarkup
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 # 👥 🤖 🌐 🦊
 kb_ru_main = ReplyKeyboardMarkup(
     keyboard=[
-        [KeyboardButton(text="🦊 Драфты Хвост")],
         [KeyboardButton(text="Сгенерировать деку"), KeyboardButton(text="Дека с Hoyolab")],
         [KeyboardButton(text="Сгенерировать 2"), KeyboardButton(text="2 с Hoyolab")],
         [KeyboardButton(text="Сгенерировать 10"), KeyboardButton(text="10 с Hoyolab")],
+        [KeyboardButton(text="🦊 Драфты Хвост"), KeyboardButton(text="Дек_билдер", web_app=WebAppInfo(url=f'https://waksim.github.io/kkimpact_web/'))]
     ],
     resize_keyboard=True,
     row_width=100,
