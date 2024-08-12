@@ -1,21 +1,14 @@
 import sqlite3
-from datetime import datetime
 
-import content as content
 from aiogram.enums import ParseMode
-from aiogram.utils.media_group import MediaGroupBuilder
 from loguru import logger
-from aiogram.utils.i18n import gettext as _
-from aiogram.utils.i18n import lazy_gettext as __
 
 from aiogram import types, Router, F, Bot, html
 
 from filters.chat_type import ChatTypeFilter
-from functions import random_hoyolab, generate_deck
 from functions.create_image import create_decks_img
 from functions.decryption_of_the_code import decrypt_code
 from functions.get_role_card_names import get_role_card_names
-from keyboards.ru import kb_ru_main
 from config import settings
 
 bot = Bot(token=settings.bot_token)
