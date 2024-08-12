@@ -34,6 +34,20 @@ others.message.filter(
 )
 
 
+# ____________________________________________________________________
+# @others.message(F.text.startswith('😼'))
+# async def cmd_start(message: types.Message):
+#     kb_webapp_inline = InlineKeyboardMarkup(row_width=1,
+#                                       inline_keyboard=[
+#                                           [
+#                                               InlineKeyboardButton(text='Изменить',
+#                                                                    web_app=WebAppInfo(url=f'https://invokationakademy.github.io/gitcg-draft/'))
+#                                           ]
+#                                       ])
+#
+#     await message.answer('Сайт тест.', parse_mode=ParseMode.HTML, reply_markup=kb_webapp_inline)
+
+
 @others.message(F.media_group_id, F.content_type.in_({'photo'}))
 @media_group_handler
 async def album_handler(messages: List[types.Message]):
