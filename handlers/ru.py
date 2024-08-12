@@ -39,12 +39,12 @@ async def cmd_start(message: types.Message):
     cursor.close()
 
     await message.answer_sticker('CAACAgIAAxkBAAELtbNl9Hx92wKQloh3xmrWEiu5Pui-nwACTU4AAmhnoEue0q81egR3KTQE')
-    await message.answer(_("Привет, Картоботик!\n") +
-                         _("1) Я могу создавать рандомные деки, либо брать их с Hoyolab.\n") +
-                         _("Коды колод кликабельны, нажми на них чтобы ") + html.code(
-        _("СКОПИРОВАТЬ")) + _(" (←кликабельно).\n") +
-                         _("2) Можешь отправить мне до 10 кодов-колод за раз, я их расшифрую и пришлю тебе фото и состав.\n\n") +
-                         _("Отправь /start или /choose_lang - если хочешь поменять язык\n")
+    await message.answer("Привет, Картоботик!\n" +
+                         "1) Я могу создавать рандомные деки, либо брать их с Hoyolab.\n" +
+                         "Коды колод кликабельны, нажми на них чтобы " + html.code(
+        "СКОПИРОВАТЬ") + " (←кликабельно).\n" +
+                         "2) Можешь отправить мне до 10 кодов-колод за раз, я их расшифрую и пришлю тебе фото и состав.\n\n" +
+                         "Отправь /start или /choose_lang - если хочешь поменять язык\n"
                          , reply_markup=kb_ru_main, parse_mode=ParseMode.HTML)
 
 
