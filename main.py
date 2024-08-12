@@ -19,6 +19,7 @@ from handlers.ua import ua
 from handlers.others import others
 from handlers.admin import admin
 from common.bot_cmd_list import private_menu
+from handlers.web_app import web_app
 from keyboards.cn import kb_main_cn
 from keyboards.eng import kb_main_eng
 from keyboards.other import start_kb
@@ -39,7 +40,7 @@ logger.info("---START_BOT---")
 bot = Bot(token=settings.bot_token)     # settings.toml
 
 dp = Dispatcher()
-dp.include_routers(group, ru, eng, ua, cn, drafts_tail, admin, others)
+dp.include_routers(group, web_app, ru, eng, ua, cn, drafts_tail, admin, others)
 # dp.include_routers(group, others, ru, eng, ua, cn, drafts_tail, admin)
 
 

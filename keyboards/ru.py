@@ -7,7 +7,7 @@ kb_ru_main = ReplyKeyboardMarkup(
         [KeyboardButton(text="Сгенерировать 2"), KeyboardButton(text="2 с Hoyolab")],
         [KeyboardButton(text="Сгенерировать 10"), KeyboardButton(text="10 с Hoyolab")],
         # [KeyboardButton(text="🦊 Драфты Хвост"), KeyboardButton(text="Дек_билдер", web_app=WebAppInfo(url=f'https://waksim.github.io/kkimpact_web/'))]
-        [KeyboardButton(text="🦊 Драфты Хвост"), KeyboardButton(text="😼 Блеп-Драфты", web_app=WebAppInfo(url=f'https://invokationakademy.github.io/gitcg-draft/'))]
+        [KeyboardButton(text="🦊 Драфты Хвост"), KeyboardButton(text="😼 Блеп-Драфты", web_app=WebAppInfo(url=f'https://waksim.github.io/blep-drafts/'))]
     ],
     resize_keyboard=True,
     row_width=100,
