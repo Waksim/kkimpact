@@ -5,7 +5,7 @@ kb_main_cn = ReplyKeyboardMarkup(
         [KeyboardButton(text="生成随机甲板"), KeyboardButton(text="甲板与Hoyolab")],
         [KeyboardButton(text="生成2"), KeyboardButton(text="2 Hoyolab")],
         [KeyboardButton(text="生成10"), KeyboardButton(text="10 Hoyolab")],
-        [KeyboardButton(text="🦊 Драфты Хвост"), KeyboardButton(text="😼 漏-草稿", web_app=WebAppInfo(url=f'https://invokationakademy.github.io/gitcg-draft/'))]
+        [KeyboardButton(text="🦊 Драфты Хвост"), KeyboardButton(text="😼 漏-草稿", web_app=WebAppInfo(url=f'https://waksim.github.io/blep-drafts/'))]
     ],
     resize_keyboard=True,
     input_field_placeholder="你想要哪套甲板?"
