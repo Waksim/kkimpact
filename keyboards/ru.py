@@ -4,10 +4,10 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 kb_ru_main = ReplyKeyboardMarkup(
     keyboard=[
         [KeyboardButton(text="Сгенерировать деку"), KeyboardButton(text="Дека с Hoyolab")],
-        [KeyboardButton(text="Сгенерировать 2"), KeyboardButton(text="2 с Hoyolab")],
-        [KeyboardButton(text="Сгенерировать 10"), KeyboardButton(text="10 с Hoyolab")],
-        # [KeyboardButton(text="🦊 Драфты Хвост"), KeyboardButton(text="Дек_билдер", web_app=WebAppInfo(url=f'https://waksim.github.io/kkimpact_web/'))]
-        [KeyboardButton(text="🦊 Драфты Хвост"), KeyboardButton(text="😼 Блеп-Драфты", web_app=WebAppInfo(url=f'https://waksim.github.io/blep-drafts/'))]
+        # [KeyboardButton(text="Сгенерировать 2"), KeyboardButton(text="2 с Hoyolab")],
+        # [KeyboardButton(text="Сгенерировать 10"), KeyboardButton(text="10 с Hoyolab")],
+        # [KeyboardButton(text="🦊 Драфты Хвост"), KeyboardButton(text="Дек_билдер", web_app=WebAppInfo(url=f'https://waksim.github.io/blep-drafts/'))]
+        [KeyboardButton(text="🦊 Драфты Хвост"), KeyboardButton(text="😼 Блеп-Драфты")],
     ],
     resize_keyboard=True,
     row_width=100,
@@ -15,12 +15,22 @@ kb_ru_main = ReplyKeyboardMarkup(
 )
 
 
-def kb_draft_queue(users_data, requested_user_id):
+def kb_draft_queue(users_data, requested_user_id, blep=0):
+    if blep:
+        mode = 'b_'
+    else:
+        mode = ''
+
     builder = InlineKeyboardBuilder()
-    builder.add(InlineKeyboardButton(text="<-- Назад", callback_data="go_to_main_menu"))
-    builder.add(InlineKeyboardButton(text="Обновить", callback_data="update_queue_list"))
+
+    builder.add(InlineKeyboardButton(text="<-- Назад", callback_data="b_go_to_main_menu"))
+
+    if blep:
+        builder.add(InlineKeyboardButton(text="СОЛО", web_app=WebAppInfo(url=f'https://waksim.github.io/blep-drafts/')))
+
+    builder.add(InlineKeyboardButton(text="Обновить", callback_data=f"{mode}update_queue_list"))
     builder.add(InlineKeyboardButton(text="↓ Выберите оппонента ↓", callback_data="choose_opponent_alert"))
-    # builder.add(InlineKeyboardButton(text="1) BOT", callback_data="draft_with_bot"))
+
     c = 1
     for user in users_data:
         # user_id, message_id, username, firstname
@@ -29,7 +39,7 @@ def kb_draft_queue(users_data, requested_user_id):
             continue
         firstname = user[3]
         # for i in range(1, 21):
-        builder.button(text=f"{c}) {firstname}", callback_data=f"draft_tail_request={user_id}")
+        builder.button(text=f"{c}) {firstname}", callback_data=f"b_draft_tail_request={user_id}")
         c += 1
     if len(users_data) > 30:
         builder.adjust(2, 1, 2)
@@ -39,23 +49,31 @@ def kb_draft_queue(users_data, requested_user_id):
     return builder.as_markup()
 
 
-def kb_draft_tail_accept_decline(user_id, username):
+def kb_draft_tail_accept_decline(user_id, username, blep=0):
+    if blep:
+        mode = 'b_'
+    else:
+        mode = ''
     return InlineKeyboardMarkup(
         inline_keyboard=[
             [
-                InlineKeyboardButton(text="✅ Принять", callback_data=f"draft_tail_accepted={user_id}={username}"),
-                InlineKeyboardButton(text="❌ Отклонить", callback_data=f"draft_tail_declined={user_id}")
+                InlineKeyboardButton(text="✅ Принять", callback_data=f"{mode}draft_tail_accepted={user_id}={username}"),
+                InlineKeyboardButton(text="❌ Отклонить", callback_data=f"{mode}draft_tail_declined={user_id}")
             ]
         ]
     )
 
 
-def kb_draft_tail_who_win(user_id):
+def kb_draft_tail_who_win(user_id, blep=0):
+    if blep:
+        mode = 'b_'
+    else:
+        mode = ''
     return InlineKeyboardMarkup(
         inline_keyboard=[
             [
-                InlineKeyboardButton(text="🔄 Повторить драфты", callback_data=f"draft_tail_request={user_id}"),
-                InlineKeyboardButton(text="⬅️ В главное меню", callback_data=f"go_to_main_menu")
+                InlineKeyboardButton(text="🔄 Повторить драфты", callback_data=f"{mode}draft_tail_request={user_id}"),
+                InlineKeyboardButton(text="⬅️ В главное меню", callback_data=f"b_go_to_main_menu")
             ]
         ]
     )
@@ -80,4 +98,16 @@ kb_draft_tail = InlineKeyboardMarkup(
                 InlineKeyboardButton(text="ПРАВИЛА", callback_data=f"draft_tail_rules")
             ]
         ]
+    )
+
+
+def kb_start_blep_drafts(your_id, opp_id):
+
+    return ReplyKeyboardMarkup(
+        keyboard=[
+            [KeyboardButton(text="😼 Начать Драфты", web_app=WebAppInfo(url=f'https://waksim.github.io/blep-drafts/?your_id={your_id}&opp_id={opp_id}'))]
+        ],
+        resize_keyboard=True,
+        row_width=100,
+        input_field_placeholder="Начать драфты!"
     )

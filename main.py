@@ -10,6 +10,7 @@ from aiogram import Bot, Dispatcher, types, BaseMiddleware, html
 from aiogram.filters.command import Command
 
 from filters.chat_type import ChatTypeFilter
+from handlers.blep_drafts import blep_drafts
 from handlers.group import group
 from handlers.cn import cn
 from handlers.drafts_tail import drafts_tail
@@ -40,7 +41,7 @@ logger.info("---START_BOT---")
 bot = Bot(token=settings.bot_token)     # settings.toml
 
 dp = Dispatcher()
-dp.include_routers(group, web_app, ru, eng, ua, cn, drafts_tail, admin, others)
+dp.include_routers(group, web_app, ru, eng, ua, cn, drafts_tail, blep_drafts, admin, others)
 # dp.include_routers(group, others, ru, eng, ua, cn, drafts_tail, admin)
 
 
