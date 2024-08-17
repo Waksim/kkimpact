@@ -158,7 +158,7 @@ async def webapp(message: types.Message):
             await message.reply_sticker('CAACAgIAAxkBAAEMdzxmjoaHzm6a5GZ1N6C5ZKbPtOeoCAAC9FgAAgmGeEhYrQGzIHlCKzUE')
             return
 
-        card_codes_to_deck_code(role_cards)
+        card_codes_to_deck_code(role_cards, action_cards)
         sqlite_connection = sqlite3.connect('./users_info.sqlite')
         cursor = sqlite_connection.cursor()
         tg_id = message.from_user.id
