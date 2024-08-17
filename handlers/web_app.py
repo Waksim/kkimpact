@@ -144,7 +144,7 @@ async def webapp(message: types.Message):
         )
         sqlite_connection.commit()
 
-    except json.JSONDecodeError:
+    except:
 
         obj = json.loads(message.web_app_data.data)
         blep_role = obj['chars_List']
