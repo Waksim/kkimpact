@@ -1,0 +1,1246 @@
+[
+    {
+        "code": 311101,
+        "card_name_eng": "Magic Guide"
+    },
+    {
+        "code": 311102,
+        "card_name_eng": "Sacrificial Fragments"
+    },
+    {
+        "code": 311103,
+        "card_name_eng": "Skyward Atlas"
+    },
+    {
+        "code": 311104,
+        "card_name_eng": "A Thousand Floating Dreams"
+    },
+    {
+        "code": 311105,
+        "card_name_eng": "Fruit of Fulfillment"
+    },
+    {
+        "code": 311106,
+        "card_name_eng": "Lost Prayer to the Sacred Winds"
+    },
+    {
+        "code": 311107,
+        "card_name_eng": "Tulaytullah's Remembrance"
+    },
+    {
+        "code": 311108,
+        "card_name_eng": "Tome of the Eternal Flow"
+    },
+    {
+        "code": 311201,
+        "card_name_eng": "Raven Bow"
+    },
+    {
+        "code": 311202,
+        "card_name_eng": "Sacrificial Bow"
+    },
+    {
+        "code": 311203,
+        "card_name_eng": "Skyward Harp"
+    },
+    {
+        "code": 311204,
+        "card_name_eng": "Amos' Bow"
+    },
+    {
+        "code": 311205,
+        "card_name_eng": "Elegy for the End"
+    },
+    {
+        "code": 311206,
+        "card_name_eng": "King's Squire"
+    },
+    {
+        "code": 311301,
+        "card_name_eng": "White Iron Greatsword"
+    },
+    {
+        "code": 311302,
+        "card_name_eng": "Sacrificial Greatsword"
+    },
+    {
+        "code": 311303,
+        "card_name_eng": "Wolf's Gravestone"
+    },
+    {
+        "code": 311304,
+        "card_name_eng": "Skyward Pride"
+    },
+    {
+        "code": 311305,
+        "card_name_eng": "The Bell"
+    },
+    {
+        "code": 311306,
+        "card_name_eng": "Beacon of the Reed Sea"
+    },
+    {
+        "code": 311401,
+        "card_name_eng": "White Tassel"
+    },
+    {
+        "code": 311402,
+        "card_name_eng": "Lithic Spear"
+    },
+    {
+        "code": 311403,
+        "card_name_eng": "Skyward Spine"
+    },
+    {
+        "code": 311404,
+        "card_name_eng": "Vortex Vanquisher"
+    },
+    {
+        "code": 311405,
+        "card_name_eng": "Engulfing Lightning"
+    },
+    {
+        "code": 311406,
+        "card_name_eng": "Moonpiercer"
+    },
+    {
+        "code": 311407,
+        "card_name_eng": "Primordial Jade Winged-Spear"
+    },
+    {
+        "code": 311501,
+        "card_name_eng": "Traveler's Handy Sword"
+    },
+    {
+        "code": 311502,
+        "card_name_eng": "Sacrificial Sword"
+    },
+    {
+        "code": 311503,
+        "card_name_eng": "Aquila Favonia"
+    },
+    {
+        "code": 311504,
+        "card_name_eng": "Skyward Blade"
+    },
+    {
+        "code": 311505,
+        "card_name_eng": "Favonius Sword"
+    },
+    {
+        "code": 311506,
+        "card_name_eng": "Light of Foliar Incision"
+    },
+    {
+        "code": 311507,
+        "card_name_eng": "Sapwood Blade"
+    },
+    {
+        "code": 312001,
+        "card_name_eng": "Adventurer's Bandana"
+    },
+    {
+        "code": 312002,
+        "card_name_eng": "Lucky Dog's Silver Circlet"
+    },
+    {
+        "code": 312003,
+        "card_name_eng": "Traveling Doctor's Handkerchief"
+    },
+    {
+        "code": 312004,
+        "card_name_eng": "Gambler's Earrings"
+    },
+    {
+        "code": 312005,
+        "card_name_eng": "Instructor's Cap"
+    },
+    {
+        "code": 312006,
+        "card_name_eng": "Exile's Circlet"
+    },
+    {
+        "code": 312007,
+        "card_name_eng": "Ornate Kabuto"
+    },
+    {
+        "code": 312008,
+        "card_name_eng": "Emblem of Severed Fate"
+    },
+    {
+        "code": 312009,
+        "card_name_eng": "General's Ancient Helm"
+    },
+    {
+        "code": 312010,
+        "card_name_eng": "Tenacity of the Millelith"
+    },
+    {
+        "code": 312011,
+        "card_name_eng": "Thundering Poise"
+    },
+    {
+        "code": 312012,
+        "card_name_eng": "Vermillion Hereafter"
+    },
+    {
+        "code": 312013,
+        "card_name_eng": "Capricious Visage"
+    },
+    {
+        "code": 312014,
+        "card_name_eng": "Shimenawa's Reminiscence"
+    },
+    {
+        "code": 312015,
+        "card_name_eng": "Crown of Watatsumi"
+    },
+    {
+        "code": 312016,
+        "card_name_eng": "Ocean-Hued Clam"
+    },
+    {
+        "code": 312017,
+        "card_name_eng": "Shadow of the Sand King"
+    },
+    {
+        "code": 312018,
+        "card_name_eng": "Gilded Dreams"
+    },
+    {
+        "code": 312019,
+        "card_name_eng": "Flowing Rings"
+    },
+    {
+        "code": 312020,
+        "card_name_eng": "Echoes of an Offering"
+    },
+    {
+        "code": 312021,
+        "card_name_eng": "Heart of Khvarena's Brilliance"
+    },
+    {
+        "code": 312022,
+        "card_name_eng": "Vourukasha's Glow"
+    },
+    {
+        "code": 312023,
+        "card_name_eng": "Veteran's Visage"
+    },
+    {
+        "code": 312025,
+        "card_name_eng": "Golden Troupe's Reward"
+    },
+    {
+        "code": 312101,
+        "card_name_eng": "Broken Rime's Echo"
+    },
+    {
+        "code": 312102,
+        "card_name_eng": "Blizzard Strayer"
+    },
+    {
+        "code": 312201,
+        "card_name_eng": "Wine-Stained Tricorne"
+    },
+    {
+        "code": 312202,
+        "card_name_eng": "Heart of Depth"
+    },
+    {
+        "code": 312301,
+        "card_name_eng": "Witch's Scorching Hat"
+    },
+    {
+        "code": 312302,
+        "card_name_eng": "Crimson Witch of Flames"
+    },
+    {
+        "code": 312401,
+        "card_name_eng": "Thunder Summoner's Crown"
+    },
+    {
+        "code": 312402,
+        "card_name_eng": "Thundering Fury"
+    },
+    {
+        "code": 312501,
+        "card_name_eng": "Viridescent Venerer's Diadem"
+    },
+    {
+        "code": 312502,
+        "card_name_eng": "Viridescent Venerer"
+    },
+    {
+        "code": 312601,
+        "card_name_eng": "Mask of Solitude Basalt"
+    },
+    {
+        "code": 312602,
+        "card_name_eng": "Archaic Petra"
+    },
+    {
+        "code": 312701,
+        "card_name_eng": "Laurel Coronet"
+    },
+    {
+        "code": 312702,
+        "card_name_eng": "Deepwood Memories"
+    },
+    {
+        "code": 321001,
+        "card_name_eng": "Liyue Harbor Wharf"
+    },
+    {
+        "code": 321002,
+        "card_name_eng": "Knights of Favonius Library"
+    },
+    {
+        "code": 321003,
+        "card_name_eng": "Jade Chamber"
+    },
+    {
+        "code": 321004,
+        "card_name_eng": "Dawn Winery"
+    },
+    {
+        "code": 321005,
+        "card_name_eng": "Wangshu Inn"
+    },
+    {
+        "code": 321006,
+        "card_name_eng": "Favonius Cathedral"
+    },
+    {
+        "code": 321007,
+        "card_name_eng": "Tenshukaku"
+    },
+    {
+        "code": 321008,
+        "card_name_eng": "Grand Narukami Shrine"
+    },
+    {
+        "code": 321009,
+        "card_name_eng": "Sangonomiya Shrine"
+    },
+    {
+        "code": 321010,
+        "card_name_eng": "Sumeru City"
+    },
+    {
+        "code": 321011,
+        "card_name_eng": "Vanarana"
+    },
+    {
+        "code": 321012,
+        "card_name_eng": "Chinju Forest"
+    },
+    {
+        "code": 321013,
+        "card_name_eng": "Golden House"
+    },
+    {
+        "code": 321014,
+        "card_name_eng": "Gandharva Ville"
+    },
+    {
+        "code": 321015,
+        "card_name_eng": "Stormterror's Lair"
+    },
+    {
+        "code": 321016,
+        "card_name_eng": "Weeping Willow of the Lake"
+    },
+    {
+        "code": 321017,
+        "card_name_eng": "Opera Epiclese"
+    },
+    {
+        "code": 321018,
+        "card_name_eng": "Fortress of Meropide"
+    },
+    {
+        "code": 322001,
+        "card_name_eng": "Paimon"
+    },
+    {
+        "code": 322002,
+        "card_name_eng": "Katheryne"
+    },
+    {
+        "code": 322003,
+        "card_name_eng": "Timaeus"
+    },
+    {
+        "code": 322004,
+        "card_name_eng": "Wagner"
+    },
+    {
+        "code": 322005,
+        "card_name_eng": "Chef Mao"
+    },
+    {
+        "code": 322006,
+        "card_name_eng": "Tubby"
+    },
+    {
+        "code": 322007,
+        "card_name_eng": "Timmie"
+    },
+    {
+        "code": 322008,
+        "card_name_eng": "Liben"
+    },
+    {
+        "code": 322009,
+        "card_name_eng": "Chang the Ninth"
+    },
+    {
+        "code": 322010,
+        "card_name_eng": "Ellin"
+    },
+    {
+        "code": 322011,
+        "card_name_eng": "Iron Tongue Tian"
+    },
+    {
+        "code": 322012,
+        "card_name_eng": "Liu Su"
+    },
+    {
+        "code": 322013,
+        "card_name_eng": "Hanachirusato"
+    },
+    {
+        "code": 322014,
+        "card_name_eng": "Kid Kujirai"
+    },
+    {
+        "code": 322015,
+        "card_name_eng": "Xudong"
+    },
+    {
+        "code": 322016,
+        "card_name_eng": "Dunyarzad"
+    },
+    {
+        "code": 322017,
+        "card_name_eng": "Rana"
+    },
+    {
+        "code": 322018,
+        "card_name_eng": "Master Zhang"
+    },
+    {
+        "code": 322019,
+        "card_name_eng": "Setaria"
+    },
+    {
+        "code": 322020,
+        "card_name_eng": "Yayoi Nanatsuki"
+    },
+    {
+        "code": 322021,
+        "card_name_eng": "Mamere"
+    },
+    {
+        "code": 322022,
+        "card_name_eng": "Jeht"
+    },
+    {
+        "code": 322023,
+        "card_name_eng": "Silver and Melus"
+    },
+    {
+        "code": 323001,
+        "card_name_eng": "Parametric Transformer"
+    },
+    {
+        "code": 323002,
+        "card_name_eng": "NRE"
+    },
+    {
+        "code": 323003,
+        "card_name_eng": "Red Feather Fan"
+    },
+    {
+        "code": 323004,
+        "card_name_eng": "Treasure-Seeking Seelie"
+    },
+    {
+        "code": 323005,
+        "card_name_eng": "Seed Dispensary"
+    },
+    {
+        "code": 323006,
+        "card_name_eng": "Memento Lens"
+    },
+    {
+        "code": 323007,
+        "card_name_eng": "Lumenstone Adjuvant"
+    },
+    {
+        "code": 330001,
+        "card_name_eng": "Ancient Courtyard"
+    },
+    {
+        "code": 330002,
+        "card_name_eng": "Covenant of Rock"
+    },
+    {
+        "code": 330003,
+        "card_name_eng": "Joyous Celebration"
+    },
+    {
+        "code": 330004,
+        "card_name_eng": "Fresh Wind of Freedom"
+    },
+    {
+        "code": 330005,
+        "card_name_eng": "In Every House a Stove"
+    },
+    {
+        "code": 330006,
+        "card_name_eng": "Passing of Judgment"
+    },
+    {
+        "code": 330007,
+        "card_name_eng": "Day of Resistance: Moment of Shattered Dreams"
+    },
+    {
+        "code": 332001,
+        "card_name_eng": "The Bestest Travel Companion!"
+    },
+    {
+        "code": 332002,
+        "card_name_eng": "Changing Shifts"
+    },
+    {
+        "code": 332003,
+        "card_name_eng": "Toss-Up"
+    },
+    {
+        "code": 332004,
+        "card_name_eng": "Strategize"
+    },
+    {
+        "code": 332005,
+        "card_name_eng": "I Haven't Lost Yet!"
+    },
+    {
+        "code": 332006,
+        "card_name_eng": "Leave It to Me!"
+    },
+    {
+        "code": 332007,
+        "card_name_eng": "When the Crane Returned"
+    },
+    {
+        "code": 332008,
+        "card_name_eng": "Starsigns"
+    },
+    {
+        "code": 332009,
+        "card_name_eng": "Calx's Arts"
+    },
+    {
+        "code": 332010,
+        "card_name_eng": "Master of Weaponry"
+    },
+    {
+        "code": 332011,
+        "card_name_eng": "Blessing of the Divine Relic's Installation"
+    },
+    {
+        "code": 332012,
+        "card_name_eng": "Quick Knit"
+    },
+    {
+        "code": 332013,
+        "card_name_eng": "Send Off"
+    },
+    {
+        "code": 332014,
+        "card_name_eng": "Guardian's Oath"
+    },
+    {
+        "code": 332017,
+        "card_name_eng": "Plunging Strike"
+    },
+    {
+        "code": 332018,
+        "card_name_eng": "Heavy Strike"
+    },
+    {
+        "code": 332019,
+        "card_name_eng": "The Legend of Vennessa"
+    },
+    {
+        "code": 332020,
+        "card_name_eng": "Friendship Eternal"
+    },
+    {
+        "code": 332021,
+        "card_name_eng": "Rhythm of the Great Dream"
+    },
+    {
+        "code": 332022,
+        "card_name_eng": "Where Is the Unseen Razor?"
+    },
+    {
+        "code": 332023,
+        "card_name_eng": "Pankration!"
+    },
+    {
+        "code": 332024,
+        "card_name_eng": "Lyresong"
+    },
+    {
+        "code": 332025,
+        "card_name_eng": "The Boar Princess"
+    },
+    {
+        "code": 332026,
+        "card_name_eng": "Falls and Fortune"
+    },
+    {
+        "code": 332027,
+        "card_name_eng": "Flickering Four-Leaf Sigil"
+    },
+    {
+        "code": 332028,
+        "card_name_eng": "Machine Assembly Line"
+    },
+    {
+        "code": 332029,
+        "card_name_eng": "Sunyata Flower"
+    },
+    {
+        "code": 332030,
+        "card_name_eng": "Controlled Directional Blast"
+    },
+    {
+        "code": 333001,
+        "card_name_eng": "Jueyun Guoba"
+    },
+    {
+        "code": 333002,
+        "card_name_eng": "Adeptus' Temptation"
+    },
+    {
+        "code": 333003,
+        "card_name_eng": "Lotus Flower Crisp"
+    },
+    {
+        "code": 333004,
+        "card_name_eng": "Northern Smoked Chicken"
+    },
+    {
+        "code": 333005,
+        "card_name_eng": "Sweet Madame"
+    },
+    {
+        "code": 333006,
+        "card_name_eng": "Mondstadt Hash Brown"
+    },
+    {
+        "code": 333007,
+        "card_name_eng": "Mushroom Pizza"
+    },
+    {
+        "code": 333008,
+        "card_name_eng": "Minty Meat Rolls"
+    },
+    {
+        "code": 333009,
+        "card_name_eng": "Teyvat Fried Egg"
+    },
+    {
+        "code": 333010,
+        "card_name_eng": "Sashimi Platter"
+    },
+    {
+        "code": 333011,
+        "card_name_eng": "Tandoori Roast Chicken"
+    },
+    {
+        "code": 333012,
+        "card_name_eng": "Butter Crab"
+    },
+    {
+        "code": 333013,
+        "card_name_eng": "Fish and Chips"
+    },
+    {
+        "code": 333014,
+        "card_name_eng": "Matsutake Meat Rolls"
+    },
+    {
+        "code": 211011,
+        "card_name_eng": "Undivided Heart"
+    },
+    {
+        "code": 211021,
+        "card_name_eng": "Shaken"
+    },
+    {
+        "code": 211031,
+        "card_name_eng": "Cold-Blooded Strike"
+    },
+    {
+        "code": 211041,
+        "card_name_eng": "Steady Breathing"
+    },
+    {
+        "code": 211051,
+        "card_name_eng": "Kanten Senmyou Blessing"
+    },
+    {
+        "code": 211061,
+        "card_name_eng": "Wellspring of War-Lust"
+    },
+    {
+        "code": 211071,
+        "card_name_eng": "Mystical Abandon"
+    },
+    {
+        "code": 211081,
+        "card_name_eng": "Rite of Resurrection"
+    },
+    {
+        "code": 211091,
+        "card_name_eng": "Light's Remit"
+    },
+    {
+        "code": 211101,
+        "card_name_eng": "A Summation of Interest"
+    },
+    {
+        "code": 212011,
+        "card_name_eng": "Glorious Season"
+    },
+    {
+        "code": 212021,
+        "card_name_eng": "The Scent Remained"
+    },
+    {
+        "code": 212031,
+        "card_name_eng": "Prophecy of Submersion"
+    },
+    {
+        "code": 212041,
+        "card_name_eng": "Abyssal Mayhem: Hydrospout"
+    },
+    {
+        "code": 212051,
+        "card_name_eng": "Tamakushi Casket"
+    },
+    {
+        "code": 212061,
+        "card_name_eng": "Kyouka Fuushi"
+    },
+    {
+        "code": 212071,
+        "card_name_eng": "The Overflow"
+    },
+    {
+        "code": 212081,
+        "card_name_eng": "The Starry Skies Their Flowers Rain"
+    },
+    {
+        "code": 212091,
+        "card_name_eng": "Turn Control"
+    },
+    {
+        "code": 212101,
+        "card_name_eng": "Heir to the Ancient Sea's Authority"
+    },
+    {
+        "code": 213011,
+        "card_name_eng": "Flowing Flame"
+    },
+    {
+        "code": 213021,
+        "card_name_eng": "Crossfire"
+    },
+    {
+        "code": 213031,
+        "card_name_eng": "Grand Expectation"
+    },
+    {
+        "code": 213041,
+        "card_name_eng": "Bunny Triggered"
+    },
+    {
+        "code": 213051,
+        "card_name_eng": "Naganohara Meteor Swarm"
+    },
+    {
+        "code": 213061,
+        "card_name_eng": "Pounding Surprise"
+    },
+    {
+        "code": 213071,
+        "card_name_eng": "Sanguine Rouge"
+    },
+    {
+        "code": 213081,
+        "card_name_eng": "Right of Final Interpretation"
+    },
+    {
+        "code": 213091,
+        "card_name_eng": "Stalwart and True"
+    },
+    {
+        "code": 213101,
+        "card_name_eng": "Conclusive Ovation"
+    },
+    {
+        "code": 213111,
+        "card_name_eng": "A Subordinate's Skills"
+    },
+    {
+        "code": 214011,
+        "card_name_eng": "Stellar Predator"
+    },
+    {
+        "code": 214021,
+        "card_name_eng": "Awakening"
+    },
+    {
+        "code": 214031,
+        "card_name_eng": "Thundering Penance"
+    },
+    {
+        "code": 214041,
+        "card_name_eng": "Featherfall Judgment"
+    },
+    {
+        "code": 214051,
+        "card_name_eng": "Lightning Storm"
+    },
+    {
+        "code": 214061,
+        "card_name_eng": "Sin of Pride"
+    },
+    {
+        "code": 214071,
+        "card_name_eng": "Wishes Unnumbered"
+    },
+    {
+        "code": 214081,
+        "card_name_eng": "The Shrine's Sacred Shade"
+    },
+    {
+        "code": 214091,
+        "card_name_eng": "Pulsating Witch"
+    },
+    {
+        "code": 214101,
+        "card_name_eng": "Discretionary Supplement"
+    },
+    {
+        "code": 215011,
+        "card_name_eng": "Chaotic Entropy"
+    },
+    {
+        "code": 215021,
+        "card_name_eng": "Lands of Dandelion"
+    },
+    {
+        "code": 215031,
+        "card_name_eng": "Embrace of Winds"
+    },
+    {
+        "code": 215041,
+        "card_name_eng": "Conqueror of Evil: Guardian Yaksha"
+    },
+    {
+        "code": 215051,
+        "card_name_eng": "Poetics of Fuubutsu"
+    },
+    {
+        "code": 215061,
+        "card_name_eng": "Gales of Reverie"
+    },
+    {
+        "code": 215071,
+        "card_name_eng": "Skiving: New and Improved"
+    },
+    {
+        "code": 215081,
+        "card_name_eng": "A Cold Blade Like a Shadow"
+    },
+    {
+        "code": 216011,
+        "card_name_eng": "Strategic Reserve"
+    },
+    {
+        "code": 216021,
+        "card_name_eng": "I Got Your Back"
+    },
+    {
+        "code": 216031,
+        "card_name_eng": "Dominance of Earth"
+    },
+    {
+        "code": 216041,
+        "card_name_eng": "Descent of Divinity"
+    },
+    {
+        "code": 216051,
+        "card_name_eng": "Arataki Ichiban"
+    },
+    {
+        "code": 216061,
+        "card_name_eng": "Rushing Hound: Swift as the Wind"
+    },
+    {
+        "code": 217011,
+        "card_name_eng": "Floral Sidewinder"
+    },
+    {
+        "code": 217021,
+        "card_name_eng": "Keen Sight"
+    },
+    {
+        "code": 217031,
+        "card_name_eng": "The Seed of Stored Knowledge"
+    },
+    {
+        "code": 217041,
+        "card_name_eng": "Beneficent"
+    },
+    {
+        "code": 217051,
+        "card_name_eng": "All Things Are of the Earth"
+    },
+    {
+        "code": 217061,
+        "card_name_eng": "Structuration"
+    },
+    {
+        "code": 217071,
+        "card_name_eng": "Countless Sights to See"
+    },
+    {
+        "code": 221011,
+        "card_name_eng": "Cicin's Cold Glare"
+    },
+    {
+        "code": 221021,
+        "card_name_eng": "Pain for Pain"
+    },
+    {
+        "code": 221031,
+        "card_name_eng": "Sternfrost Prism"
+    },
+    {
+        "code": 222011,
+        "card_name_eng": "Streaming Surge"
+    },
+    {
+        "code": 222021,
+        "card_name_eng": "Mirror Cage"
+    },
+    {
+        "code": 223011,
+        "card_name_eng": "Paid in Full"
+    },
+    {
+        "code": 223021,
+        "card_name_eng": "Embers Rekindled"
+    },
+    {
+        "code": 223031,
+        "card_name_eng": "Scorpocalypse"
+    },
+    {
+        "code": 224011,
+        "card_name_eng": "Absorbing Prism"
+    },
+    {
+        "code": 224021,
+        "card_name_eng": "Grieving Echo"
+    },
+    {
+        "code": 224031,
+        "card_name_eng": "Pearl Solidification"
+    },
+    {
+        "code": 224041,
+        "card_name_eng": "Electro Cicin's Gleam"
+    },
+    {
+        "code": 225011,
+        "card_name_eng": "Transcendent Automaton"
+    },
+    {
+        "code": 225021,
+        "card_name_eng": "Rending Vortex"
+    },
+    {
+        "code": 226011,
+        "card_name_eng": "Stonehide Reforged"
+    },
+    {
+        "code": 226022,
+        "card_name_eng": "Lunar Cycles Unending"
+    },
+    {
+        "code": 227011,
+        "card_name_eng": "Proliferating Spores"
+    },
+    {
+        "code": 331102,
+        "card_name_eng": "Elemental Resonance: Woven Ice"
+    },
+    {
+        "code": 331101,
+        "card_name_eng": "Elemental Resonance: Shattering Ice"
+    },
+    {
+        "code": 331201,
+        "card_name_eng": "Elemental Resonance: Woven Waters"
+    },
+    {
+        "code": 331202,
+        "card_name_eng": "Elemental Resonance: Soothing Water"
+    },
+    {
+        "code": 331301,
+        "card_name_eng": "Elemental Resonance: Woven Flames"
+    },
+    {
+        "code": 331302,
+        "card_name_eng": "Elemental Resonance: Fervent Flames"
+    },
+    {
+        "code": 331401,
+        "card_name_eng": "Elemental Resonance: Woven Thunder"
+    },
+    {
+        "code": 331402,
+        "card_name_eng": "Elemental Resonance: High Voltage"
+    },
+    {
+        "code": 331501,
+        "card_name_eng": "Elemental Resonance: Woven Winds"
+    },
+    {
+        "code": 331502,
+        "card_name_eng": "Elemental Resonance: Impetuous Winds"
+    },
+    {
+        "code": 331601,
+        "card_name_eng": "Elemental Resonance: Woven Stone"
+    },
+    {
+        "code": 331602,
+        "card_name_eng": "Elemental Resonance: Enduring Rock"
+    },
+    {
+        "code": 331701,
+        "card_name_eng": "Elemental Resonance: Woven Weeds"
+    },
+    {
+        "code": 331702,
+        "card_name_eng": "Elemental Resonance: Sprawling Greenery"
+    },
+    {
+        "code": 331801,
+        "card_name_eng": "Wind and Freedom"
+    },
+    {
+        "code": 331802,
+        "card_name_eng": "Stone and Contracts"
+    },
+    {
+        "code": 331803,
+        "card_name_eng": "Thunder and Eternity"
+    },
+    {
+        "code": 331804,
+        "card_name_eng": "Nature and Wisdom"
+    },
+    {
+        "code": 332016,
+        "card_name_eng": "Fatui Conspiracy"
+    },
+    {
+        "code": 332015,
+        "card_name_eng": "Abyssal Summons"
+    },
+    {
+        "code": 214111,
+        "card_name_eng": "To Ward Weakness"
+    },
+    {
+        "code": 215091,
+        "card_name_eng": "The Wondrous Path of Truth"
+    },
+    {
+        "code": 222031,
+        "card_name_eng": "Surging Undercurrent"
+    },
+    {
+        "code": 223041,
+        "card_name_eng": "Molten Mail"
+    },
+    {
+        "code": 311408,
+        "card_name_eng": "Rightful Reward"
+    },
+    {
+        "code": 312027,
+        "card_name_eng": "Amethyst Crown"
+    },
+    {
+        "code": 321019,
+        "card_name_eng": "Seirai Island"
+    },
+    {
+        "code": 322024,
+        "card_name_eng": "Taroumaru"
+    },
+    {
+        "code": 322025,
+        "card_name_eng": "The White Glove and the Fisherman"
+    },
+    {
+        "code": 332031,
+        "card_name_eng": "Underwater Treasure Hunt"
+    },
+    {
+        "code": 333015,
+        "card_name_eng": "Rainbow Macarons"
+    },
+    {
+        "code": 211111,
+        "card_name_eng": "Terror for the Evildoers"
+    },
+    {
+        "code": 212111,
+        "card_name_eng": "\"Hear Me — Let Us Raise the Chalice of Love!\""
+    },
+    {
+        "code": 213121,
+        "card_name_eng": "Rockin' in a Flaming World"
+    },
+    {
+        "code": 216071,
+        "card_name_eng": "Decorous Harmony"
+    },
+    {
+        "code": 217081,
+        "card_name_eng": "The Art of Budgeting"
+    },
+    {
+        "code": 222041,
+        "card_name_eng": "Lightless Feeding"
+    },
+    {
+        "code": 224051,
+        "card_name_eng": "Fatal Fulmination"
+    },
+    {
+        "code": 225031,
+        "card_name_eng": "Deathly Cyclone"
+    },
+    {
+        "code": 227021,
+        "card_name_eng": "A Thousand Young"
+    },
+    {
+        "code": 311109,
+        "card_name_eng": "Cashflow Supervision"
+    },
+    {
+        "code": 311207,
+        "card_name_eng": "End of the Line"
+    },
+    {
+        "code": 311307,
+        "card_name_eng": "Forest Regalia"
+    },
+    {
+        "code": 311508,
+        "card_name_eng": "Splendor of Tranquil Waters"
+    },
+    {
+        "code": 312024,
+        "card_name_eng": "Marechaussee Hunter"
+    },
+    {
+        "code": 312026,
+        "card_name_eng": "Golden Troupe"
+    },
+    {
+        "code": 312028,
+        "card_name_eng": "Flower of Paradise Lost"
+    },
+    {
+        "code": 321020,
+        "card_name_eng": "The Mausoleum of King Deshret"
+    },
+    {
+        "code": 321021,
+        "card_name_eng": "Central Laboratory Ruins"
+    },
+    {
+        "code": 322026,
+        "card_name_eng": "Sir Arthur"
+    },
+    {
+        "code": 323008,
+        "card_name_eng": "Kusava"
+    },
+    {
+        "code": 330008,
+        "card_name_eng": "Vicious Ancient Battle"
+    },
+    {
+        "code": 331805,
+        "card_name_eng": "Water and Justice"
+    },
+    {
+        "code": 332032,
+        "card_name_eng": "Countdown to the Show: 3"
+    },
+    {
+        "code": 213131,
+        "card_name_eng": "Vanguard's Coordinated Tactics"
+    },
+    {
+        "code": 216081,
+        "card_name_eng": "Undisclosed Distribution Channels"
+    },
+    {
+        "code": 221041,
+        "card_name_eng": "Rimeflow Rapier"
+    },
+    {
+        "code": 311308,
+        "card_name_eng": "Ultimate Overlord's Mega Magic Sword"
+    },
+    {
+        "code": 311409,
+        "card_name_eng": "Prospector's Drill"
+    },
+    {
+        "code": 312029,
+        "card_name_eng": "Gladiator's Triumphus"
+    },
+    {
+        "code": 322027,
+        "card_name_eng": "Serene"
+    },
+    {
+        "code": 332036,
+        "card_name_eng": "I'd Rather Lose Money Myself..."
+    },
+    {
+        "code": 332037,
+        "card_name_eng": "Tada!"
+    }
+]
