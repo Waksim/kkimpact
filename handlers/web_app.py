@@ -42,6 +42,12 @@ async def webapp(message: types.Message):
         your_deck_code = card_codes_to_deck_code(your_role_cards, your_action_cards)
 
         cursor.execute(
+            f"UPDATE main.blep_drafts_history SET deck_code = '{your_deck_code}' "
+            f"WHERE user_id = {your_id}"
+        )
+        sqlite_connection.commit()
+
+        cursor.execute(
             f"SELECT deck_code FROM main.blep_drafts_history WHERE user_id = {opp_id} ORDER BY id DESC LIMIT 1"
         )
         r = cursor.fetchall()
@@ -138,11 +144,6 @@ async def webapp(message: types.Message):
 
             await bot.send_photo(chat_id=your_id, photo=photo, caption=answer_text, parse_mode=ParseMode.HTML)
 
-        cursor.execute(
-            f"UPDATE main.blep_drafts_history SET deck_code = '{your_deck_code}' "
-            f"WHERE user_id = {your_id}"
-        )
-        sqlite_connection.commit()
 
     except:
 
