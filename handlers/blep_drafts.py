@@ -287,7 +287,11 @@ async def b_draft_tail_request(callback: types.CallbackQuery):
     sqlite_connection = sqlite3.connect('./users_info.sqlite')
     cursor = sqlite_connection.cursor()
     cursor.execute(f"SELECT requested FROM main.blep_drafts_queue WHERE user_id = {user_id_1}")
-    requested = cursor.fetchall()[0][0]
+    results = cursor.fetchall()
+    if results:
+        requested = results[0][0]
+    else:
+        requested = None
     # print(requested)
     if requested is None:
         # print('is none')
@@ -377,13 +381,15 @@ async def b_draft_tail_accepted(callback: types.CallbackQuery, state: FSMContext
         sqlite_connection.commit()
 
         cursor.execute(f"SELECT message_id FROM main.blep_drafts_queue WHERE user_id = {current_player['user_id']}")
-        msg_id = cursor.fetchall()[0][0]
-        print(msg_id)
-        result: bool = await bot.delete_message(chat_id=current_player['user_id'], message_id=int(msg_id))
-        try:
-            result: bool = await bot.delete_message(chat_id=current_player['user_id'], message_id=msg_id - 1)
-        except TelegramBadRequest:
-            pass
+        results = cursor.fetchall()
+        if results:
+            msg_id = results[0][0]
+            print(msg_id)
+            result: bool = await bot.delete_message(chat_id=current_player['user_id'], message_id=int(msg_id))
+            try:
+                result: bool = await bot.delete_message(chat_id=current_player['user_id'], message_id=msg_id - 1)
+            except TelegramBadRequest:
+                pass
 
         message_obj = await bot.send_message(chat_id=current_player['user_id'],
                                text='Нажми на кнопку "😼 Начать Драфты".\nЕсли меню скрыто - нажмите на иконку с 4мя квадратами',
