@@ -25,11 +25,8 @@ def kb_draft_queue(users_data, requested_user_id, blep=0):
     builder = InlineKeyboardBuilder()
 
     builder.add(InlineKeyboardButton(text="<-- Назад", callback_data="b_go_to_main_menu"))
-
-    if blep:
-        builder.add(InlineKeyboardButton(text="СОЛО", web_app=WebAppInfo(url=f'https://waksim.github.io/blep-drafts/')))
-
     builder.add(InlineKeyboardButton(text="Обновить", callback_data=f"{mode}update_queue_list"))
+
     builder.add(InlineKeyboardButton(text="↓ Выберите оппонента ↓", callback_data="choose_opponent_alert"))
 
     c = 1
@@ -108,7 +105,7 @@ def kb_start_blep_drafts(your_id, opp_id):
         keyboard=[
             [KeyboardButton(text="😼 Начать Драфты", web_app=WebAppInfo(url=f'https://waksim.github.io/blep-drafts/?your_id={your_id}&opp_id={opp_id}'))]
         ],
-        resize_keyboard=True,
-        row_width=100,
+        # resize_keyboard=True,
+        one_time_keyboard=True,
         input_field_placeholder="Начать драфты!"
     )
