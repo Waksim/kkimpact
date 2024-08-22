@@ -67,7 +67,7 @@ async def cmd_start(message: types.Message):
             await message.answer(f"Последние зарегестрированные:\n\n" + last_5_users)
 
 
-@admin.message(Command("stat"))
+@admin.message(Command("stat", 's', 'с', 'ы', 'c'))
 async def cmd_start(message: types.Message):
     await bot.send_chat_action(chat_id=message.from_user.id, action="typing")
     await message.answer(f"Меню администратора:", reply_markup=kb_stat_admin)
