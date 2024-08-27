@@ -1,37 +1,40 @@
-import asyncio
-import logging
-import sqlite3
+import asyncio  # Асинхронное программирование
+import logging  # Логирование
+import sqlite3  # Работа с SQLite
+from typing import Any, Callable, Dict, Awaitable  # Аннотации типов
 
-from aiogram.enums import ParseMode
-from aiogram.types import Message
-from loguru import logger
+from aiogram import Bot, Dispatcher, types, BaseMiddleware, html, F  # Основные компоненты aiogram
+from aiogram.dispatcher.flags import get_flag  # Работа с флагами
+from aiogram.enums import ParseMode  # Режимы парсинга
+from aiogram.filters.command import Command  # Командные фильтры
+from aiogram.types import Message  # Сообщения
+from aiogram.utils.chat_action import ChatActionSender  # Уведомления о действиях в чате
+from aiogram.utils.i18n import I18n, ConstI18nMiddleware  # Интернационализация
+from loguru import logger  # Логирование с помощью loguru
 
-from aiogram import Bot, Dispatcher, types, BaseMiddleware, html
-from aiogram.filters.command import Command
+from config import settings  # Конфигурационные настройки
+from common.bot_cmd_list import private_menu  # Команды бота
+from filters.chat_type import ChatTypeFilter  # Фильтры по типу чата
 
-from filters.chat_type import ChatTypeFilter
-from handlers.blep_drafts import blep_drafts
-from handlers.group import group
-from handlers.cn import cn
-from handlers.drafts_tail import drafts_tail
-from handlers.eng import eng
-from handlers.ru import ru
-from handlers.ua import ua
-from handlers.others import others
-from handlers.admin import admin
-from common.bot_cmd_list import private_menu
-from handlers.web_app import web_app
-from keyboards.cn import kb_main_cn
-from keyboards.eng import kb_main_eng
-from keyboards.other import start_kb
+# Импорты хендлеров
+from handlers.admin import admin  # Административные функции
+from handlers.blep_drafts import blep_drafts  # Черновики для Blep
+from handlers.cn import cn  # Обработка сообщений на китайском
+from handlers.drafts_tail import drafts_tail  # Черновики с хвостами
+from handlers.eng import eng  # Обработка сообщений на английском
+from handlers.group import group  # Обработка групповых сообщений
+from handlers.others import others  # Обработка прочих сообщений
+from handlers.ru import ru  # Обработка сообщений на русском
+from handlers.ua import ua  # Обработка сообщений на украинском
+from handlers.web_app import web_app  # Веб-приложение
 
-from aiogram.dispatcher.flags import get_flag
-from aiogram.utils.chat_action import ChatActionSender
-from typing import Any, Callable, Dict, Awaitable
+# Импорты клавиатур
+from keyboards.cn import kb_main_cn  # Основная клавиатура на китайском
+from keyboards.eng import kb_main_eng  # Основная клавиатура на английском
+from keyboards.other import start_kb  # Клавиатура для старта
+from keyboards.ru import kb_ru_main  # Основная клавиатура на русском
+from keyboards.ua import kb_main_ua  # Основная клавиатура на украинском
 
-from keyboards.ru import kb_ru_main
-from keyboards.ua import kb_main_ua
-from config import settings
 
 logging.basicConfig(level=logging.INFO)
 logger.add('./telegram_bot.log', level='DEBUG', format="{time:MMM-DD – HH:mm:ss} – {message}", rotation="100 MB",
@@ -65,6 +68,16 @@ class ChatActionMiddleware(BaseMiddleware):
         ):
             return await handler(event, data)
 
+
+# ПОЛУЧЕНИЕ ID ИЗОБРАЖЕНИЯ
+# @dp.message(F.photo)
+# async def scan_message(msg: types.Message):
+#     document_id = msg.photo[0].file_id
+#     file_info = await bot.get_file(document_id)
+#     print(f'file_id: {file_info.file_id}')
+#     print(f'file_path: {file_info.file_path}')
+#     print(f'file_size: {file_info.file_size}')
+#     print(f'file_unique_id: {file_info.file_unique_id}')
 
 @dp.message(ChatTypeFilter(chat_type=["private"]),
             Command("start", "choose_lang"))
@@ -142,6 +155,10 @@ async def menu(message: types.Message):
 
 async def main():
     await bot.set_my_commands(commands=private_menu, scope=types.BotCommandScopeAllPrivateChats())
+
+    i18n = I18n(path="locales", default_locale="ru", domain="kkimpact_bot")
+    dp.message.outer_middleware(ConstI18nMiddleware(locale='ru', i18n=i18n))
+
     await dp.start_polling(bot)
 
 
