@@ -80,7 +80,7 @@ async def donations(message: types.Message):
     ]
 
     await message.answer_photo(
-        photo='AgACAgIAAxkBAAIfIWbOKjuwRezCqkLQ1VmUR89G5RqrAAL55DEbNCpwSp8bguA75E90AQADAgADcwADNQQ',
+        photo='AgACAgIAAxkBAAKHaWbOTFQcpFf-6OCvsoHpqXGvLuE7AAIf5DEb8jdxSshKBMpgJC2vAQADAgADcwADNQQ',
         caption=welcome_message,
         parse_mode=ParseMode.HTML,
         reply_markup=InlineKeyboardMarkup(inline_keyboard=keyboard),
