@@ -295,7 +295,7 @@ async def draft_tail_request(callback: types.CallbackQuery):
 
         await bot.send_message(
             chat_id=user_id_2,
-            text=f"Пользователь {firstname_1}, @{username_1}: приглашает вас сыграть в драфты.",
+            text=f"Пользователь {firstname_1}, @{username_1}: приглашает вас сыграть в драфты Хвост.",
             reply_markup=kb_draft_tail_accept_decline(user_id_1, username_1)
         )
         await update_queue()

@@ -38,13 +38,16 @@ def border_and_size(input_folder, output_folder, border_image_path, new_height):
             # Открытие изображения и border.png
             image_path = os.path.join(input_folder, filename)
             image = Image.open(image_path)
-            border = Image.open(border_image_path)
+            if border_image_path != 0:
+                border = Image.open(border_image_path)
 
-            # Изменение размера границы до размера исходного изображения
-            border_resized = border.resize(image.size, Image.Resampling.LANCZOS)
+                # Изменение размера границы до размера исходного изображения
+                border_resized = border.resize(image.size, Image.Resampling.LANCZOS)
 
-            # Наложение border.png на изображение
-            combined_image = Image.alpha_composite(image.convert('RGBA'), border_resized.convert('RGBA'))
+                # Наложение border.png на изображение
+                combined_image = Image.alpha_composite(image.convert('RGBA'), border_resized.convert('RGBA'))
+            else:
+                combined_image = image
 
             # Изменение размера итогового изображения
             width, height = combined_image.size
@@ -130,6 +133,15 @@ def resize_images(input_folder, output_folder, scale):
 #     crop_size=8
 # )
 # print('KK_ACTION карты добавлены!')
+#
+# KK_AVATARS карты
+# border_and_size(
+#     input_folder="../img/refactor/avatar",
+#     output_folder="../img/avatars_lowest",
+#     new_height=300,
+#     border_image_path=0
+# )
+# print('KK_AVATARS карты добавлены!')
 #
 # # ARENA_ROLE карты
 # create_templates_for_recognize(
