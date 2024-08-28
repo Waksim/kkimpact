@@ -27,7 +27,7 @@ def create_templates_for_recognize(input_folder, output_folder, desired_height, 
 
 
 # Наложение рамки и изменение размера
-def border_and_size(input_folder, output_folder, border_image_path, new_width):
+def border_and_size(input_folder, output_folder, border_image_path, new_height):
 
     # Создание папки для результатов, если она не существует
     if not os.path.exists(output_folder):
@@ -49,7 +49,7 @@ def border_and_size(input_folder, output_folder, border_image_path, new_width):
             # Изменение размера итогового изображения
             width, height = combined_image.size
 
-            new_height = int((new_width / width) * height)
+            new_width = int(width * (new_height / height))
             resized_image = combined_image.resize((new_width, new_height), Image.Resampling.LANCZOS)
 
             # Сохранение результата в папку "res_role"
@@ -166,16 +166,16 @@ def resize_images(input_folder, output_folder, scale):
 #     input_folder="../img/refactor/BLEPS",
 #     output_folder="../img/refactor/res_BLEPS_big",
 #     border_image_path='../img/border.png',
-#     new_width=482
+#     new_height=738
 # )
 # print('BLEP_BIG карты добавлены!')
 
-# BLEP_RESIZE карты
-resize_images(
-    input_folder="../img/refactor/res_BLEPS_big_original",
-    output_folder="/Users/mk/PycharmProjects/gitcg-draft/public/assets/",
-    scale=0.5
-)
-print('BLEP_RESIZE карты добавлены!')
+# # BLEP_RESIZE карты
+# resize_images(
+#     input_folder="../img/refactor/res_BLEPS_big_original",
+#     output_folder="/Users/mk/PycharmProjects/gitcg-draft/public/assets/",
+#     scale=0.5
+# )
+# print('BLEP_RESIZE карты добавлены!')
 
 print('- END SCRIPT -')
