@@ -38,7 +38,7 @@ def kb_draft_queue(users_data, requested_user_id, blep=0):
             continue
         firstname = user[3]
         # for i in range(1, 21):
-        builder.button(text=f"{c}) {firstname}", callback_data=f"b_draft_tail_request={user_id}")
+        builder.button(text=f"{c}) {firstname}", callback_data=f"{mode}draft_tail_request={user_id}")
         c += 1
     if len(users_data) > 30:
         builder.adjust(2, 1, 2)

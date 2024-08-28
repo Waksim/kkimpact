@@ -34,6 +34,34 @@ others.message.filter(
 )
 
 
+# @others.message(F.sticker)
+# async def cmd_start(message: types.Message):
+#     sticker_uid = message.sticker.file_unique_id
+#     # print(message.sticker)
+#     sqlite_connection = sqlite3.connect('tcgCodes.sqlite')
+#     cursor = sqlite_connection.cursor()
+#
+#     cursor.execute("SELECT id, card_name_ru FROM main.role_cards WHERE sticker_uid = '0' ")
+#     r = cursor.fetchall()
+#     # print(r)
+#     current_card = r[0]
+#     if len(r) == 1:
+#         next_card = ['-', '-']
+#     else:
+#         next_card = r[1]
+#
+#     cursor.execute("UPDATE main.role_cards SET sticker_uid = ? WHERE id = ?;", (sticker_uid, current_card[0]))
+#     sqlite_connection.commit()
+#     cursor.close()
+#
+#     await message.answer(f"UID стикера: {sticker_uid}\n"
+#                          f"Добавлен стикер: {current_card[1]}, id: {current_card[0]}\n"
+#                          f"Следующая карта: {next_card[1]}, id: {next_card[0]}")
+#
+#
+# # ____________________________________________________________________
+
+
 @others.message(F.media_group_id, F.content_type.in_({'photo'}))
 @media_group_handler
 async def album_handler(messages: List[types.Message]):
@@ -245,3 +273,76 @@ async def deck_code_decoder(message: types.Message):
             'Commands:\n/start\n/choose_lang',
             parse_mode=ParseMode.HTML
         )
+
+
+# ____________________________________________________________________
+
+# @others.message(Command('delete_sticker_pack'))
+# async def cmd_start(message: types.Message):
+#     sticker_name = 'dendro_by_KKImpact_testBOT'
+#     result: bool = await bot.delete_sticker_set(sticker_name)
+#     await message.answer(f"Удален стикерпак: https://t.me/addstickers/{sticker_name}")
+#
+#
+# @others.message(Command('create_sticker_pack'))
+# async def cmd_start(message: types.Message):
+#     # await bot.send_chat_action(chat_id=message.from_user.id, action="typing")
+#     # sticker_id = message.sticker.file_id
+#     sticker_name = 'geo_by_KKImpact_testBOT'
+#     # sticker_pack_info = ''
+#
+#     # time.sleep(10)
+#     stickers_arr = []
+#
+#     sqlite_connection = sqlite3.connect('tcgCodes.sqlite')
+#     cursor = sqlite_connection.cursor()
+#
+#     cursor.execute("SELECT code, element FROM main.role_cards")
+#     codes = cursor.fetchall()
+#
+#     counter = 0
+#
+#     for code in codes:
+#         if counter == 49:
+#             print(counter)
+#             break
+#         element = code[1].split(', ')[0]
+#         if element == 'geo':
+#             stickers_arr.append(types.InputSticker(sticker=types.FSInputFile(f'img/role_cards_stickers/{code[0]}.png'),
+#                                                    emoji_list=['🟢']))
+#             counter += 1
+#
+#     result: bool = await bot.create_new_sticker_set(user_id=message.from_user.id,
+#                                                     name=sticker_name,
+#                                                     title='🌕 GEO 🌕 @KKimpactBOT',
+#                                                     stickers=stickers_arr,
+#                                                     sticker_format='static',
+#                                                     sticker_type='regular'
+#                                                     )
+#
+#     await message.answer(f"Создан стикерпак: https://t.me/addstickers/{sticker_name}")
+
+
+# @others.message(F.sticker)
+# async def cmd_start(message: types.Message):
+#     sticker_uid = message.sticker.file_unique_id
+#     sqlite_connection = sqlite3.connect('tcgCodes.sqlite')
+#     cursor = sqlite_connection.cursor()
+#     result: bool = await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
+#
+#     cursor.execute(f"SELECT card_name_ru FROM main.role_cards WHERE sticker_uid = '{sticker_uid}'")
+#     r = cursor.fetchall()
+#     print(r)
+#     if len(r) == 0:
+#         message_obj = await message.answer(f"Таких не знаю")
+#         print(message_obj)
+#     else:
+#         card_name = r[0][0]
+#
+#         cursor.close()
+#         # await bot.edit_message_text(text=f"Это {card_name}", chat_id=message.chat.id, message_id=message.message_id-1)
+#         message_obj = await message.answer(f"Это {card_name}")
+#         print(message_obj)
+
+
+

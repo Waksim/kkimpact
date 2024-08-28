@@ -218,11 +218,13 @@ async def b_update_queue_list(callback: types.CallbackQuery):
 
 @blep_drafts.callback_query(F.data == "b_go_to_main_menu")
 async def go_to_main_menu(callback: types.CallbackQuery, state: FSMContext):
+
     user_id = callback.from_user.id
     message = callback.message
     message_id = message.message_id
-    result: bool = await bot.delete_message(chat_id=user_id, message_id=message_id)
+
     try:
+        result: bool = await bot.delete_message(chat_id=user_id, message_id=message_id)
         result: bool = await bot.delete_message(chat_id=user_id, message_id=message_id - 1)
     except TelegramBadRequest:
         pass
