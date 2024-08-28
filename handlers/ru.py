@@ -73,7 +73,7 @@ async def donations(message: types.Message):
         + "https://www.donationalerts.com/c/kkimpact\n\n"
         "Ваша поддержка значительно ускорит разработку бота.\n\n"
         "Спасибо за поддержку:\n\n"
-        "..."
+        "• Ореший"
     )
     keyboard = [
         [InlineKeyboardButton(text="<-- Назад", callback_data="b_go_to_main_menu")]
