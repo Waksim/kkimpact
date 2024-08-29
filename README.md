@@ -1,4 +1,7 @@
 # kkimpact
+
+https://t.me/KKimpactBot
+
 # kkimpact
 
 ### Установка зависимостей
