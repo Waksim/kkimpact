@@ -59,7 +59,12 @@ async def album_handler(messages: List[types.Message]):
         file_path = file.file_path
 
         current_time = int(time.time())
-        image_name = f'{str(messages[-1].from_user.id)}_{str(current_time)}.jpg'
+        user_id = messages[-1].from_user.id
+        # if user_id == 382202500:
+        if user_id == 440055388:
+            user_id = "moria"
+
+        image_name = f'{str(user_id)}_{str(current_time)}.jpg'
 
         await bot.download_file(file_path=file_path, destination=f'./img/assets/decks_img/{image_name}')
         file_path_arr.append(f'./img/assets/decks_img/{image_name}')
@@ -121,7 +126,12 @@ async def decoding_code(message: Message):
     file_path = file.file_path
 
     current_time = int(time.time())
-    image_name = f'{str(message.from_user.id)}_{str(current_time)}.jpg'
+    user_id = message.from_user.id
+    # if user_id == 382202500:
+    if user_id == 440055388:
+        user_id = "moria"
+
+    image_name = f'{str(user_id)}_{str(current_time)}.jpg'
 
     await bot.download_file(file_path=file_path, destination=f'./img/assets/decks_img/{image_name}')
 
@@ -145,8 +155,16 @@ async def decoding_code(message: Message):
 
     await message.answer_media_group(media=album_builder.build())
 
-    os.remove(debug_photo_path)
-    os.remove(f'./img/assets/decks_img/{image_name}')
+    try:
+        os.remove(debug_photo_path)
+    except FileNotFoundError:
+        pass
+
+    try:
+        os.remove(f'./img/assets/decks_img/{image_name}')
+    except FileNotFoundError:
+        pass
+
     logger.info(deck_code)
 
     try:
