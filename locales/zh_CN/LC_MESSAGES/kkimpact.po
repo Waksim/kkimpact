@@ -1,0 +1,55 @@
+# Chinese (Simplified, China) translations for PROJECT.
+# Copyright (C) 2024 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2024-08-02 15:54+0300\n"
+"PO-Revision-Date: 2024-08-30 12:28+0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_Hans_CN\n"
+"Language-Team: zh_Hans_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: test.py:9
+msgid "П"
+msgstr ""
+
+#: handlers/ru.py:42
+msgid "Привет, Картоботик!\n"
+msgstr ""
+
+#: handlers/ru.py:43
+msgid "1) Я могу создавать рандомные деки, либо брать их с Hoyolab.\n"
+msgstr ""
+
+#: handlers/ru.py:44
+msgid "Коды колод кликабельны, нажми на них чтобы "
+msgstr ""
+
+#: handlers/ru.py:45
+msgid "СКОПИРОВАТЬ"
+msgstr ""
+
+#: handlers/ru.py:45
+msgid " (←кликабельно).\n"
+msgstr ""
+
+#: handlers/ru.py:46
+msgid ""
+"2) Можешь отправить мне до 10 кодов-колод за раз, я их расшифрую и пришлю"
+" тебе фото и состав.\n"
+"\n"
+msgstr ""
+
+#: handlers/ru.py:47
+msgid "Отправь /start или /choose_lang - если хочешь поменять язык\n"
+msgstr ""
+

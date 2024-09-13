@@ -83,7 +83,12 @@ async def album_handler(messages: List[types.Message]):
         file_path = file.file_path
 
         current_time = int(time.time())
-        image_name = f'{str(messages[-1].from_user.id)}_{str(current_time)}.jpg'
+        user_id = messages[-1].from_user.id
+        # if user_id == 382202500:
+        if user_id == 440055388:
+            user_id = "moria"
+
+        image_name = f'{str(user_id)}_{str(current_time)}.jpg'
 
         await bot.download_file(file_path=file_path, destination=f'./img/assets/decks_img/{image_name}')
         file_path_arr.append(f'./img/assets/decks_img/{image_name}')
@@ -118,7 +123,11 @@ async def album_handler(messages: List[types.Message]):
         await messages[-1].answer(caption_text, parse_mode=ParseMode.HTML)
 
     for file_path in file_path_arr:
-        os.remove(file_path)
+        try:
+            os.remove(file_path)
+        except FileNotFoundError:
+            continue
+
     logger.info("\n".join(deck_code_arr))
 
     print("--- %s seconds ---" % (round(time.time() - start_time, 2)))
@@ -137,7 +146,12 @@ async def photo_recognition(message: types.Message):
     file_path = file.file_path
 
     current_time = int(time.time())
-    image_name = f'{str(message.from_user.id)}_{str(current_time)}.jpg'
+    user_id = message.from_user.id
+    if user_id == 382202500:
+        # if user_id == 440055388:
+        user_id = "moria"
+
+    image_name = f'{str(user_id)}_{str(current_time)}.jpg'
 
     await bot.download_file(file_path=file_path, destination=f'./img/assets/decks_img/{image_name}')
 
@@ -159,8 +173,16 @@ async def photo_recognition(message: types.Message):
 
     await message.answer_media_group(media=album_builder.build())
 
-    os.remove(debug_photo_path)
-    os.remove(f'./img/assets/decks_img/{image_name}')
+    try:
+        os.remove(debug_photo_path)
+    except FileNotFoundError:
+        pass
+
+    try:
+        os.remove(f'./img/assets/decks_img/{image_name}')
+    except FileNotFoundError:
+        pass
+
     logger.info(deck_code)
 
 

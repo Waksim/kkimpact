@@ -159,7 +159,7 @@ async def main():
     i18n = I18n(path="locales", default_locale="ru", domain="kkimpact_bot")
     dp.message.outer_middleware(ConstI18nMiddleware(locale='ru', i18n=i18n))
 
-    await dp.start_polling(bot)
+    await dp.start_polling(bot, skip_updates=True)
 
 
 if __name__ == "__main__":
