@@ -9,7 +9,7 @@ from aiogram.enums import ParseMode  # Режимы парсинга
 from aiogram.filters.command import Command  # Командные фильтры
 from aiogram.types import Message  # Сообщения
 from aiogram.utils.chat_action import ChatActionSender  # Уведомления о действиях в чате
-from aiogram.utils.i18n import I18n, ConstI18nMiddleware  # Интернационализация
+from aiogram.utils.i18n import I18n, ConstI18nMiddleware, I18nMiddleware  # Интернационализация
 from loguru import logger  # Логирование с помощью loguru
 
 from config import settings  # Конфигурационные настройки
@@ -157,6 +157,7 @@ async def main():
     await bot.set_my_commands(commands=private_menu, scope=types.BotCommandScopeAllPrivateChats())
 
     i18n = I18n(path="locales", default_locale="ru", domain="kkimpact_bot")
+    # GettextMiddleware = I18nMiddleware
     dp.message.outer_middleware(ConstI18nMiddleware(locale='ru', i18n=i18n))
 
     await dp.start_polling(bot, skip_updates=True)
