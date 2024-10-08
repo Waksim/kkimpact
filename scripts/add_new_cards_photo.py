@@ -100,7 +100,7 @@ def resize_images(input_folder, output_folder, scale):
 #     input_folder='../img/refactor/role',
 #     output_folder='../img/role_cards_lowest_border',
 #     border_image_path='../img/border.png',
-#     new_width=151
+#     new_height=258
 # )
 # print('ROLE карты добавлены!')
 #
@@ -109,7 +109,7 @@ def resize_images(input_folder, output_folder, scale):
 #     input_folder='../img/refactor/action',
 #     output_folder='../img/action_cards_lowest_border',
 #     border_image_path='../img/border.png',
-#     new_width=105
+#     new_height=180
 # )
 # print('ACTION карты добавлены!')
 #
