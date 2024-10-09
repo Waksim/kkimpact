@@ -134,7 +134,7 @@ def resize_images(input_folder, output_folder, scale):
 # )
 # print('KK_ACTION карты добавлены!')
 #
-# KK_AVATARS карты
+# # KK_AVATARS карты
 # border_and_size(
 #     input_folder="../img/refactor/avatar",
 #     output_folder="../img/avatars_lowest",
