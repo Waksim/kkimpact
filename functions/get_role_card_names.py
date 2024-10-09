@@ -5,6 +5,9 @@ cursor = sqlite_connection.cursor()
 
 
 def get_role_card_names(role_cards, lang):
+    if len(role_cards) == 0:
+        return "–"
+
     role_card_string = ''
     for role_card in role_cards:
         role_card_string += 'code = ' + str(role_card) + ' OR '

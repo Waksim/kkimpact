@@ -240,6 +240,7 @@ async def deck_code_decoder(message: types.Message):
         photo = create_decks_img(role_cards=role_cards, action_cards=action_cards)
 
         names_line = get_role_card_names(role_cards=role_cards, lang=preference)
+
         answer_text = (f"{html.bold(html.quote(names_line))}\n" +
                        html.code(html.quote(deck_code)))
 
