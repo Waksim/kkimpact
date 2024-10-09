@@ -62,6 +62,8 @@ others.message.filter(
 # # ____________________________________________________________________
 
 
+
+
 @others.message(F.media_group_id, F.content_type.in_({'photo'}))
 @media_group_handler
 async def album_handler(messages: List[types.Message]):
@@ -343,28 +345,6 @@ async def deck_code_decoder(message: types.Message):
 #                                                     )
 #
 #     await message.answer(f"Создан стикерпак: https://t.me/addstickers/{sticker_name}")
-
-
-# @others.message(F.sticker)
-# async def cmd_start(message: types.Message):
-#     sticker_uid = message.sticker.file_unique_id
-#     sqlite_connection = sqlite3.connect('tcgCodes.sqlite')
-#     cursor = sqlite_connection.cursor()
-#     result: bool = await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
-#
-#     cursor.execute(f"SELECT card_name_ru FROM main.role_cards WHERE sticker_uid = '{sticker_uid}'")
-#     r = cursor.fetchall()
-#     print(r)
-#     if len(r) == 0:
-#         message_obj = await message.answer(f"Таких не знаю")
-#         print(message_obj)
-#     else:
-#         card_name = r[0][0]
-#
-#         cursor.close()
-#         # await bot.edit_message_text(text=f"Это {card_name}", chat_id=message.chat.id, message_id=message.message_id-1)
-#         message_obj = await message.answer(f"Это {card_name}")
-#         print(message_obj)
 
 
 
