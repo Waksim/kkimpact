@@ -182,12 +182,12 @@ def resize_images(input_folder, output_folder, scale):
 # )
 # print('BLEP_BIG карты добавлены!')
 
-# # BLEP_RESIZE карты
-# resize_images(
-#     input_folder="../img/refactor/res_BLEPS_big_original",
-#     output_folder="/Users/mk/PycharmProjects/gitcg-draft/public/assets/",
-#     scale=0.5
-# )
-# print('BLEP_RESIZE карты добавлены!')
+# BLEP_RESIZE карты
+resize_images(
+    input_folder="../img/refactor/res_BLEPS_big_original",
+    output_folder="/Users/mk/PycharmProjects/gitcg-draft/public/assets/",
+    scale=0.45
+)
+print('BLEP_RESIZE карты добавлены!')
 
 print('- END SCRIPT -')
