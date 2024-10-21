@@ -192,6 +192,83 @@ async def photo_recognition(message: types.Message):
     # await message.answer(str(role_cards, action_cards), parse_mode=ParseMode.HTML)
 
 
+@others.message(Command("kk", "Kk", "kK", "KK", "кк", "Кк", "кК", "КК"))
+async def decoding_code(message: types.Message):
+    await bot.send_chat_action(chat_id=message.chat.id, action="typing")
+    logger.info(f"@{message.from_user.username} – '{message.text}'")
+
+    arg = message.text.split(" ")
+    print(arg)
+    print(len(arg))
+    if len(arg) == 1:
+        arg = message.text.split("\n")
+
+    if len(arg) >= 2:
+        arg1 = arg[1].lower()
+
+        if arg1 == 'td' or arg1 == 'пд' or arg1 == 'наказание' or arg1 == 'правда действие' or arg1 == 'правда или действие' or arg1 == 'тд':
+
+            # Подключаемся к базе данных
+            conn = sqlite3.connect('tcgCodes.sqlite')  # Укажите путь к вашей базе данных
+            cursor = conn.cursor()
+
+            if len(arg) == 2:
+                arg2 = 1
+
+            if len(arg) == 3:
+                arg2 = arg[2].lower()
+                print(arg2)
+
+                try:
+                    limit = int(arg2)  # Преобразуем аргумент в целое число
+                except ValueError:
+                    print("Ошибка: аргумент должен быть целым числом.")
+                    await message.answer("Пожалуйста, введите корректное число.")
+                    return
+
+                # Выполняем SQL-запрос для получения случайных строк
+                cursor.execute(f"SELECT * FROM td ORDER BY RANDOM() LIMIT {limit}")
+                rows = cursor.fetchall()
+
+                if limit == 0:
+                    limit = 4
+
+                    # Запрос для получения всех значений из столбца 'text'
+                    cursor.execute(f"SELECT * FROM td ORDER BY RANDOM() LIMIT {limit}")
+                    rows = cursor.fetchall()
+
+                    # Проверяем, что в таблице достаточно данных
+                    if len(rows) < limit:
+                        print("Недостаточно данных в таблице.")
+                    else:
+                        # Выбираем 4 случайных значения
+                        qw = []
+                        for row in rows:
+                            qw.append(row[1])
+
+                        caption_text = (
+                                    f"{html.bold('для НЕГО: ')}\n - {qw[0]}\n - {qw[1]}\n" + f"{html.bold('для НЕЕ: ')}\n - {qw[2]}\n - {qw[3]}")
+
+                        await message.answer(caption_text, parse_mode=ParseMode.HTML)
+                    return
+                else:
+                    # Проверяем, что в таблице достаточно данных
+                    if len(rows) < limit:
+                        print("Недостаточно данных в таблице.")
+                        await message.answer("Недостаточно данных в таблице.")
+
+                    # Формируем строку с вопросами
+                    questions = ""
+                    for counter, row in enumerate(rows, start=1):  # Используем enumerate для подсчета
+                        questions += f"{counter}. {row[1]}\n"  # Предполагается, что текст вопроса находится в первом столбце
+
+                    caption_text = f"{html.bold('Вопросы правда или действие: ')}\n{questions}"
+
+                    # Отправляем сообщение с вопросами
+                    await message.answer(caption_text, parse_mode=ParseMode.HTML)
+                    return
+
+
 # ____________________________________________________________________
 @others.message(Command("generate_text_10"))
 async def generate_text_10(message: types.Message):
