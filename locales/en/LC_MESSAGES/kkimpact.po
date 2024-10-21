@@ -24,32 +24,32 @@ msgstr ""
 
 #: handlers/ru.py:42
 msgid "Привет, Картоботик!\n"
-msgstr ""
+msgstr "Hi, TCG player!\n"
 
 #: handlers/ru.py:43
 msgid "1) Я могу создавать рандомные деки, либо брать их с Hoyolab.\n"
-msgstr ""
+msgstr "1) I can create random decks, or take ones from Hoyolab.\n"
 
 #: handlers/ru.py:44
 msgid "Коды колод кликабельны, нажми на них чтобы "
-msgstr ""
+msgstr "Deck codes are clickable, click on them to "
 
 #: handlers/ru.py:45
 msgid "СКОПИРОВАТЬ"
-msgstr ""
+msgstr "COPY"
 
 #: handlers/ru.py:45
 msgid " (←кликабельно).\n"
-msgstr ""
+msgstr " (←clickable).\n"
 
 #: handlers/ru.py:46
 msgid ""
 "2) Можешь отправить мне до 10 кодов-колод за раз, я их расшифрую и пришлю"
 " тебе фото и состав.\n"
 "\n"
-msgstr ""
+msgstr "2) You can send me up to 10 deck codes at a time, I will decrypt them and send you a photo and composition.\n\n"
 
 #: handlers/ru.py:47
 msgid "Отправь /start или /choose_lang - если хочешь поменять язык\n"
-msgstr ""
+msgstr "Send /start or /choose_lang - if you want to change the language\n"
 
