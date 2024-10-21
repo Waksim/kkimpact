@@ -197,6 +197,8 @@ async def decoding_code(message: types.Message):
     await bot.send_chat_action(chat_id=message.chat.id, action="typing")
     logger.info(f"@{message.from_user.username} – '{message.text}'")
 
+    max_length = 4000
+
     arg = message.text.split(" ")
     print(arg)
     print(len(arg))
@@ -250,6 +252,10 @@ async def decoding_code(message: types.Message):
                         caption_text = (
                                     f"{html.bold('для НЕГО: ')}\n - {qw[0]}\n - {qw[1]}\n" + f"{html.bold('для НЕЕ: ')}\n - {qw[2]}\n - {qw[3]}")
 
+                        if len(caption_text) > max_length:
+                            caption_text = caption_text[:max_length]  # Обрезаем строку до 4000 символов
+
+                        # Отправляем сообщение с вопросами
                         await message.answer(caption_text, parse_mode=ParseMode.HTML)
                     return
                 else:
@@ -264,6 +270,10 @@ async def decoding_code(message: types.Message):
                         questions += f"{counter}. {row[1]}\n"  # Предполагается, что текст вопроса находится в первом столбце
 
                     caption_text = f"{html.bold('Вопросы правда или действие: ')}\n{questions}"
+
+                    # Отправляем сообщение с вопросами
+                    if len(caption_text) > max_length:
+                        caption_text = caption_text[:max_length]  # Обрезаем строку до 4000 символов
 
                     # Отправляем сообщение с вопросами
                     await message.answer(caption_text, parse_mode=ParseMode.HTML)
