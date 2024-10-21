@@ -213,10 +213,11 @@ async def decoding_code(message: types.Message):
             cursor = conn.cursor()
 
             if len(arg) == 2:
-                arg2 = 1
+                arg2 = "1"
+                arg.append(arg2)
 
             if len(arg) == 3:
-                arg2 = arg[2].lower()
+                arg2 = int(arg[2].lower())
                 print(arg2)
 
                 try:
