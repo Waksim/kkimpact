@@ -1,4 +1,4 @@
-from PIL import Image, ImageFilter
+from PIL import Image, ImageFilter, ImageDraw
 import os
 
 
@@ -95,6 +95,49 @@ def resize_images(input_folder, output_folder, scale):
                 resized_img.save(output_path)
 
 
+def avatars_builder(input_folder, output_folder):
+    # Убедимся, что папка для сохранения результатов существует
+    os.makedirs(output_folder, exist_ok=True)
+
+    for filename in os.listdir(input_folder):
+        if filename.lower().endswith(('png', 'jpg', 'jpeg', 'webp')):
+            input_path = os.path.join(input_folder, filename)
+
+            # Открываем изображение
+            img = Image.open(input_path).convert("RGBA")
+
+            # Определяем размеры нового изображения 300x300
+            crop_size = 300
+            center_crop = (img.width // 2 - crop_size // 2, 0,
+                           img.width // 2 + crop_size // 2, crop_size)
+            cropped_img = img.crop(center_crop)
+
+            # Увеличиваем размер маски для сглаживания (например, в 4 раза)
+            upscale_factor = 4
+            upscale_size = (crop_size * upscale_factor, crop_size * upscale_factor)
+            high_res_mask = Image.new("L", upscale_size, 0)
+            draw = ImageDraw.Draw(high_res_mask)
+
+            # Рисуем круг увеличенного размера
+            circle_radius = (129 // 2) * upscale_factor
+            circle_center = (upscale_size[0] // 2, upscale_size[1] // 2)
+            draw.ellipse([
+                (circle_center[0] - circle_radius, circle_center[1] - circle_radius),
+                (circle_center[0] + circle_radius, circle_center[1] + circle_radius)
+            ], fill=255)
+
+            # Уменьшаем маску до целевого размера 300x300
+            mask = high_res_mask.resize((crop_size, crop_size), Image.Resampling.LANCZOS)
+
+            # Применяем сглаженную маску к обрезанному изображению
+            result = Image.new("RGBA", (crop_size, crop_size), (0, 0, 0, 0))
+            result.paste(cropped_img, (0, 0), mask=mask)
+
+            # Сохраняем результат в формате PNG
+            output_path = os.path.join(output_folder, f"{os.path.splitext(filename)[0]}.png")
+            result.save(output_path)
+
+
 # # ROLE карты
 # border_and_size(
 #     input_folder='../img/refactor/role',
@@ -135,11 +178,9 @@ def resize_images(input_folder, output_folder, scale):
 # print('KK_ACTION карты добавлены!')
 #
 # # KK_AVATARS карты
-# border_and_size(
-#     input_folder="../img/refactor/avatar",
-#     output_folder="../img/avatars_lowest",
-#     new_height=300,
-#     border_image_path=0
+# avatars_builder(
+#     input_folder="../img/refactor/role",
+#     output_folder="../img/avatars_lowest"
 # )
 # print('KK_AVATARS карты добавлены!')
 #
