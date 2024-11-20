@@ -137,7 +137,7 @@ def avatars_builder(input_folder, output_folder):
             output_path = os.path.join(output_folder, f"{os.path.splitext(filename)[0]}.png")
             result.save(output_path)
 
-
+#
 # # ROLE карты
 # border_and_size(
 #     input_folder='../img/refactor/role',
@@ -146,6 +146,15 @@ def avatars_builder(input_folder, output_folder):
 #     new_height=258
 # )
 # print('ROLE карты добавлены!')
+#
+# # ROLE карты для стикеров
+# border_and_size(
+#     input_folder='../img/refactor/role',
+#     output_folder='../img/role_cards_stickers',
+#     border_image_path='../img/border.png',
+#     new_height=512
+# )
+# print('ROLE карты для стикеров добавлены!')
 #
 # # ACTION карты
 # border_and_size(
