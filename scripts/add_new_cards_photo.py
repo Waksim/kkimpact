@@ -1,3 +1,5 @@
+import shutil
+
 from PIL import Image, ImageFilter, ImageDraw
 import os
 
@@ -137,6 +139,16 @@ def avatars_builder(input_folder, output_folder):
             output_path = os.path.join(output_folder, f"{os.path.splitext(filename)[0]}.png")
             result.save(output_path)
 
+
+def copy_webp_files(src_dir, dst_dir):
+    for root, _, files in os.walk(src_dir):
+        for file in files:
+            if file.endswith(".webp"):
+                src_file = os.path.join(root, file)
+                dst_file = os.path.join(dst_dir, file)
+                shutil.copy2(src_file, dst_file)
+                print(f"Скопирован: {src_file} -> {dst_file}")
+
 #
 # # ROLE карты
 # border_and_size(
@@ -221,23 +233,28 @@ def avatars_builder(input_folder, output_folder):
 # print('BASE_ACTION карты добавлены!')
 
 
-# BLEP
+# # BLEP
+# role_path = "../img/refactor/role"
+# action_path = "../img/refactor/action"
+# destination_path = "../img/refactor/BLEPS_webp"
+# copy_webp_files(role_path, destination_path)
+# copy_webp_files(action_path, destination_path)
 
 # # BLEP_BIG карты
 # border_and_size(
-#     input_folder="../img/refactor/BLEPS",
+#     input_folder="../img/refactor/BLEPS_webp",
 #     output_folder="../img/refactor/res_BLEPS_big",
 #     border_image_path='../img/border.png',
 #     new_height=738
 # )
 # print('BLEP_BIG карты добавлены!')
 
-# # BLEP_RESIZE карты
-# resize_images(
-#     input_folder="../img/refactor/BLEPS_big_all",
-#     output_folder="/Users/mk/PycharmProjects/gitcg-draft/public/assets/",
-#     scale=0.45
-# )
-# print('BLEP_RESIZE карты добавлены!')
-#
-# print('- END SCRIPT -')
+# BLEP_RESIZE карты
+resize_images(
+    input_folder="../img/refactor/BLEPS_big_all",
+    output_folder="/Users/mk/PycharmProjects/gitcg-draft/public/assets/",
+    scale=0.45
+)
+print('BLEP_RESIZE карты добавлены!')
+
+print('- END SCRIPT -')
