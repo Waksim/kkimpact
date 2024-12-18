@@ -86,7 +86,6 @@ async def album_handler(messages: List[types.Message]):
 
         current_time = int(time.time())
         user_id = messages[-1].from_user.id
-        # if user_id == 382202500:
         if user_id == 440055388:
             user_id = "moria"
 
@@ -97,7 +96,7 @@ async def album_handler(messages: List[types.Message]):
             os.makedirs(output_dir)
 
         await bot.download_file(file_path=file_path, destination=f'{output_dir}/{image_name}')
-        file_path_arr.append(f'./img/assets/decks_img/{image_name}')
+        file_path_arr.append(f'{output_dir}/{image_name}')
 
         try:
             debug_photo_path, role_card_codes, action_card_codes = recognize_deck_img(image_name, debug_mode=0)
@@ -109,15 +108,11 @@ async def album_handler(messages: List[types.Message]):
             caption_text += f"{c}. {html.bold(html.quote(card_names_str))}\n" + html.code(html.quote(deck_code)) + "\n\n"
             c += 1
 
-            # debug_photo = FSInputFile(debug_photo_path)
             photo = create_decks_img(role_cards=role_card_codes, action_cards=action_card_codes)
             album_builder.add_photo(media=photo, parse_mode=ParseMode.HTML)
-        except:
+        except Exception as e:
+            logger.error(f"Error processing image: {e}")
             continue
-
-        # album_builder.add_photo(media=debug_photo, parse_mode=ParseMode.HTML)
-
-    # await messages[-1].answer_media_group(media=album_builder.build())
 
     caption_text += "\n--- %s seconds ---" % (round(time.time() - start_time, 2))
 
@@ -135,11 +130,9 @@ async def album_handler(messages: List[types.Message]):
             continue
 
     logger.info("\n".join(deck_code_arr))
-
     print("--- %s seconds ---" % (round(time.time() - start_time, 2)))
 
     messages_id = [m.message_id for m in messages]
-
     await bot.delete_messages(messages[-1].from_user.id, messages_id)
 
 
@@ -154,14 +147,13 @@ async def photo_recognition(message: types.Message):
     current_time = int(time.time())
     user_id = message.from_user.id
     if user_id == 382202500:
-        # if user_id == 440055388:
         user_id = "moria"
 
     image_name = f'{str(user_id)}_{str(current_time)}.jpg'
 
     output_dir = './img/assets/decks_img'
-        if not os.path.exists(output_dir):
-            os.makedirs(output_dir)
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
 
     await bot.download_file(file_path=file_path, destination=f'{output_dir}/{image_name}')
 
@@ -189,7 +181,7 @@ async def photo_recognition(message: types.Message):
         pass
 
     try:
-        os.remove(f'./img/assets/decks_img/{image_name}')
+        os.remove(f'{output_dir}/{image_name}')
     except FileNotFoundError:
         pass
 
