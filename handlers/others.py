@@ -180,6 +180,7 @@ async def photo_recognition(message: types.Message):
             album_builder.caption = caption_text
 
             debug_photo = FSInputFile(debug_photo_path)
+            print(debug_photo_path)
             photo = create_decks_img(role_cards=role_card_codes, action_cards=action_card_codes)
             album_builder.add_photo(media=photo, parse_mode=ParseMode.HTML)
             album_builder.add_photo(media=debug_photo, parse_mode=ParseMode.HTML)
