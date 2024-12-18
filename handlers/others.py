@@ -138,54 +138,65 @@ async def album_handler(messages: List[types.Message]):
 
 @others.message(F.photo)
 async def photo_recognition(message: types.Message):
-    await bot.send_chat_action(chat_id=message.from_user.id, action="upload_photo")
-    logger.info(f"@{message.from_user.username} – 'ФОТО'")
-
-    file = await bot.get_file(message.photo[-1].file_id)
-    file_path = file.file_path
-
-    current_time = int(time.time())
-    user_id = message.from_user.id
-    if user_id == 382202500:
-        user_id = "moria"
-
-    image_name = f'{str(user_id)}_{str(current_time)}.jpg'
-
-    output_dir = './img/assets/decks_img'
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
-
-    await bot.download_file(file_path=file_path, destination=f'{output_dir}/{image_name}')
-
-    album_builder = MediaGroupBuilder()
-
-    debug_photo_path, role_card_codes, action_card_codes = recognize_deck_img(image_name)
-
-    deck_code = card_codes_to_deck_code(role_card_codes, action_card_codes)
-
-    card_names_str = get_card_name_by_card_code(role_card_codes)
-    caption_text = f"{html.bold(html.quote(card_names_str))}\n" + html.code(html.quote(deck_code)) + "\n"
-    album_builder.caption = caption_text
-
-    debug_photo = FSInputFile(debug_photo_path)
-    photo = create_decks_img(role_cards=role_card_codes, action_cards=action_card_codes)
-    album_builder.add_photo(media=photo, parse_mode=ParseMode.HTML)
-
-    album_builder.add_photo(media=debug_photo, parse_mode=ParseMode.HTML)
-
-    await message.answer_media_group(media=album_builder.build())
-
     try:
-        os.remove(debug_photo_path)
-    except FileNotFoundError:
-        pass
+        await bot.send_chat_action(chat_id=message.from_user.id, action="upload_photo")
+        logger.info(f"@{message.from_user.username} – 'ФОТО'")
 
-    try:
-        os.remove(f'{output_dir}/{image_name}')
-    except FileNotFoundError:
-        pass
+        file = await bot.get_file(message.photo[-1].file_id)
+        file_path = file.file_path
 
-    logger.info(deck_code)
+        current_time = int(time.time())
+        user_id = message.from_user.id
+        if user_id == 382202500:
+            user_id = "moria"
+
+        image_name = f'{str(user_id)}_{str(current_time)}.jpg'
+
+        output_dir = './img/assets/decks_img'
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+
+        await bot.download_file(file_path=file_path, destination=f'{output_dir}/{image_name}')
+
+        album_builder = MediaGroupBuilder()
+
+        try:
+            debug_photo_path, role_card_codes, action_card_codes = recognize_deck_img(f'{output_dir}/{image_name}')
+
+            deck_code = card_codes_to_deck_code(role_card_codes, action_card_codes)
+
+            card_names_str = get_card_name_by_card_code(role_card_codes)
+            caption_text = f"{html.bold(html.quote(card_names_str))}\n" + html.code(html.quote(deck_code)) + "\n"
+            album_builder.caption = caption_text
+
+            debug_photo = FSInputFile(debug_photo_path)
+            photo = create_decks_img(role_cards=role_card_codes, action_cards=action_card_codes)
+            album_builder.add_photo(media=photo, parse_mode=ParseMode.HTML)
+
+            album_builder.add_photo(media=debug_photo, parse_mode=ParseMode.HTML)
+
+            await message.answer_media_group(media=album_builder.build())
+
+        except Exception as e:
+            logger.error(f"Ошибка при обработке изображения: {e}")
+            await message.answer("Произошла ошибка при обработке изображения. Попробуйте позже.")
+
+        try:
+            os.remove(debug_photo_path)
+        except FileNotFoundError:
+            pass
+
+        try:
+            os.remove(f'{output_dir}/{image_name}')
+        except FileNotFoundError:
+            pass
+
+        logger.info(deck_code)
+
+    except Exception as e:
+        logger.error(f"Ошибка в функции photo_recognition: {e}")
+        await message.answer("Произошла ошибка. Попробуйте позже.")
+
 
 
     # role_cards, action_cards = recognize_deck_img(photo)
