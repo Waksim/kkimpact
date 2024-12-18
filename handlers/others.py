@@ -157,10 +157,11 @@ async def photo_recognition(message: types.Message):
             os.makedirs(output_dir)
 
         local_file_path = f'{output_dir}/{image_name}'
+        logger.info(f"Сохранение файла по пути: {local_file_path}")
         await bot.download_file(file_path=file_path, destination=local_file_path)
 
         if not os.path.exists(local_file_path):
-            logger.error(f"Файл не найден: {local_file_path}")
+            logger.error(f"Файл не найден после загрузки: {local_file_path}")
             await message.answer("Произошла ошибка при загрузке файла. Попробуйте позже.")
             return
 
@@ -168,7 +169,7 @@ async def photo_recognition(message: types.Message):
         debug_photo_path = None  # Инициализация переменной
 
         try:
-            # Передаем правильный путь
+            logger.info(f"Передача файла в recognize_deck_img: {local_file_path}")
             debug_photo_path, role_card_codes, action_card_codes = recognize_deck_img(local_file_path)
             if debug_photo_path is None:
                 raise ValueError("Файл не обработан: результат recognize_deck_img равен None.")
@@ -199,6 +200,7 @@ async def photo_recognition(message: types.Message):
     except Exception as e:
         logger.error(f"Ошибка в функции photo_recognition: {e}")
         await message.answer("Произошла ошибка. Попробуйте позже.")
+
 
 
 
