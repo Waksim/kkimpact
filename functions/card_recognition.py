@@ -97,7 +97,7 @@ def recognize_deck_img(image_path, debug_mode=1, match_rate_role=0, match_rate=0
 
     # print(f"Изображение №{image}")
 
-    img = cv2.imread(f'{image_path}', 0)
+    img = cv2.imread(image_path, 0)
     if img is None:
         logger.error(f"cv2.imread не смог прочитать файл: {image_path}")
         raise ValueError(f"Ошибка чтения изображения: {image_path}")
@@ -635,7 +635,7 @@ def recognize_deck_img(image_path, debug_mode=1, match_rate_role=0, match_rate=0
     # break
 
     if debug_mode:
-        result_img_path = f'./img/assets/result/{image_path}'
+        result_img_path = image_path
 
         cv2.imwrite(result_img_path, img)
     else:
