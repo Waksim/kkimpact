@@ -159,7 +159,11 @@ async def photo_recognition(message: types.Message):
 
     image_name = f'{str(user_id)}_{str(current_time)}.jpg'
 
-    await bot.download_file(file_path=file_path, destination=f'./img/assets/decks_img/{image_name}')
+    output_dir = './img/assets/decks_img'
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+
+    await bot.download_file(file_path=file_path, destination=f'{output_dir}/{image_name}')
 
     album_builder = MediaGroupBuilder()
 
