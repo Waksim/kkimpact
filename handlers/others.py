@@ -168,6 +168,7 @@ async def photo_recognition(message: types.Message):
         debug_photo_path = None  # Инициализация переменной
 
         try:
+            # Передаем правильный путь
             debug_photo_path, role_card_codes, action_card_codes = recognize_deck_img(local_file_path)
             if debug_photo_path is None:
                 raise ValueError("Файл не обработан: результат recognize_deck_img равен None.")
@@ -198,6 +199,7 @@ async def photo_recognition(message: types.Message):
     except Exception as e:
         logger.error(f"Ошибка в функции photo_recognition: {e}")
         await message.answer("Произошла ошибка. Попробуйте позже.")
+
 
 
 
