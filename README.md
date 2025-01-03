@@ -15,6 +15,18 @@ pip install -r requirements.txt
 BOT_TOKEN = "<TOKEN>"
 ```
 
+### Переместить базу данных
+Перемещаем пустую БД `users_info.sqlite` из папки `/setup` в корень проекта
+```
+cd ~/kkimpact/setup
+mv users_info.sqlite ../
+```
+
+### Устанавливаем зависимость для OpenCV
+```
+sudo apt install libgl1 -y
+```
+
 ### Запуск бота
 ```
 python main.py
