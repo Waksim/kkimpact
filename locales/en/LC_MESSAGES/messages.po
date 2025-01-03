@@ -1,4 +1,4 @@
-# rup translations for PROJECT.
+# English translations for PROJECT.
 # Copyright (C) 2024 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
@@ -10,8 +10,9 @@ msgstr ""
 "POT-Creation-Date: 2024-11-20 01:24+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: rup\n"
-"Language-Team: rup <LL@li.org>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,36 +20,36 @@ msgstr ""
 
 #: handlers/blep_drafts.py:258 handlers/drafts_tail.py:241 main.py:129
 msgid "Привет, Картоботик!"
-msgstr "Привет, Картоботик!"
+msgstr "Hello, Cartobot!"
 
 #: handlers/blep_drafts.py:259 handlers/drafts_tail.py:242 main.py:130
 msgid "Я могу создавать рандомные деки, либо брать их с Hoyolab."
-msgstr "Я могу создавать рандомные деки, либо брать их с Hoyolab."
+msgstr "I can create random decks or take them from Hoyolab."
 
 #: handlers/blep_drafts.py:260 handlers/drafts_tail.py:243 main.py:131
 msgid "Коды колод кликабельны, нажми на них чтобы "
-msgstr "Коды колод кликабельны, нажми на них чтобы "
+msgstr "Deck codes are clickable, click on them to "
 
 #: handlers/blep_drafts.py:260 handlers/drafts_tail.py:243
 #: handlers/private.py:66 main.py:131
 msgid "СКОПИРОВАТЬ"
-msgstr "СКОПИРОВАТЬ"
+msgstr "COPY"
 
 #: handlers/blep_drafts.py:260 handlers/drafts_tail.py:243 main.py:131
 msgid " (←кликабельно)."
-msgstr " (←кликабельно)."
+msgstr " (←clickable)."
 
 #: handlers/blep_drafts.py:262 handlers/drafts_tail.py:245 main.py:133
 msgid ""
 "Можешь отправить мне до 10 кодов-колод за раз, я их расшифрую и пришлю "
 "тебе фото и состав."
 msgstr ""
-"Можешь отправить мне до 10 кодов-колод за раз, я их расшифрую и пришлю "
-"тебе фото и состав."
+"You can send me up to 10 deck codes at a time, I'll decode them and send "
+"you a photo and composition."
 
 #: handlers/blep_drafts.py:264 handlers/drafts_tail.py:247 main.py:134
 msgid "Отправь /start или /choose_lang - если хочешь поменять язык"
-msgstr "Отправь /start или /choose_lang - если хочешь поменять язык"
+msgstr "Send /start or /choose_lang if you want to change the language"
 
 #: handlers/blep_drafts.py:266 handlers/drafts_tail.py:249
 #: handlers/drafts_tail.py:789 handlers/group.py:146 handlers/group.py:260
@@ -61,51 +62,51 @@ msgstr "Отправь /start или /choose_lang - если хочешь пом
 #: handlers/private.py:235 handlers/private.py:254 handlers/private.py:261
 #: main.py:136
 msgid "ru"
-msgstr "ru_parody"
+msgstr "en"
 
 #: handlers/blep_drafts.py:54 handlers/drafts_tail.py:50
 #: handlers/drafts_tail.py:65
 msgid "ДРАФТЫ:"
-msgstr "ДРАФТЫ:"
+msgstr "DRAFTS:"
 
 #: handlers/blep_drafts.py:55 handlers/drafts_tail.py:51
 #: handlers/drafts_tail.py:66
 msgid "Баны: "
-msgstr "Баны: "
+msgstr "Bans: "
 
 #: handlers/blep_drafts.py:58 handlers/drafts_tail.py:54
 #: handlers/drafts_tail.py:67
 msgid "Пики: "
-msgstr "Пики: "
+msgstr "Picks: "
 
 #: handlers/blep_drafts.py:67
 msgid "Возникла ошибка: "
-msgstr "Возникла ошибка: "
+msgstr "An error occurred: "
 
 #: handlers/blep_drafts.py:73 handlers/blep_drafts.py:175
 msgid "Блеп-Драфты"
-msgstr "Блеп-Драфты"
+msgstr "Blep Drafts"
 
 #: handlers/blep_drafts.py:74 handlers/blep_drafts.py:176
 #: handlers/drafts_tail.py:75
 msgid "Список игроков в подборе:"
-msgstr "Список игроков в подборе:"
+msgstr "List of players in matchmaking:"
 
 #: handlers/blep_drafts.py:99 handlers/blep_drafts.py:100
 msgid "ССЫЛКА"
-msgstr "ССЫЛКА"
+msgstr "LINK"
 
 #: handlers/blep_drafts.py:108 handlers/drafts_tail.py:103
 msgid "пусто"
-msgstr "пусто"
+msgstr "empty"
 
 #: handlers/blep_drafts.py:199 handlers/drafts_tail.py:184
 msgid ""
 "Выберите пользователя из списка ниже, с которым хотите сыграть в драфты и"
 " нажмите на соответствующую кнопку."
 msgstr ""
-"Выберите пользователя из списка ниже, с которым хотите сыграть в драфты и"
-" нажмите на соответствующую кнопку."
+"Choose a user from the list below to play drafts with, and press the "
+"corresponding button."
 
 #: handlers/blep_drafts.py:219
 msgid ""
@@ -114,41 +115,39 @@ msgid ""
 "\n"
 "пусто"
 msgstr ""
-"😼 Блеп-Драфты\n"
-"Список игроков в подборе:\n"
+"😼 Blep Drafts\n"
+"List of players in matchmaking:\n"
 "\n"
-"пусто"
+"empty"
 
 #: handlers/blep_drafts.py:311 handlers/blep_drafts.py:341
 msgid ""
 "Пользователь {firstname_1}, @{username_1}: приглашает вас сыграть в "
 "драфты Блепа."
-msgstr ""
-"Пользователь {firstname_1}, @{username_1}: приглашает вас сыграть в "
-"драфты Блепа."
+msgstr "User {firstname_1}, @{username_1}: invites you to play Blep drafts."
 
 #: handlers/blep_drafts.py:325 handlers/drafts_tail.py:305
 msgid "Вы уже отправили запрос этому пользователю!"
-msgstr "Вы уже отправили запрос этому пользователю!"
+msgstr "You have already sent a request to this user!"
 
 #: handlers/blep_drafts.py:356 handlers/drafts_tail.py:336
 msgid "Пользователь {first_name} отклонил ваш запрос"
-msgstr "Пользователь {first_name} отклонил ваш запрос"
+msgstr "User {first_name} has declined your request"
 
 #: handlers/blep_drafts.py:411
 msgid ""
 "Нажми на кнопку \"😼 Начать Драфты\".\n"
 "Если меню скрыто - нажмите на иконку с 4мя квадратами"
 msgstr ""
-"Нажми на кнопку \"😼 Начать Драфты\".\n"
-"Если меню скрыто - нажмите на иконку с 4мя квадратами"
+"Press the \"😼 Start Drafts\" button.\n"
+"If the menu is hidden, press the icon with 4 squares"
 
 #: handlers/drafts_tail.py:162
 msgid ""
 "Список игроков в подборе:\n"
 "\n"
 msgstr ""
-"Список игроков в подборе:\n"
+"List of players in matchmaking:\n"
 "\n"
 
 #: handlers/drafts_tail.py:203
@@ -157,56 +156,54 @@ msgid ""
 "\n"
 "пусто"
 msgstr ""
-"Список игроков в подборе:\n"
+"List of players in matchmaking:\n"
 "\n"
-"пусто"
+"empty"
 
 #: handlers/drafts_tail.py:291
 msgid ""
 "Пользователь {firstname}, @{username}: приглашает вас сыграть в драфты "
 "Хвост."
-msgstr ""
-"Пользователь {firstname}, @{username}: приглашает вас сыграть в драфты "
-"Хвост."
+msgstr "User {firstname}, @{username}: invites you to play Tail drafts."
 
 #: handlers/drafts_tail.py:321
 msgid "Пользователь {firstname}, @{username}: приглашает вас сыграть в драфты."
-msgstr "Пользователь {firstname}, @{username}: приглашает вас сыграть в драфты."
+msgstr "User {firstname}, @{username}: invites you to play drafts."
 
 #: handlers/drafts_tail.py:568
 msgid "ОШИБКА! Я не знаю такой стикер!"
-msgstr "ОШИБКА! Я не знаю такой стикер!"
+msgstr "ERROR! I don't know that sticker!"
 
 #: handlers/drafts_tail.py:576 handlers/drafts_tail.py:611
 #: handlers/drafts_tail.py:638
 msgid "БАН ПРОТИВНИКА"
-msgstr "БАН ПРОТИВНИКА"
+msgstr "OPPONENT'S BAN"
 
 #: handlers/drafts_tail.py:576 handlers/drafts_tail.py:611
 #: handlers/drafts_tail.py:638
 msgid "ВАШ БАН"
-msgstr "ВАШ БАН"
+msgstr "YOUR BAN"
 
 #: handlers/drafts_tail.py:581
 msgid "неизвестная ошибка, отправьте скриншот @maksenro"
-msgstr "неизвестная ошибка, отправьте скриншот @maksenro"
+msgstr "Unknown error, please send a screenshot to @maksenro"
 
 #: handlers/drafts_tail.py:584 handlers/drafts_tail.py:590
 #: handlers/drafts_tail.py:631 handlers/drafts_tail.py:652
 msgid "ОШИБКА! Сейчас бан противника!"
-msgstr "ОШИБКА! Сейчас бан противника!"
+msgstr "ERROR! It's the opponent's ban now!"
 
 #: handlers/drafts_tail.py:595 handlers/drafts_tail.py:623
 #: handlers/drafts_tail.py:656 handlers/drafts_tail.py:671
 #: handlers/drafts_tail.py:683 handlers/drafts_tail.py:698
 msgid "ПИК ПРОТИВНИКА"
-msgstr "ПИК ПРОТИВНИКА"
+msgstr "OPPONENT'S PICK"
 
 #: handlers/drafts_tail.py:595 handlers/drafts_tail.py:623
 #: handlers/drafts_tail.py:656 handlers/drafts_tail.py:671
 #: handlers/drafts_tail.py:683 handlers/drafts_tail.py:698
 msgid "ВАШ ПИК"
-msgstr "ВАШ ПИК"
+msgstr "YOUR PICK"
 
 #: handlers/drafts_tail.py:600 handlers/drafts_tail.py:616
 #: handlers/drafts_tail.py:628 handlers/drafts_tail.py:643
@@ -214,21 +211,23 @@ msgstr "ВАШ ПИК"
 #: handlers/drafts_tail.py:688 handlers/drafts_tail.py:703
 #: handlers/drafts_tail.py:782
 msgid "ОШИБКА! Повтор карты, проверьте пики и баны!"
-msgstr "ОШИБКА! Повтор карты, проверьте пики и баны!"
+msgstr "ERROR! Duplicate card, please check picks and bans!"
 
 #: handlers/drafts_tail.py:606 handlers/drafts_tail.py:646
 #: handlers/drafts_tail.py:667 handlers/drafts_tail.py:691
 #: handlers/drafts_tail.py:706 handlers/drafts_tail.py:712
 msgid "ОШИБКА! Сейчас пик противника!"
-msgstr "ОШИБКА! Сейчас пик противника!"
+msgstr "ERROR! It's the opponent's pick now!"
 
 #: handlers/drafts_tail.py:717 handlers/drafts_tail.py:718
 msgid "КОНЕЦ ДРАФТОВ"
-msgstr "КОНЕЦ ДРАФТОВ"
+msgstr "END OF DRAFTS"
 
 #: handlers/drafts_tail.py:789
 msgid "Ваши драфты удалены тк прошло больше 24ч с момента их начала"
-msgstr "Ваши драфты удалены тк прошло больше 24ч с момента их начала"
+msgstr ""
+"Your drafts have been deleted because more than 24 hours have passed "
+"since they started"
 
 #: handlers/drafts_tail.py:807
 msgid ""
@@ -243,32 +242,32 @@ msgid ""
 "Когда ваш ход, нажмите на кнопку с нужной стихией и отправьте боту стикер"
 " персонажа, которого вы хотите пикнуть/забанить!"
 msgstr ""
-"Порядок драфтов:\n"
-"1) бан\n"
-"2) бан, пик\n"
-"1) бан, пик\n"
-"2) бан, пик\n"
-"1) пик, пик\n"
-"2) пик\n"
+"Draft order:\n"
+"1) ban\n"
+"2) ban, pick\n"
+"1) ban, pick\n"
+"2) ban, pick\n"
+"1) pick, pick\n"
+"2) pick\n"
 "\n"
-"Когда ваш ход, нажмите на кнопку с нужной стихией и отправьте боту стикер"
-" персонажа, которого вы хотите пикнуть/забанить!"
+"When it's your turn, press the button with the required element and send "
+"the bot the character sticker you want to pick/ban!"
 
 #: handlers/private.py:63
 msgid "Привет, Картоботик!\n"
-msgstr "Привет, Картоботик!\n"
+msgstr "Hello, Cartobot!\n"
 
 #: handlers/private.py:64
 msgid "1) Я могу создавать рандомные деки, либо брать их с Hoyolab.\n"
-msgstr "1) Я могу создавать рандомные деки, либо брать их с Hoyolab.\n"
+msgstr "1) I can create random decks or take them from Hoyolab.\n"
 
 #: handlers/private.py:65
 msgid "Коды колод кликабельны, нажми на них, чтобы "
-msgstr "Коды колод кликабельны, нажми на них, чтобы "
+msgstr "Deck codes are clickable, click on them to "
 
 #: handlers/private.py:66
 msgid " (←кликабельно).\n"
-msgstr " (←кликабельно).\n"
+msgstr " (←clickable).\n"
 
 #: handlers/private.py:67
 msgid ""
@@ -276,19 +275,19 @@ msgid ""
 " тебе фото и состав.\n"
 "\n"
 msgstr ""
-"2) Можешь отправить мне до 10 кодов-колод за раз, я их расшифрую и пришлю"
-" тебе фото и состав.\n"
+"2) You can send me up to 10 deck codes at once, I'll decode them and send"
+" you a photo and composition.\n"
 "\n"
 
 #: handlers/private.py:68
 msgid "Отправь /start или /choose_lang, если хочешь поменять язык\n"
-msgstr "Отправь /start или /choose_lang, если хочешь поменять язык\n"
+msgstr "Send /start or /choose_lang if you want to change the language\n"
 
 #: handlers/private.py:79
 #, fuzzy
 msgid "💰 Поддержать"
 msgstr ""
-"Поддержать бота:\n"
+"Support the bot:\n"
 "\n"
 
 #: handlers/private.py:87
@@ -296,7 +295,7 @@ msgid ""
 "Поддержать бота:\n"
 "\n"
 msgstr ""
-"Поддержать бота:\n"
+"Support the bot:\n"
 "\n"
 
 #: handlers/private.py:88
@@ -312,7 +311,7 @@ msgid ""
 "Ваша поддержка значительно ускорит разработку бота.\n"
 "\n"
 msgstr ""
-"Ваша поддержка значительно ускорит разработку бота.\n"
+"Your support will significantly speed up the bot's development.\n"
 "\n"
 
 #: handlers/private.py:90
@@ -320,7 +319,7 @@ msgid ""
 "Спасибо за поддержку:\n"
 "\n"
 msgstr ""
-"Спасибо за поддержку:\n"
+"Thanks for your support:\n"
 "\n"
 
 #: handlers/private.py:91
@@ -329,13 +328,13 @@ msgstr "• Ореший"
 
 #: handlers/private.py:94
 msgid "<-- Назад"
-msgstr "<-- Назад"
+msgstr "<-- Back"
 
 #: handlers/private.py:106
 msgid "сгенерировать деку"
-msgstr "сгенерировать деку"
+msgstr "generate a deck"
 
 #: handlers/private.py:136
 msgid "дека с hoyolab"
-msgstr "дека с Hoyolab"
+msgstr "deck from Hoyolab"
 
