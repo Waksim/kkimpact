@@ -4,7 +4,7 @@ import sqlite3
 
 import numpy as np
 import cv2
-
+from loguru import logger
 
 # for image in os.listdir('./img/assets/decks_img/'):
 from functions.find_resonance import find_resonance
@@ -68,6 +68,12 @@ def sort_role_cards(temp_role_card_codes):
 
 def recognize_deck_img(image_path, debug_mode=1, match_rate_role=0, match_rate=0, heal_mode=0):
 
+    # Проверка пути
+    logger.info(f"Получен путь к изображению: {image_path}")
+    if not os.path.exists(image_path):
+        logger.error(f"Файл не найден: {image_path}")
+        raise FileNotFoundError(f"Файл не найден: {image_path}")
+
     temp_role_card_codes = []
     role_card_codes = []
     action_card_codes = []
@@ -91,7 +97,10 @@ def recognize_deck_img(image_path, debug_mode=1, match_rate_role=0, match_rate=0
 
     # print(f"Изображение №{image}")
 
-    img = cv2.imread(f'./img/assets/decks_img/{image_path}', 0)
+    img = cv2.imread(image_path, 0)
+    if img is None:
+        logger.error(f"cv2.imread не смог прочитать файл: {image_path}")
+        raise ValueError(f"Ошибка чтения изображения: {image_path}")
     # img = cv2.imread(f'./img/assets/decks_img/{image}', 0)
     # print(f'./img/assets/decks_img/{image_path}')
 
@@ -626,7 +635,7 @@ def recognize_deck_img(image_path, debug_mode=1, match_rate_role=0, match_rate=0
     # break
 
     if debug_mode:
-        result_img_path = f'./img/assets/result/{image_path}'
+        result_img_path = image_path
 
         cv2.imwrite(result_img_path, img)
     else:
